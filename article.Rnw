@@ -244,7 +244,7 @@ We use this data to retrieve basic information on the substances
 etox_data <- etox_basic(ids$etoxid)
 @
 
-The available output / information content can be very voluminous.
+\pkg{webchem} always returns a named list (one entry for each substance) and the available output / information content can be very voluminous.
 Therefore, we provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
 <<etox_cas, message=FALSE>>=
 etox_cas <- cas(etox_data)
