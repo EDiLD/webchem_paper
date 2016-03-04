@@ -26,18 +26,20 @@
 \Shorttitle{\pkg{webchem}: Chemical Information from the Web}
 
 \Abstract{
-A lot of chemical information is freely available online, including chemical identifiers and experimental data as well as predicted properties.
+A lot of chemical information is freely available online, including identifiers, experimental and predicted chemical properties.
 However, these data are scattered over various data sources and not easily accessible to researchers.
 Manual searching and downloading of such is time-consuming and error-prone.  
   
-We developed the open-source \proglang{R} package \pkg{webchem} that allows users to automatically query data from currently 11 web-sources. These cover a broad spectrum of information.
-The data are automatically imported into an R object and can directly be used in subsequent analyses.
+We developed the open-source \proglang{R} package \pkg{webchem} that allows users to automatically query chemical data from currently 11 web-sources. 
+These cover a broad spectrum of information.
+The data are automatically imported into an \proglang{R} object and can directly be used in subsequent analyses.
   
 \pkg{webchem} enables easy, structured and reproducible data retrieval and usage from publicly available web-sources.
-It facilitates data-cleaning, identifying and reporting substances and consequently reduces the time researchers spend on chemical data compilation and cleaning.
+It facilitates data cleaning, identification and reporting of substances and retrieval of chemical data.
+Consequently it reduces the time researchers spend on chemical data compilation.
 }
-\Keywords{ecotoxicology, chemistry, data-cleaning, web-scraping}
-\Plainkeywords{ecotoxicology, chemistry, data-cleaning, web-scraping} 
+\Keywords{ecotoxicology, chemistry, data-cleaning, web-scraping, ropensci}
+\Plainkeywords{ecotoxicology, chemistry, data-cleaning, web-scraping, ropensci} 
 
 %% publication information
 %% NOTE: Typically, this can be left commented and will be filled out by the technical editor
@@ -89,7 +91,7 @@ The \pkg{webchem} package is written entirely in \proglang{R} and available unde
 The development repository is hosted on GitHub (\url{https://github.com/ropensci/webchem}) and a stable version is released on the official \proglang{R} repository (CRAN, \url{https://goo.gl/OKbZaF}).
 \pkg{webchem} is part of the rOpenSci project (\url{https://ropensci.org/}), which aims at fully reproducible data analysis.
 
-\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently \textasciitilde 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via Travis-CI and Appveyor; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
+\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently \textasciitilde 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via Travis-CI and AppVeyor; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
 
 \pkg{webchem} builds on top of the following \proglang{R} packages:
 \pkg{RCurl} \citep{lang_rcurl:_2015} and \pkg{httr} \citep{wickham_httr} for data transfer,
@@ -106,7 +108,7 @@ For sources where an API is lacking, data is directly searched and extracted fro
 
 Only few design decisions have been made:
 Each function name has a prefix and suffix separated by an underscore \citep{Chamberlain_Szocs_2013}.
-They follow the format of \code{source\_function}, e.g. \code{cs\_compinfo} uses ChemSpider (see next section) as source to retrieve compound informations.
+They follow the format of \code{source\_function}, e.g. \code{cs\_compinfo} uses ChemSpider as source (see next section) to retrieve compound informations.
 Some functions require querying first a unique identifier from the data source and then use this identifier to query further information.
 The prefix \code{get} is used to denote functions that query identifiers, e.g. \code{get\_csid} to retrieve the identifier used in ChemSpider.
 
@@ -120,7 +122,7 @@ Moreover, all functions return an URL of the source, which can be used for \mbox
 \section[Data sources]{Data sources}
 The backbone of \pkg{webchem} are data sources providing their data and functionality to the public.
 Currently, data can be retrieved from 11 sources.
-These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and legal information (Figure~\ref{fig:fig1}, the supplement includes a detailed overview of all sources):
+These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and legal information (Figure~\ref{fig:fig1}, a detailed overview of all sources is included as supplement):
 
 \begin{description}
   \item[NIH Chemical Identifier Resolver (CIR) \citep{cir}]{A web service that converts from and to various chemical identifiers.}
@@ -162,7 +164,7 @@ R> library(webchem)
 
 
 
-The package is under active development and the latest development version is available from github and also permanently available at \url{http://dx.doi.org/10.5281/zenodo.35094}.
+The package is under active development and the latest development version is available from github and also permanently available at \url{http://dx.doi.org/10.5281/zenodo.46930}.
 
 
 \subsection[Sample datasets]{Sample datasets}
@@ -303,14 +305,14 @@ R> res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles,
 \end{CodeInput}
 \end{CodeChunk}
 
-Note, that in order to use the ChemSpider functions a personal authentification key (\code{token}) is needed, which can be retrieved from the ChemSpider webpage. 
-We end up with a compound table containing many different identifiers, allowing easy identification and merging with other datasets (Table \ref{tab:comptable}).
+Note, that in order to use the ChemSpider functions a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider webpage. 
+We end up with a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other datasets, e.g. the lc50 dataset based on CAS.
 
 \begin{table}[ht]
 \centering
 \begin{CodeChunk}
 % latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar  3 13:29:34 2016
+% Fri Mar  4 08:35:28 2016
 \begin{tabular}{llllll}
   \toprule
 Name & CAS & SMILES\textsuperscript{a} & CID & InChIKey\textsuperscript{a} & CSID \\ 
@@ -361,8 +363,8 @@ R> igroup[1:3]
 \end{CodeOutput}
 \end{CodeChunk}
 
-Figure \ref{fig:fig2} displays the result after some more data-cleaning.
-Overall, it took only 5 \proglang{R} statements to retrieve the needed data, clean and plot it.
+Figure \ref{fig:fig2} displays the result after some more data-cleaning (see supplement for full code).
+Overall, it took only 5 \proglang{R} statements to retrieve the needed data, clean and plot it (using \pkg{ggplot2} \citep{ggplot2}).
 
 \begin{figure}[ht]
 \begin{CodeChunk}
@@ -380,7 +382,7 @@ Overall, it took only 5 \proglang{R} statements to retrieve the needed data, cle
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources contain also data chemical properties which can be queried.
-Here we query for the lc50 data the $log~P_{oct/wat}$ from SRCs PHYSPROP database in order to build a simple QSAR to predict toxicity.
+Here we query for the lc50 data the $log~P_{oct/wat}$ from SRCs PHYSPROP database in order to build a simple Quantitative structure–activity relationship (QSAR) to predict toxicity.
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -420,7 +422,7 @@ The resulting data and model is displayed in Figure~\ref{fig:fig3}.
 
 \end{CodeChunk}
 \caption{Simple QSAR. predicting logLC50 of pesticides by log P. 
-Log P values have been queried from SRC Physprop database (97 experimental data, 9 estimated data and 18 substances without data). 
+Log P values have been retrieved from SRC Physprop database (97 experimental data, 9 estimated data and 18 substances without data). 
 Blue line indicates the regression model ($log LC_{50} = 2.88\ensuremath{-0.37} logP$, RMSE = 1.45).}
 \label{fig:fig3}
 \end{figure}
@@ -433,10 +435,10 @@ The functions either use simple formatting rules or web resources.
 \begin{CodeChunk}
 \begin{CodeInput}
 R> # simple formatting check
-R> is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5')
+R> is.inchikey('BQJCRHHNABKAKU-KBQPJGBKS-AN')
 \end{CodeInput}
 \begin{CodeOutput}
-strings contains numbers.
+Hyphens not at position 15 and 26.
 \end{CodeOutput}
 \begin{CodeOutput}
 [1] FALSE
@@ -479,6 +481,10 @@ More and more scientific data is becoming publicly available \citep{Gewin_2016, 
 To be usable for other researchers chemical compounds should be properly identified, not only by chemical names but also with accompanying identifiers like InChIKey, SMILES and authority-assigned identifiers.
 \pkg{webchem} provides an easy way to create such meta tables like Table \ref{tab:comptable}.
 
+\pkg{webchem} facilitates chemical data availability to researchers.
+However, data quality is also crucial for data-analysis \citep{Stieger_2014}. 
+Ensuring good quality requires additional effort and methods to be developed.
+
 
 \subsection[Further development]{Further development}
 We have outlined only a few use cases that likely will be use full for many researchers.
@@ -490,10 +496,10 @@ Moreover, comments, feedback and feature requests are highly welcome.
 
 \section[Conclusions]{Conclusions}
 Researchers need to have easy access to the global knowledge.
-\pkg{webchem} saves time used gathering this knowledge \citep{Munch_Galizia_2016}, so that researchers can focus on other tasks.
+\pkg{webchem} can save \emph{"hundreds of working hours"} gathering this knowledge \citep{Munch_Galizia_2016}, so that researchers can focus on other tasks.
 
 
-\section*{Acknowledgments}
+\section*{Acknowledgements}
 We thank all resource maintainers for their work making their data open to the public.
 We thank Johannes Ranke and Daniel Münch for their contributions to the webchem package, as well as all users who provided feedback and feature requests.
 
