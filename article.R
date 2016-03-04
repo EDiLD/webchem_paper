@@ -12,7 +12,6 @@ install.packages("webchem")
 # load packages -----------------------------------------------------------
 library(webchem)
 library(ggplot2)
-library(xtable)
 
 
 # load datasets -----------------------------------------------------------
