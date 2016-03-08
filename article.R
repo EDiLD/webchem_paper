@@ -44,7 +44,9 @@ cids <- get_cid(etox_cas)
 pc_data <- pc_prop(cids, properties = c('CanonicalSMILES'))
 pc_smiles <- smiles(pc_data)
 # ChemSpider needs a security token
-token <- '37bf5e57-9091-42f5-9274-650a64398aaf'
+# this is a webchem specific token. 
+# Please use it only for reproduction / testing.
+token <- 'b44136c5-49cf-4df4-ba18-e4676449d1f4'
 # query InChiKey from ChemSpider
 csids <- get_csid(etox_cas, token = token)
 cs_data <- cs_compinfo(csids, token = token)
