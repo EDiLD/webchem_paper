@@ -10,7 +10,7 @@
 @article{ooms_jsonlite_2014,
 	title = {The \pkg{jsonlite} Package: A Practical and Consistent Mapping Between JSON Data and \proglang{R} Objects},
 	url = {http://arxiv.org/abs/1403.2805},
-	journal = {arXiv:1403.2805},
+	journal = {arXiv},
 	author = {Ooms, Jeroen},
 	year = {2014}
 }
@@ -82,14 +82,15 @@
     year = {2007}
   }
 
- @Article{Chamberlain_Szocs_2013, 
- title={\pkg{taxize}: Taxonomic Search and Retrieval in \proglang{R}}, 
- volume={2}, 
- url={http://f1000research.com/articles/2-191/v2}, 
- number={191}, 
- journal={F1000Research}, 
- author={Chamberlain, Scott A. and Szöcs, Eduard}, 
- year={2013}}
+ @article{Chamberlain_Szocs_2013, 
+   title={\pkg{taxize}: Taxonomic Search and Retrieval in \proglang{R}}, 
+   volume={2}, 
+   url={http://f1000research.com/articles/2-191/v2}, 
+   number={191}, 
+   journal={F1000Research}, 
+   author={Chamberlain, Scott A. and Szöcs, Eduard}, 
+   year={2013}
+ }
 
 @article{pence_chemspider:_2010,
 	title = {ChemSpider: An Online Chemical Information Resource},
@@ -131,24 +132,24 @@
 	pages = {e1001745}
 }
 
-@misc{cir,
+@Manual{cir,
   author = {NIH},
   year = {2016}, 
   title = {NIH Chemical Identifier Resolver},
   url = {http://cactus.nci.nih.gov/chemical/structure}
 }
 
- @article{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010, 
-   title={The Chemical Translation Service--a web-based Tool to improve Standardization of Metabolomic Reports}, 
-   volume={26}, 
-   DOI={10.1093/bioinformatics/btq476}, 
-   number={20}, 
-   journal={Bioinformatics}, 
-   author={Wohlgemuth, G. and Haldiya, P. K. and Willighagen, E. and Kind, T. and Fiehn, O.}, 
-   year={2010}, 
-   pages={2647–2648},
-   url = {http://cts.fiehnlab.ucdavis.edu/}
- }
+@article{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010, 
+  title={The Chemical Translation Service -- a web-based Tool to improve Standardization of Metabolomic Reports}, 
+  volume={26}, 
+  DOI={10.1093/bioinformatics/btq476}, 
+  number={20}, 
+  journal={Bioinformatics}, 
+  author={Wohlgemuth, G. and Haldiya, P. K. and Willighagen, E. and Kind, T. and Fiehn, O.}, 
+  year={2010}, 
+  pages={2647–2648},
+  url = {http://cts.fiehnlab.ucdavis.edu/}
+}
 
 @misc{etox,
   author = {UBA},
@@ -165,7 +166,7 @@
 }
 
 @misc{physprop,
-  author = {Howard, P. H., and William Meylan},
+  author = {Howard, P. H. and William Meylan},
   year = {2016}, 
   title = {Physical/chemical property database (PHYSPROP)},
   url = {http://www.srcinc.com/what-we-do/environmental/scientific-databases.html#physprop}
@@ -207,7 +208,7 @@
 }
 
 @article{Tomasulo_2002,
-  title={ChemIDplus-Super Source for Chemical and Drug Information}, 
+  title={ChemIDplus - Super Source for Chemical and Drug Information}, 
   volume={21}, 
   DOI={10.1300/J115v21n01_04}, 
   number={1}, 
@@ -228,7 +229,7 @@
 }
 
 @article{Peng_2009, 
-  title={Reproducible research and Biostatistics}, 
+  title={Reproducible Research and Biostatistics}, 
   volume={10}, 
   DOI={10.1093/biostatistics/kxp014}, 
   number={3}, 
@@ -264,7 +265,7 @@
 }
 
 @article{Kim_2016, 
-  title={PubChem Substance and Compound databases}, 
+  title={PubChem Substance and Compound Databases}, 
   volume={44}, 
   number={D1},
   journal={Nucleic Acids Research},
@@ -292,14 +293,14 @@
 }
 
 @Manual{wikidatar_2016,
-  title = {WikidataR: API Client Library for 'Wikidata'},
+  title = {\pkg{WikidataR}: API Client Library for Wikidata},
   author = {Oliver Keyes and Christian Graul},
   year = {2016},
   note = {\proglang{R} package version 1.0.1},
   url = {https://CRAN.R-project.org/package=WikidataR}
 }
 
-@misc{cirpy,
+@Manual{cirpy,
   author = {Matt Swain},
   title = {\pkg{CIRpy}},
   year = {2016},
@@ -308,7 +309,7 @@
   url = {https://github.com/mcs07/CIRpy}
 }
 
-@misc{chemspipy,
+@Manual{chemspipy,
   author = {Matt Swain},
   title = {\pkg{ChemSpiPy}},
   year = {2015},
@@ -317,7 +318,7 @@
   url = {https://github.com/mcs07/ChemSpiPy}
 }
 
-@misc{pubchempy,
+@Manual{pubchempy,
   author = {Matt Swain},
   title = {\pkg{PubChemPy}},
   year = {2015},
@@ -327,14 +328,15 @@
 }
 
 @misc{lubw_2016,
-  author = {{LUBW Landesanstalt für Umwelt, Messungen und Naturschutz Baden-Württemberg}},
+  shortauthor = {LUBW},
+  author = {{LUBW - Landesanstalt für Umwelt, Messungen und Naturschutz Baden-Württemberg}},
   title = {Jahresdatenkatalog Fließgewässer 2013},
   year = {2016},
   url = {http://jdkfg.lubw.baden-wuerttemberg.de/servlet/is/300/}
 }
 
 @article{Grabner_Varmuza_Dehmer_2012, 
-  title={\pkg{RMol}: a toolset for transforming SD/Molfile structure information into \proglang{R} objects}, 
+  title={\pkg{RMol}: a Toolset for transforming SD/Molfile Structure Information into \proglang{R} objects}, 
   volume={7}, 
   DOI={10.1186/1751-0473-7-12}, 
   journal={Source Code for Biology and Medicine}, 
@@ -351,7 +353,7 @@
 }
 
 @article{Gewin_2016, 
-  title={Data sharing: An open mind on open data}, 
+  title={Data sharing: An open mind on Open Data}, 
   volume={529}, 
   DOI={10.1038/nj7584-117a}, 
   number={7584}, 
@@ -362,7 +364,7 @@
 }
 
 @article{Reichman_Jones_Schildhauer_2011, 
-  title={Challenges and opportunities of open data in ecology}, 
+  title={Challenges and Opportunities of Open Data in Ecology}, 
   volume={331},
   number={6018}, 
   journal={Science}, 
@@ -372,7 +374,7 @@
 }
 
 @article{Kim_Thiessen_Bolton_Bryant_2015, 
-  title={PUG-SOAP and PUG-REST: web services for programmatic access to chemical information in PubChem}, 
+  title={PUG-SOAP and PUG-REST: Web Services for Programmatic Access to Chemical Information in PubChem}, 
   volume={43}, 
   DOI={10.1093/nar/gkv396}, 
   number={W1}, 
@@ -416,7 +418,7 @@
 @article{Boyle_Guha_2011, 
   title={Open Data, Open Source and Open Standards in chemistry: The Blue Obelisk five years on.}, 
   volume={3}, 
-  journal={J. Cheminformatics}, 
+  journal={Journal of Cheminformatics}, 
   author={O’Boyle, Noel M. and Guha, Rajarshi and Willighagen, Egon L. and Adams, Sam E. and Alvarsson, Jonathan and Bradley, Jean-Claude and Filippov, Igor V. and Hanson, Robert M. and Hanwell, Marcus D. and Hutchison, Geoffrey R. and et al.}, 
   year={2011}, 
   pages={37}
@@ -434,7 +436,7 @@
 
 @Book{ggplot2,
   author = {Hadley Wickham},
-  title = {ggplot2: Elegant Graphics for Data Analysis},
+  title = {\pkg{ggplot2}: Elegant Graphics for Data Analysis},
   publisher = {Springer-Verlag New York},
   year = {2009},
   isbn = {978-0-387-98140-6},
@@ -442,7 +444,7 @@
 }
   
 @article{Stieger_2014, 
-  title={Assessing the persistence, bioaccumulation potential and toxicity of brominated flame retardants: Data availability and quality for 36 alternative brominated flame retardants}, 
+  title={Assessing the Persistence, Bioaccumulation potential and Toxicity of Brominated Flame Retardants: Data Availability and Quality for 36 alternative Brominated Flame Retardants}, 
   volume={116}, 
   DOI={10.1016/j.chemosphere.2014.01.083}, 
   journal={Chemosphere}, 

@@ -51,6 +51,8 @@ Consequently, it reduces the time researchers need to spend on chemical data com
 %% for those who use Sweave please include the following line (with % symbols):
 %% need no \usepackage{Sweave.sty}
 
+% citation alias for LUBW institution
+\defcitealias{lubw_2016}{LUBW (2016)}
 
 
 \begin{document}
@@ -114,7 +116,7 @@ The development repository is hosted on GitHub (\url{https://github.com/ropensci
 
 \pkg{webchem} builds on top of the following \proglang{R} packages:
 \pkg{RCurl} \citep{lang_rcurl:_2015} and \pkg{httr} \citep{wickham_httr} for data transfer,
-\pkg{stringr} \cite{wickham_stringr:_2015} for string handling,
+\pkg{stringr} \citep{wickham_stringr:_2015} for string handling,
 \pkg{xml2} \citep{wickham_xml2} and \pkg{rvest} \citep{wickham_rvest} for parsing HTML and XML,
 \pkg{jsonlite} \citep{ooms_jsonlite_2014} for parsing JSON,
 \pkg{rcdk} \citep{guha_rcdk} for parsing SMILES.
@@ -195,7 +197,7 @@ To demonstrate the capabilities of  \pkg{webchem} we use two small publicly avai
 The datasets are only for demonstration purposes, have been slightly preprocessed (not shown) and are available through the package.
 
 (i) \code{jagst}: This dataset comprises environmental monitoring data of organic substances in the river Jagst of the year 2013, Germany.
-The data is publicly available and can be retrieved from \citep{lubw_2016}.
+The data is publicly available and can be retrieved from \citetalias{lubw_2016}.
 It comprises concentrations  (in $\mu g~/~L$) of  34 substances  on 13 sampling occasions.
 
 <<loadjagst>>=
