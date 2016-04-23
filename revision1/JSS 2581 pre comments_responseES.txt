@@ -1,0 +1,66 @@
+JSS 2581: Szocs, Schafer
+
+webchem: An R Package to retrieve Chemical Information from the Web
+
+---------------------------------------------------------
+For further instructions on JSS style requirements please see the Style Files (in particular section 2.1 Style Checklist of jss.pdf) and FAQ at http://www.jstatsoft.org/about/submissions.
+
+For further examples please see RECENT JSS papers.
+---------------------------------------------------------
+
+
+From the editorial team:
+
+o Rather than using a goo.gl link, the official stable CRAN URL should be used: https://CRAN.R-project.org/package=webchem
+=> Changed
+
+
+Manuscript style comments:
+
+o Title in title style (“retrieve” should be capitalized).
+=> Changed
+
+o \section, \subsection, etc. should be in sentence style (see http://www.jstatsoft.org/about/submissions), e.g., change “4. Use Cases” to “4. Use cases”
+=> Changed
+
+o The code presented in the manuscript should not contain comments within the verbatim code. Instead the comments should be made in the normal LaTeX text.
+=> Removed all comments from the code blocks and clarified in the text.
+
+o For the code layout in R publications, the input should use the text width (up to 76 or 77 characters) and be indented by two spaces, e.g.,
+
+begin{Sinput}
+R> example_model <- lm(response ~ variable1 + variable2 + variable3, 
++    weights = w, data = mydata)
+\end{Sinput}
+=> Set width to 76 characters, and removed excessive intendation
+
+o For R-related manuscripts: The first argument of data() and library() should always be quoted, e.g., library("foo"). [' library(webchem)', ' data(jagst)', ' data(lc50)']
+=> changed accordingly
+
+o If using "e.g." and "i.e." add a comma after the period to keep LaTeX from interpreting them as the end of a sentence, i.e.: "e.g., " and "i.e., ".
+=>  we added a backslash ("i.e.\ " or "e.g.\ "), which also prevents this.
+
+
+o There should not be further footnote-style annotations in tables; these should all be placed in the caption.
+=> we removed the footnotestyle annotation from table 1.
+
+o As a reminder, please make sure that:
+	- \proglang, \pkg and \code have been used for highlighting throughout the paper (including titles and references), except where explicitly escaped.
+=> We checked thoroughly.
+
+
+References:
+
+o Springer-Verlag (not: Springer)
+=> Change accordingly
+
+o Please make sure that all software packages are \cite{}'d properly.
+=> We checked thoroughly and updated the citations. 
+
+o See FAQ for specific reference instructions.
+
+
+Code:
+
+o Please make sure that the files needed to replicate all code/examples within the manuscript are included in a standalone replication script.
+=> These are given in the accompanying file "article.R"

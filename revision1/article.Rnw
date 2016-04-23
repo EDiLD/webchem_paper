@@ -7,7 +7,7 @@
 \title{\pkg{webchem}: An \proglang{R} Package to retrieve Chemical Information from the Web}
 
 \Plainauthor{Eduard Sz\"ocs, Ralf B. Sch\"afer}
-\Plaintitle{webchem: an R Package to retrieve Chemical Information from the Web}
+\Plaintitle{webchem: an R Package to Retrieve Chemical Information from the Web}
 \Shorttitle{\pkg{webchem}: Chemical Information from the Web}
 
 \Abstract{
@@ -88,7 +88,7 @@ knitr::knit_hooks$set(chunk = hook.c,
                warning = hook.s,
                plot = knitr::hook_plot_tex)
 
-options(prompt = "R> ", continue = "+  ", width = 80, useFancyQuotes = FALSE)
+options(prompt = "R> ", continue = "+  ", width = 76, useFancyQuotes = FALSE)
 @
 
 
@@ -97,11 +97,11 @@ Before each statistical analysis, data cleaning is often required to ensure a go
 Data cleaning is the process of detecting errors and inconsistencies in data sets \citep{Chapman_2005}.
 In practice, the data cleaning step is often more time consuming than the subsequent statistical analysis, particularly, when the analysis relies on multiple data sources that need to be joined.
 
-When dealing with chemical datasets (e.g. environmental monitoring data, toxicological data), a first step is often to validate the names of chemicals or to link them to unique codes that simplify subsequent querying and appending of compound-related physico-chemical or toxicological information.
+When dealing with chemical datasets (e.g.\ environmental monitoring data, toxicological data), a first step is often to validate the names of chemicals or to link them to unique codes that simplify subsequent querying and appending of compound-related physico-chemical or toxicological information.
 Several web sources provide chemical names or link them to unique codes (see also section \emph{Data sources} below).
 However, manual searching for each compound, often through a graphical web interface, is tedious, error-prone and not reproducible \citep{Peng_2009}.
 
-To simplify, robustify and automate this task, i.e. to search and retrieve chemical information from the web, we created the \pkg{webchem} package for the free and open source \proglang{R} language \citep{r_2015, Wehrens_2011}.
+To simplify, robustify and automate this task, i.e.\ to search and retrieve chemical information from the web, we created the \pkg{webchem} package for the free and open source \proglang{R} language \citep{r_2015, Wehrens_2011}.
 \proglang{R} is one of the most widely used software for data cleaning, analysing and visualising data, and supports full reproducibility of each step \citep{Marwick_2016}.
 
 We describe the basic functionality of the package and demonstrate with a few use cases how to clean and retrieve new data with \pkg{webchem}.
@@ -129,9 +129,9 @@ For sources where an API is lacking, data is directly searched and extracted fro
 
 Only few design decisions have been made:
 Each function name has a prefix and suffix separated by an underscore \citep{Chamberlain_Szocs_2013}.
-They follow the format of \code{source\_function}, e.g. \code{cs\_compinfo} uses ChemSpider as source (see next section) to retrieve compound information.
+They follow the format of \code{source\_function}, e.g.\ \code{cs\_compinfo} uses ChemSpider as source (see next section) to retrieve compound information.
 Some functions require querying first a unique identifier from the data source and then use this identifier to query further information.
-The prefix \code{get} is used to denote these functions, e.g. \code{get\_csid} to retrieve the identifier used in ChemSpider.
+The prefix \code{get} is used to denote these functions, e.g.\ \code{get\_csid} to retrieve the identifier used in ChemSpider.
 
 \pkg{webchem} is friendly to the resources of data providers. 
 Between each request there is a time-out of 0.3 to 2 seconds depending on data-source. 
@@ -172,13 +172,13 @@ However, we provide a brief overview in the Supporting Information.
 \end{figure}
 
 
-\section[Use Cases]{Use Cases}
+\section[Use cases]{Use cases}
 \subsection[Install webchem]{Installation}
 \pkg{webchem} can be easily installed and loaded from CRAN:
 
 <<install, eval=FALSE>>=
 install.packages("webchem")
-library(webchem)
+library("webchem")
 @
 
 <<load, echo=FALSE, eval=TRUE>>=
@@ -199,11 +199,10 @@ The datasets are only for demonstration purposes, have been slightly preprocesse
 (i) \code{jagst}: This dataset comprises environmental monitoring data of organic substances in the river Jagst of the year 2013, Germany.
 The data is publicly available and can be retrieved from \citetalias{lubw_2016}.
 It comprises concentrations  (in $\mu g~/~L$) of  34 substances  on 13 sampling occasions.
+First we load the dataset and take a look at the first six rows:
 
 <<loadjagst>>=
-# load jagst dataset
-data(jagst)
-# print first 6 lines of data
+data("jagst")
 head(jagst)
 @
 
@@ -213,30 +212,28 @@ This dataset identifies substances only by substance names. Values below LOQ are
 The data has been retrieved from the EPA ECOTOX database \citep{epa_2016}.
 
 <<load_lc50>>=
-data(lc50)
+data("lc50")
 head(lc50)
 @
 
 This data set identifies the substances only by CAS numbers.
 
 
-\subsection[Query Identifiers]{Query Identifiers}
+\subsection[Query identifiers]{Query identifiers}
 The \code{jagst} data set covers 34 substances that are identified by (German) names.
 Merging and linking these to other tables is hampered by differences and ambiguity in compound names.
 
 One possibility to resolve this, is to use different chemical identifiers allowing easy identification.
-There are several identifiers available, e.g.  registry numbers like CAS or EC, database identifiers like PubChemCID \citep{Kim_2016} or ChemSpiderID \citep{pence_chemspider:_2010}, line notations like SMILES \citep{Weininger_1990}, InChI and InChiKey \citep{Heller_McNaught_Pletnev_Stein_Tchekhovskoi_2015}. 
+There are several identifiers available, e.g.\  registry numbers like CAS or EC, database identifiers like PubChemCID \citep{Kim_2016} or ChemSpiderID \citep{pence_chemspider:_2010}, line notations like SMILES \citep{Weininger_1990}, InChI and InChiKey \citep{Heller_McNaught_Pletnev_Stein_Tchekhovskoi_2015}. 
 In this first example we query several identifiers to create a table that can be used as (i) supplemental information to a research article or (ii) to facilitate subsequent matching with other data.
 
 As were are dealing with German substance names we start to query ETOX for CAS registry numbers.
 A common work flow when dealing with web resources is to 1) query a unique identifier of the source, 2) use this identifier to retrieve additional information and 3) extract the parts that are needed from the \proglang{R}-object \citep{Chamberlain_Szocs_2013}.
 
-First we search for ETOX internal ID numbers:
+First we search for ETOX internal ID numbers using the substance names:
 
-<<get_etoxid, message=FALSE>>=
-# unique substance names
+<<get_etoxid, message=FALSE, cache=TRUE>>=
 subs <- unique(jagst$substance)
-# search ETOX IDs
 ids <- get_etoxid(subs, match = 'best')
 head(ids)
 @
@@ -262,36 +259,35 @@ head(etox_cas)
 A variety of data are available and we cannot provide extractor functions for each of those.
 Therefore, if users need to extract other data, they have to write simple extractor functions (see following examples).
 
-In the same manner we can now query other identifiers from other source using this CAS numbers (Fig. \ref{fig:fig1}):
+In the same manner we can now query other identifiers from other source using this CAS numbers (Fig. \ref{fig:fig1}), like PubChem
 <<token, echo=FALSE>>=
 # this is a webchem specific token. 
 # Please use it only for reproduction / testing.
 token <- 'b44136c5-49cf-4df4-ba18-e4676449d1f4'
 @
 
-<<others, message = FALSE, warning=FALSE>>=
-# query SMILES from PubChem
+<<pubchem, message = FALSE, warning=FALSE>>=
 cids <- get_cid(etox_cas)
 pc_data <- pc_prop(cids, properties = c('CanonicalSMILES'))
 pc_smiles <- smiles(pc_data)
+@
 
-# query InChiKey from ChemSpider
-# token <- '<yourtokenhere>'
+or ChemSpider
+<<chemspider, message = FALSE, warning=FALSE>>=
 csids <- get_csid(etox_cas, token = token)
 cs_data <- cs_compinfo(csids, token = token)
 cs_inchikey <- inchikey(cs_data)
 @
 
+Finally, we combine the queried data into one data.frame
 <<table>>=
-# combine in one data.frame
 res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles, 
-                  cid = pc_data$CID, inchikey = cs_inchikey, 
-                  csid = cs_data$csid, 
-                  stringsAsFactors = FALSE)
+  cid = pc_data$CID, inchikey = cs_inchikey, csid = cs_data$csid, 
+  stringsAsFactors = FALSE)
 @
 
 Note, that in order to use the ChemSpider functions, a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider webpage. 
-We end up with a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other datasets, e.g. the lc50 dataset based on CAS.
+We end up with a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other datasets, e.g.\ the lc50 dataset based on CAS.
 
 \begin{table}[ht]
 \centering
@@ -300,7 +296,7 @@ tmp <- res[1:6, ]
 tmp$smiles <- ifelse(is.na(tmp$smiles), NA, paste0(substr(tmp$smiles, 1, 7), '...'))
 tmp$inchikey <- ifelse(is.na(tmp$inchikey), NA, paste0(substr(tmp$inchikey, 1, 7), '...'))
 tmp[is.na(tmp)] <- '-'
-colnames(tmp) <- c("Name", "CAS", "SMILES\\textsuperscript{a}","CID", "InChIKey\\textsuperscript{a}", "CSID")
+colnames(tmp) <- c("Name", "CAS", "SMILES","CID", "InChIKey", "CSID")
 print(xtable(tmp),
   floating = FALSE,
   hline.after = NULL,
@@ -310,7 +306,7 @@ print(xtable(tmp),
   sanitize.text.function = function(x){x}
   )
 @
-\caption{Identifiers for the jagst datasets as queried with \pkg{webchem}. Only the first 6 entries are shown. - = not found. \textsuperscript{a} Only the first 7 characters are shown.}
+\caption{Identifiers for the jagst datasets as queried with \pkg{webchem}. Only the first 6 entries are shown. For SMILES and InChIKey only the first 7 characters are shown. - = not found.}
 \label{tab:comptable}
 \end{table}
 
@@ -318,19 +314,15 @@ print(xtable(tmp),
 \subsection[Toxicity of different pesticide groups]{Toxicity of different pesticide groups}
 Another question we might ask is \emph{How does toxicity vary between insecticide groups?}
 Answering this question would require tedious lookup of insecticide groups for each of the 124 CAS numbers in the lc50 dataset.
-The Compendium of Pesticide Common Names \citep{wood} contains such information and can be easily queried with \pkg{webchem}.
+The Compendium of Pesticide Common Names \citep{wood} contains such information and can be easily queried using CAS numbers with \pkg{webchem}: 
 
 <<aw_query, message = FALSE>>=
-# query the compendium using CAS-numbers
 aw_data <- aw_query(lc50$cas, type = 'cas')
 @
 
 To extract the chemical group from the retrieved dataset, we need to write a simple extractor function and apply this to the retrieved data
 
 <<subactivty, message = FALSE>>=
-# shows internal structure of the data-object
-# str(aw_data[[1]])
-# extract chemical group
 igroup <- sapply(aw_data, function(y) y$subactivity[1])
 igroup[1:3]
 @
@@ -340,7 +332,6 @@ Overall, it took only 5 \proglang{R} statements to retrieve, clean and plot the 
 
 \begin{figure}[ht]
 <<plot_lc50, echo=FALSE, out.width='0.7\\textwidth', fig.height=6>>=
-# cleanup
 lc50$type <- ifelse(grepl('carbamat', igroup), 'Carbamates',
               ifelse(grepl('neonicotinoid', igroup), 'Neo-\nnicotinoids', 
                 ifelse(grepl('pyrethroid', igroup), 'Pyrethroids', 
@@ -348,7 +339,6 @@ lc50$type <- ifelse(grepl('carbamat', igroup), 'Carbamates',
                          'other'))))
 lc50$type <- factor(lc50$type, levels = c("Pyrethroids", "Carbamates", "Organo-\nphosphates", "Neo-\nnicotinoids", "other"))
 
-# plot
 p <- ggplot(lc50, aes(x = type, y = value)) +
   geom_boxplot(fill = 'grey75') + 
   geom_jitter(width = 0.5) +
@@ -368,7 +358,6 @@ Some data sources contain also data on chemical properties that can be queried.
 Here we query for the lc50 data the $log~P_{oct/wat}$ from SRCs PHYSPROP database to build a simple Quantitative structure–activity relationship (QSAR) to predict toxicity.
 
 <<qsar, message=FALSE, cache=TRUE, warning=FALSE>>=
-# query PHYSPROP DATABASE
 pp_data <- pp_query(lc50$cas)
 @
 
@@ -377,9 +366,7 @@ Extracting $log~P_{oct/wat}$ from the data object is slightly more complicated,
 because i) for some compounds no data could be found and ii) the data-object has a more complex structure (a data frame within a list).
 
 <<qsar2, warnings = FALSE>>=
-# look  at internal structure
-# str(pp_data[[1]])
-lc50$logp <- sapply(pp_data, function(y){
+lc50$logp <- sapply(pp_data, function(y) {
   if (length(y) == 1 && is.na(y))
     return(NA)
   y$prop$value[y$prop$variable == 'Log P (octanol-water)']
@@ -397,7 +384,6 @@ The resulting data and model is displayed in Figure~\ref{fig:fig3}.
 mod <- lm(log10(value) ~ logp, data = lc50)
 coefs <- round(coef(mod), 2) # coeficients
 rmse <- round(summary(mod)$sigma, 2) # RMSE
-
 
 # check data types
 logp_type <- sapply(pp_data, function(y){
@@ -424,18 +410,18 @@ Blue line indicates the regression model ($log LC_{50} = \Sexpr{coefs[1]}\Sexpr{
 
 \subsection[Utility functions]{Utility functions}
 \pkg{webchem} provides also basic functions to check identifiers that can be used for data quality assessment.
-The functions either use simple formatting rules or web resources.
+The functions either use simple formatting rules,
 
-<<check>>=
-# simple formatting check
+<<check_format>>=
 is.inchikey('BQJCRHHNABKAKU-KBQPJGBKS-AN')
-# or using ChemSpider
-is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5', 
-      type = 'chemspider')
-# formatting check
 is.cas('64-17-6')
 @
 
+or web resources like ChemSpider
+<<check_web>>=
+is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5', 
+  type = 'chemspider')
+@
 
 \section[Discussion]{Discussion}
 \subsection[Related software]{Related software}
@@ -443,7 +429,7 @@ Within the \proglang{R} ecosystem , there are only few similar projects:
 \pkg{rpubchem} \citep{rpubchem_2014} and \pkg{ChemmineR} \citep{chemminer_2008} both provide an interface to PubChem that is more extensive than the current one in \pkg{webchem}.
 \pkg{WikidataR} \citep{wikidatar_2016} provides an interface to wikidata that could be used to retrieve chemical data from Wikipedia.
 However, it does not provide predefined methods for chemical data like \pkg{webchem}.
-Within the \proglang{Python} ecosystem (a popular programming language) the libraries \pkg{PubChempy} \citep{pubchempy}, \pkg{ChemSpiPy} \citep{chemspipy} and \pkg{CIRpy} \citep{cirpy} are available for similar tasks as those outlined here.
+Within the \proglang{Python} ecosystem the libraries \pkg{PubChempy} \citep{pubchempy}, \pkg{ChemSpiPy} \citep{chemspipy} and \pkg{CIRpy} \citep{cirpy} are available for similar tasks as those outlined here.
 \pkg{webchem} is not specialized and tries to integrate many data sources and for some of these provides a unique programmatic interface.
 The Chemical Translation Service \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010}, which is also one of the sources that can be queried,  allows batch conversion of chemical identifiers.
 However, it does not provide access to other data (experimental, modeled or legal data).
