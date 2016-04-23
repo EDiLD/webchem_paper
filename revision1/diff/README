@@ -1,4 +1,0 @@
-cd /home/edisz/Documents/Uni/Projects/PHD/11webchem/ms_jss/
-latexdiff submission/article.bbl revision1/article.bbl > revision1/diff/diff.bbl
-latexdiff --config="PICTUREENV=(?:picture|DIFnomarkup|CodeChunk)[\w\d*@]*"  submission/article.tex revision1/article.tex > revision1/diff/diff.tex
-
