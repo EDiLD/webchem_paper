@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------
 # Supplemental R Code to reproduce the resutls of
-# Szöcs, Schäfer (2016). webchem: an R Package to retrieve Chemical Information from the Web
-# Date: 04.03.2016
+# Szöcs, Schäfer (2016). webchem: an R Package to Retrieve Chemical Information from the Web
+# Date: 24.04.2016
 # ------------------------------------------------------------------------
 
 
@@ -10,27 +10,29 @@ install.packages("webchem")
 
 
 # load packages -----------------------------------------------------------
-library(webchem)
-library(ggplot2)
+library("webchem")
+library("ggplot2")
 
 
 # load datasets -----------------------------------------------------------
 # load jagst dataset
-data(jagst)
+data("jagst")
 # print first 6 lines of data
 head(jagst)
 
 # lc50 dataset
-data(lc50)
+data("lc50")
 head(lc50)
 
 
 # Use Case 1: Query identifiers -------------------------------------------
 # unique substance names
 subs <- unique(jagst$substance)
+
 # search ETOX IDs, keeping only the best match
 ids <- get_etoxid(subs, match = 'best')
 head(ids)
+
 # use this id to query information from ETOX
 etox_data <- etox_basic(ids$etoxid)
 # extract CAS numbers from retrieved data
@@ -39,10 +41,12 @@ head(etox_cas)
 
 
 # query other identifiers from other resources
+
 # query SMILES from PubChem
 cids <- get_cid(etox_cas)
 pc_data <- pc_prop(cids, properties = c('CanonicalSMILES'))
 pc_smiles <- smiles(pc_data)
+
 # ChemSpider needs a security token
 # this is a webchem specific token. 
 # Please use it only for reproduction / testing.
@@ -52,8 +56,7 @@ csids <- get_csid(etox_cas, token = token)
 cs_data <- cs_compinfo(csids, token = token)
 cs_inchikey <- inchikey(cs_data)
 
-
-# combine in one data.frame
+# combine into single data.frame
 res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles, 
                   cid = pc_data$CID, inchikey = cs_inchikey, 
                   csid = cs_data$csid, 
@@ -78,7 +81,9 @@ lc50$type <- ifelse(grepl('carbamat', igroup), 'Carbamates',
                 ifelse(grepl('pyrethroid', igroup), 'Pyrethroids', 
                   ifelse(grepl('organophosphate', igroup), 'Organo-\nphosphates', 
                          'other'))))
-lc50$type <- factor(lc50$type, levels = c("Pyrethroids", "Carbamates", "Organo-\nphosphates", "Neo-\nnicotinoids", "other"))
+lc50$type <- factor(lc50$type, levels = c("Pyrethroids", "Carbamates", 
+                                          "Organo-\nphosphates", "Neo-\nnicotinoids", 
+                                          "other"))
 
 # plot
 p <- ggplot(lc50, aes(x = type, y = value)) +
@@ -132,9 +137,11 @@ p
 # Utility functions -------------------------------------------------------
 # simple formatting check
 is.inchikey('BQJCRHHNABKAKU-KBQPJGBKS-AN')
+# formatting check
+is.cas('64-17-6')
+
 # or using ChemSpider
 is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5', 
       type = 'chemspider')
-# formatting check
-is.cas('64-17-6')
+
 
