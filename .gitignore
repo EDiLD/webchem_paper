@@ -1,0 +1,16 @@
+*.aux
+*.bbl
+cache/
+*.pgf
+*.log
+*.synctex*
+*.fls
+*.fdb_latexmk
+.*aux
+*-concordance.tex
+*.blg
+*.out
+
+ms_jss.Rproj
+.Rproj.user
+build_article.R
