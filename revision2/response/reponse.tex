@@ -1,0 +1,171 @@
+% ======================================================= %
+% Document: TEMPLATE FOR RESPONSES TO REVIEWERS
+% Author: Andrea Ballatore
+% Date: Jan 7, 2013
+% Source: https://raw.githubusercontent.com/ucd-spatial/Datasets/master/tex_response_to_reviewers_template/responses_to_reviewers.tex
+% Modified by Eduard Szöcs, 10.03.2015
+% ======================================================= %
+\documentclass[12pt]{article}
+
+% packages
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{color}
+\definecolor{mygray}{gray}{0.6}
+\usepackage[utf8]{inputenc}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[
+	round,	%(defaultage in the main file and \input ) for round parentheses;
+	colon,	% (default) to separate multiple citations with colons;
+	authoryear,% (default) for author-year citations;
+	sort,		% orders multiple citations into the sequence in which they 
+]{natbib}					
+\usepackage[%disable
+	]{todonotes}
+
+\usepackage{anysize}
+\marginsize{2.5cm}{2.5cm}{1.5cm}{2.5cm}
+
+% macros
+% add a counter
+\newcounter{cN}
+\setcounter{cN}{0}
+
+\newcommand{\comment}[1]{
+	\vspace{2em} 
+	\refstepcounter{cN} % incrment counter
+	\noindent \hangindent=0em \textbf{\textcolor{Maroon}{\uline{Comment \thecN}:~}}\emph{"#1"}
+	}
+
+\newcommand{\response}[1]{
+	\\[0.25em] 
+	\hangindent=2.3em \textbf{\textcolor{NavyBlue}{\uline{Response}:~}}#1 
+	}
+
+\usepackage[normalem]{ulem}
+\definecolor{darkred}{rgb}{1,.6,.6}
+\DeclareRobustCommand\problemline{\bgroup\markoverwith{\textcolor{darkred}{\rule[-0.9ex]{4pt}{3pt}}}\ULon}
+\DeclareRobustCommand{\problem}[1]{\problemline{#1}} % soul
+\setcounter{secnumdepth}{-1}
+
+\begin{document}
+% ======================================================= %
+\title{Response to the editorial team\\~\\JSS 2581: Szocs, Schafer \\ webchem: An R Package to Retrieve Chemical Information from the Web}
+
+\author{Eduard Szöcs and Ralf B. Schäfer}
+
+\maketitle
+% ======================================================= %
+\noindent Dear editorial team and reviewers,\\
+
+\noindent
+We thank the reviewer for checking the functionality of our package and also checking the appropriateness of the documentation and providing valuable comments on our manuscript.
+We incorporated all the suggested changes and proof read the manuscript.
+
+\noindent
+Please find below detailed description of the changes made and responses to specific comments. 
+
+
+\vspace{2em}
+\hfill Kind regards,
+
+\hfill Eduard Szöcs and Ralf B. Schäfer
+\newpage
+
+
+
+% ======================================================= %
+
+\section{Reviewer A}
+
+We are thankful, for providing comments, checking the functionality of our package and also checking the appropriateness of the documentation.
+
+%done
+\comment{The article should be proof read to correct grammatical mistakes. page 1, “ensure a good data quality” should read “ensure good data quality”. A few other similar errors were scattered elsewhere}
+\response{We proof read the manuscript and removed remaining spelling errors.}
+
+%done
+\comment{On page 2 the authors note that the query methods implement a time-delay. Is this user configurable? It doesn’t appear to be and this might be a parameter to consider providing to the user (acknowledging the fact that a user could mis-use it!)}
+\response{The time delay is currently hard-coded and adjusted to the capabilities of the data sources.
+Some providers block IP addresses if to many request arrive.
+Therefore, we do not intend to make this user configurable, as misuse might affect whole institutions.
+However, we might adapt the delays if data sources increase their capabilities. 
+}
+
+%done
+\comment{Some of the man pages I looked at indicated that the query might fail if the API is unavailable. It might be useful to have a helper method to test the availability of the remote resource before the query is run.}
+\response{CRAN runs automated tests and all examples in the documentation on different operating systems. Sometimes theses might fail, because an API is not available. From a related project (taxize package to handle taxonomic data in R) we made the experience that APIs are often down only for a short period (updates, maintenance etc). To avoid triggering a failed build on CRAN, we skip running the examples on CRAN and provide the reason why we omitted the examples.
+We are thankful for the suggesting and will add ping\_*() functions in a future release to check if a data-source is up and running. 
+}
+
+
+%% --------------------------------
+\section{Reviewer B}
+
+\comment{The paper strikes this reviewer as a little "light" compared to most papers
+in JSS. This is not to say that the information presented is not useful, but
+that it is not very elaborate. I recommend that the authors consider either
+extending one or more of the examples, or adding an additional example or two.
+}
+\response{We added an example how to query legal information in compounds, how to reuse already queried identifiers to query more information and how to join the retrieved information with the original data.}
+
+%done
+\comment{Please clarify what the differences are between ChemmineR and this package.
+Is the main unique strength of this package that it allows use of more data
+sources? If so, please make this more clear. }
+\response{The main difference to all mentioned packages is that webchem integrates access to many data sources. We rephrased this paragraph and it now reads: \emph{"Within the R ecosystem, there are only few similar projects: rpubchem (Guha 2014) provides an interface PubChem. 
+Similarly, ChemmineR (Cao et al. 2008), a mature chemoinformatics package, also provides an interface to Pubchem. 
+webchem does not provide any chemoin-formatic functionality, but integrates access to many data sources.[...]"}
+}
+
+%done
+\comment{However, data quality is also crucial for data analysis (Stieger et
+al. 2014). Ensuring good quality requires additional effort and
+methods to be developed.  - Yes, garbage in, garbage out. But just post-processing cannot make bad data
+good. I would rather you said "validating the quality of
+data" or something similar, and rephrased this paragraph. }
+\response{We agree and rephrased this paragraph and merge it with the previous paragraph. It now reads \emph{"However, good quality of data is crucial for every analysis (Stieger et al. 2014) and additional effort and methods are needed to validate data quality."}}
+
+%done
+\comment{Recommend to put the abstract into a single paragraph, (same text is fine).}
+\response{We agree and changed accordingly.}
+
+%done
+\comment{R is one of the most widely used software for data cleaning,-
+R is one of the most widely used software enviroments for data cleaning,}
+\response{We agree and changed accordingly.}
+
+%done
+\comment{For all URLS (to CRAN, Github, etc): Do not insert the URL in the text.
+Instead, create a reference in the bibliography, and add a citation in the
+text.}
+\response{We replaced all URLs in the text with citations.}
+
+%done
+\comment{Add references for Travis-CI and AppVeyor.}
+\response{We added references to both.}
+
+%done
+\comment{’best’ match - `best’ match (fix the quote here and in other places)}
+\response{We are thankful for catching this typographical error and changed through the manuscript.}
+
+%done
+\comment{In sentence 1 of Section 5.1: change "both" to "and both"}
+\response{We changed this paragraph. See also comment number 5.}
+
+%done
+\comment{Go through all the references and ensure that titles are in title
+style, e.g., “ChemmineR: a compound mining framework for R.” --
+“ChemmineR: A Compound Mining Framework for R.”}
+\response{We checked all references and changed all titles to title style.}
+
+%% --------------------------------
+% \newpage
+% \bibliography{refs}
+% \bibliographystyle{spbasic}
+
+
+% ======================================================= %
+\end{document}
+% ======================================================= % 
