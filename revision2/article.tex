@@ -317,17 +317,17 @@ We end up with a compound table containing many different identifiers (Table~\re
 \centering
 \begin{CodeChunk}
 % latex table generated in R 3.3.1 by xtable 1.8-2 package
-% Tue Sep 20 16:11:04 2016
+% Tue Sep 20 16:29:57 2016
 \begin{tabular}{llllll}
   \toprule
 Name & CAS & SMILES & CID & InChIKey & CSID \\ 
   \midrule
-2,4-Dimethylphenol & 105-67-9 & CC1=CC(... & 7771 & - & - \\ 
-  4-Chlor-2-methylphenol & 1570-64-5 & CC1=C(C... & 14855 & - & - \\ 
+2,4-Dimethylphenol & 105-67-9 & CC1=CC(... & 7771 & KUFFULV... & 13839123 \\ 
+  4-Chlor-2-methylphenol & 1570-64-5 & CC1=C(C... & 14855 & RHPUJHQ... & 14165 \\ 
   4-para-nonylphenol & - & - & - & - & - \\ 
-  Atrazin & 1912-24-9 & CCNC1=N... & 2256 & - & - \\ 
-  Benzol & 71-43-2 & C1=CC=C... & 241 & - & - \\ 
-  Desethylatrazin & 6190-65-4 & CC(C)NC... & 22563 & - & - \\ 
+  Atrazin & 1912-24-9 & CCNC1=N... & 2256 & MXWJVTO... & 2169 \\ 
+  Benzol & 71-43-2 & C1=CC=C... & 241 & UHOVQNZ... & 236 \\ 
+  Desethylatrazin & 6190-65-4 & CC(C)NC... & 22563 & DFWFIQK... & 21157 \\ 
    \bottomrule
 \end{tabular}
 \end{CodeChunk}
@@ -346,99 +346,6 @@ The Compendium of Pesticide Common Names \citep{wood} contains such information 
 \begin{CodeInput}
 R> aw_data <- aw_query(lc50$cas, type = 'cas')
 \end{CodeInput}
-\begin{CodeOutput}
-Warning: closing unused connection 35 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=67-66-3&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 34 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=75-25-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 33 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=108-88-3&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 32 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=127-18-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 31 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=5915-41-3&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 30 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=886-50-0&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 29 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=122-34-9&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 28 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=60207-90-1&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 27 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=139-40-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 26 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=23103-98-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 25 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=1763-23-1&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 24 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=335-67-1&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 23 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=307-24-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 22 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=375-22-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 21 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=40487-42-1&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 20 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=66246-88-6&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 19 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=51218-45-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 18 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=67129-08-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 17 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=57837-19-1&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 16 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=94-74-6&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 15 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=34123-59-6&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 14 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=28159-98-0&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 13 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=83164-33-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 12 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=134-62-3&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 11 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=75-09-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 10 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=30125-63-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 9 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=6190-65-4&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 8 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=71-43-2&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 7 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=1912-24-9&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 6 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=1570-64-5&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
-\begin{CodeOutput}
-Warning: closing unused connection 5 (http://www.chemspider.com/Search.asmx/SimpleSearch?query=105-67-9&token=37bf5e57-9091-42f5-9274-650a64398aaf)
-\end{CodeOutput}
 \end{CodeChunk}
 
 To extract the chemical group from the retrieved data set, we need to write a simple extractor function and apply this to the retrieved data:
