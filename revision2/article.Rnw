@@ -94,7 +94,7 @@ options(prompt = "R> ", continue = "+  ", width = 76, useFancyQuotes = FALSE)
 \section[Introduction]{Introduction}
 Before each statistical analysis, data cleaning is often required to ensure good data quality.
 Data cleaning is the process of detecting errors and inconsistencies in data sets \citep{Chapman_2005}.
-In practice, the data cleaning step is often more time consuming than the subsequent statistical analysis, particularly, when the analysis relies on multiple data sources that need to be joined.
+In practice, the data cleaning step is often more time consuming than the subsequent statistical analysis, particularly, when the analysis relies on the joining of multiple data sources.
 
 When dealing with chemical data sets (e.g.\ environmental monitoring data, toxicological data), a first step is often to validate the names of chemicals or to link them to unique codes that simplify subsequent querying and appending of compound-related physico-chemical or toxicological information.
 Several web sources provide chemical names or link them to unique codes (see also section \emph{Data sources} below).
@@ -111,7 +111,7 @@ The \pkg{webchem} package is written entirely in \proglang{R} and available unde
 The development repository is hosted on \citet{github} and a stable version is released on the official \proglang{R} repository \citep{cran}.
 \pkg{webchem} is part of the rOpenSci project \citep{boettiger2015building}, which aims at fully reproducible data analysis.
 
-\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently \textasciitilde 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via \citet{travis-ci} and \citet{appveyor}; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
+\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently approximately 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via \citet{travis-ci} and \citet{appveyor}; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
 
 \pkg{webchem} builds on top of the following \proglang{R} packages:
 \pkg{RCurl} \citep{lang_rcurl:_2015} and \pkg{httr} \citep{wickham_httr} for data transfer,
@@ -123,7 +123,7 @@ For parsing molfiles we use a lightweight implementation of \citep{Grabner_Varmu
 
 Some data sources provide application programming interfaces (API).
 Web APIs define functions that allow accessing services and data via http and return data in a specific way.
-\pkg{webchem} uses the API of a data source provider, where this is provided.
+\pkg{webchem} uses the API of a data source provider, where available.
 For sources where an API is lacking, data is directly searched and extracted from the web pages, analogous to manual interaction with a website.
 
 Only few design decisions have been made:
@@ -134,7 +134,7 @@ The prefix \code{get} is used to denote these functions, e.g.\ \code{get\_csid} 
 
 \pkg{webchem} is friendly to the resources of data providers. 
 Between each request there is a time-out of 0.3 to 2 seconds depending on the data source. 
-Therefore, processing of larger data sets can take some time, but still represents a major improvement compared to manual look up.
+Therefore, processing of larger data sets can take some time, but still represents a major improvement compared to manual lookup.
 We provide a link to the \emph{Terms of Use} of data providers in the documentation of each function and we encourage the users to read these before using \pkg{webchem}.
 Moreover, all functions return an URL of the source, which can be used for \mbox{(micro-)attribution}.
 
@@ -142,7 +142,7 @@ Moreover, all functions return an URL of the source, which can be used for \mbox
 \section[Data sources]{Data sources}
 The backbone of \pkg{webchem} are data sources providing their data and functionality to the public.
 Currently, data can be retrieved from 11 sources.
-These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and legal information (Figure~\ref{fig:fig1}, a detailed overview of all sources is included as supplement):
+These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and regulatory information (Figure~\ref{fig:fig1}, a detailed overview of all sources is included as supplement):
 
 \begin{description}
   \item[NIH Chemical Identifier Resolver (CIR) \citep{cir}]{A web service that converts from and to various chemical identifiers.}
@@ -153,14 +153,14 @@ These cover a broad spectrum of available data, like identifiers, experimental a
   Physical properties collected from a wide variety of sources including experimental and modeled values.}
   \item[PubChem \citep{Kim_2016}]{PubChem is a public repository for information on chemical substances, providing identifiers, properties and synonyms.
   We use an interface to the PUG-REST web service \citep{Kim_Thiessen_Bolton_Bryant_2015}.}
-  \item[Wikidata \citep{wiki}]{Wikipedia contains information entries for over 15,000 chemicals \citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently \pkg{webchem} can query only chemical identifiers only.}
+  \item[Wikidata \citep{wiki}]{Wikipedia contains information for over 15,000 chemicals \citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently \pkg{webchem} can only query chemical identifiers.}
   \item[Compendium of Pesticide Common Names \citep{wood}]{The compendium provides information on pesticide common names, identifiers and classification.}
   \item[ChemID\emph{plus} \citep{Tomasulo_2002}]{is a large web-based database provided by the National Library of Medicine. It provides identifiers, synonyms, toxicological data and chemical properties.}
   \item[ChemSpider \citep{pence_chemspider:_2010}]{is a free chemical structure database providing access to over 40 million structures. It provides identifiers, properties and can also be used to convert identifiers.}
   \item[OPSIN  \citep{Lowe_Corbett_Murray-Rust_Glen_2011}]{The Open Parser for Systematic IUPAC nomenclature is a chemical name interpreter and provides InChI and SMILES identifiers.}
 \end{description}
 
-Though the data sources exhibit some overlap in the provided information, each has been selected because it provides unique information and we encourage the interested reader to consult the related source for details. 
+Though the data sources exhibit some overlap in the provided information, each has been selected because it also provides unique information and we encourage the interested reader to consult the related source for details. 
 However, we provide a brief overview in the Supporting Information.
 
 \begin{figure}[ht]
@@ -193,12 +193,12 @@ This document has been created using \pkg{webchem} version 0.1.
 
 \subsection[Sample data sets]{Sample data sets}
 To demonstrate the capabilities of  \pkg{webchem} we use two small publicly available real world data sets.
-The data sets are only for demonstration purposes, have been slightly preprocessed (not shown) and are available through the package.
+The data sets are only used for purpose of demonstration, have been slightly preprocessed (not shown) and are available through the package.
 
 (i) \code{jagst}: This data set comprises environmental monitoring data of organic substances in the river Jagst, Germany, sampled in 2013.
 The data is publicly available and can be retrieved from \citetalias{lubw_2016}.
 It comprises concentrations  (in $\mathrm{\mu g~/~L}$) of  34 substances  on 13 sampling occasions.
-First we load the data set and take a look at the first six rows:
+First we load the data set and inspect the first six rows:
 
 <<loadjagst>>=
 data("jagst")
@@ -258,7 +258,7 @@ head(etox_cas)
 A variety of data are available and we cannot provide extractor functions for each of those.
 Therefore, if users need to extract other data, they have to write simple extractor functions (see following examples).
 
-In the same manner we can now query other identifiers from other source using this CAS numbers (Figure~\ref{fig:fig1}), like PubChem
+In the same manner, we can now query other identifiers from another source using these CAS numbers (Figure~\ref{fig:fig1}), like PubChem
 <<token, echo=FALSE>>=
 # this is a webchem specific token. 
 # Please use it only for reproduction / testing.
@@ -285,8 +285,8 @@ res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles,
   stringsAsFactors = FALSE)
 @
 
-Note, that in order to use the ChemSpider functions, a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider web page. 
-We end up with a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other data sets, e.g.\ the \code{lc50} data set based on CAS.
+Note that in order to use the ChemSpider functions, a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider web page. 
+Finally, we obtain a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other data sets, e.g.\ the \code{lc50} data set based on CAS.
 
 \begin{table}[ht]
 \centering
@@ -313,21 +313,21 @@ print(xtable(tmp),
 
 \subsection[Toxicity of different pesticide groups]{Toxicity of different pesticide groups}
 Another question we might ask is \emph{How does toxicity vary between insecticide groups?}
-Answering this question would require tedious look up of insecticide groups for each of the 124 CAS numbers in the \code{lc50} data set.
+Answering this question would require tedious lookup of insecticide groups for each of the 124 CAS numbers in the \code{lc50} data set.
 The Compendium of Pesticide Common Names \citep{wood} contains such information and can be easily queried using CAS numbers with \pkg{webchem}: 
 
 <<aw_query, message = FALSE>>=
 aw_data <- aw_query(lc50$cas, type = 'cas')
 @
 
-To extract the chemical group from the retrieved data set, we need to write a simple extractor function and apply this to the retrieved data:
+To extract the chemical group from the retrieved data set, we write a simple extractor function and apply this to the retrieved data:
 
 <<subactivty, message = FALSE>>=
 igroup <- sapply(aw_data, function(y) y$subactivity[1])
 igroup[1:3]
 @
 
-Figure \ref{fig:fig2} displays the result after some more data cleaning (see supplement for full code).
+Figure \ref{fig:fig2} displays the result after additional data cleaning (see supplement for full code).
 Overall, it took only 5 \proglang{R} statements to retrieve, clean and plot the data using \pkg{ggplot2} \citep{ggplot2}.
 
 \begin{figure}[ht]
@@ -354,7 +354,7 @@ p
 
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
-Some data sources contain also data on chemical properties that can be queried.
+Some data sources also provide data on chemical properties that can be queried.
 Here we query for the \code{lc50} data the $\mathrm{log}~P_{oct/wat}$ from the SRC PHYSPROP database to build a simple quantitative structure–activity relationship (QSAR) to predict toxicity.
 
 <<qsar, message=FALSE, cache=TRUE, warning=FALSE>>=
@@ -374,8 +374,8 @@ lc50$logp <- sapply(pp_data, function(y) {
 @
 
 We opted for this more complex approach, because the information available is very diverse and we cannot provide an extractor function for each purpose.
-Moreover, it gives users full control over how to organize their data. 
-Nevertheless, we provide in the documentation of each function examples on how to extract more complicated parts of the data.
+Moreover, it provides users with high flexibility regarding organisation of their data. 
+Nevertheless, in the documentation of each function we provide examples on how to extract more complicated parts of the data.
 The resulting data and model is displayed in Figure~\ref{fig:fig3}.
 
 \begin{figure}[ht]
@@ -408,15 +408,15 @@ Blue line indicates the regression model ($\mathrm{log~LC}_{50} = \Sexpr{coefs[1
 \end{figure}
 
 
-\subsection[Legal information]{Legal information}
-Legal information is particularly of interest if concentrations exceed national thresholds.
-In the European Union (EU) the Water Framework Directive (WFD) defines Environmental Quality Standards (EQS).
-Similarly, in the U.S. and Canadian EPA and the WHO defines Quality Standards.
+\subsection[Regulatory information]{Regulatory information}
+Regulatory information is particularly of interest if concentrations exceed national thresholds.
+In the European Union (EU) the Water Framework Directive (WFD, \citet{wfd2000directive}) defines Environmental Quality Standards (EQS).
+Similarly, the U.S. and Canadian EPA and the WHO define Quality Standards.
 Information on these standards can be queried with \pkg{webchem} from the PAN Pesticide Database (using \code{pan\_query()}) and from ETOX (using \code{etox\_targets()}).
 
-In this example we search for the minimum EQS for the EU for the compounds in the \code{jagst} data set, join these with measureds concentrations and check if there have been any exceedances.
+In this example we search for the minimum EQS for the EU for the compounds in the \code{jagst} data set, join these with measured concentrations and evaluate wether exceedances occurred..
 
-We re-use the above queried ETOX-IDs to get further information from ETOX, namely the MAC-EQS:
+We re-use the above queried ETOX-IDs to obtain further information from ETOX, namely the MAC-EQS:
 <<search_targests, message=FALSE, warning=FALSE>>=
 eqs <- etox_targets(ids$etoxid)
 ids$mac <- sapply(eqs, function(y){
@@ -430,9 +430,9 @@ ids$mac <- sapply(eqs, function(y){
 })
 @
 
-Again, the returned information is humongous and we encourage the users to study the returned objects and description of the data source.
-Here the column \code{Designation} defines the type of EQS and \code{Value_Target_LR} contains the value.
-Unfortunately, we found MAC-EQS values only for 5 substances:
+Again, the returned information is humongous and we encourage users to study the returned objects and description of the data source.
+Here, the column \code{Designation} defines the type of EQS and \code{Value_Target_LR} contains the value.
+Unfortunately, we only found MAC-EQS values for 5 substances:
 
 <<mac>>=
 (mac <- with(ids, ids[!is.na(mac) & is.finite(mac), 
@@ -446,7 +446,7 @@ jagst_eqs <- merge(jagst, mac, by.x = 'substance', by.y = 'query')
 head(jagst_eqs)
 @
 
-Finally, we can compare the measured value with the MAC, which reveals that there have been no exceedances of these 5 compounds.
+Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 5 compounds.
 
 
 
@@ -468,16 +468,16 @@ is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5',
 
 \section[Discussion]{Discussion}
 \subsection[Related software]{Related software}
-Within the \proglang{R} ecosystem, there are only few similar projects:
-\pkg{rpubchem} \citep{rpubchem_2014} provides an interface PubChem.
-Similarly, \pkg{ChemmineR} \citep{chemminer_2008}, a mature chemo-informatics package, also provides an interface to Pubchem. 
+Within the \proglang{R} ecosystem, there are only a few similar projects:
+\pkg{rpubchem} \citep{rpubchem_2014} provides an interface to PubChem.
+Similarly, \pkg{ChemmineR} \citep{chemminer_2008}, a mature chemo-informatics package, provides an interface to Pubchem. 
 \pkg{webchem} does not provide any chemo-informatic functionality, but integrates access to many data sources.
 \pkg{WikidataR} \citep{wikidatar_2016} provides an interface to wikidata that could be used to retrieve chemical data from Wikipedia.
 However, it does not provide predefined methods for chemical data like \pkg{webchem}.
 Within the \proglang{Python} ecosystem the libraries \pkg{PubChempy} \citep{pubchempy}, \pkg{ChemSpiPy} \citep{chemspipy} and \pkg{CIRpy} \citep{cirpy} are available for similar tasks as those outlined here.
 \pkg{webchem} is not specialized and tries to integrate many data sources and for some of these it provides a unique programmatic interface.
 The Chemical Translation Service \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010}, which is also one of the sources that can be queried, allows batch conversion of chemical identifiers.
-However, it does not provide access to other data (experimental, modeled or legal data).
+However, it does not provide access to other data (experimental, modeled or regulatory data).
 
 
 \subsection[Open Science]{Open Science}

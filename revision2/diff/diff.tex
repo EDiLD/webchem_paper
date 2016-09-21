@@ -1,4 +1,7 @@
 \documentclass[article, shortnames]{jss}\usepackage[]{graphicx}\usepackage[]{color}
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL article_r1.tex   Tue Sep 20 10:04:51 2016
+%DIF ADD article.tex      Wed Sep 21 10:51:33 2016
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -30,9 +33,15 @@
 A wide range of chemical information is freely available online, including identifiers, experimental and predicted chemical properties.
 However, these data are scattered over various data sources and not easily accessible to researchers.
 Manual searching and downloading of such data is time-consuming and error-prone.  
+%DIF 33d33
+%DIF <   
+%DIF -------
 We developed the open-source \proglang{R} package \pkg{webchem} that allows users to automatically query chemical data from currently 11 web sources. 
 These cover a broad spectrum of information.
 The data are automatically imported into an \proglang{R} object and can directly be used in subsequent analyses.
+%DIF 37d36
+%DIF <   
+%DIF -------
 \pkg{webchem} enables easy, structured and reproducible data retrieval and usage from publicly available web sources.
 In addition, it facilitates data cleaning, identification and reporting of substances.
 Consequently, it reduces the time researchers need to spend on chemical data compilation.
@@ -68,32 +77,71 @@ Consequently, it reduces the time researchers need to spend on chemical data com
 % citation alias for LUBW institution
 \defcitealias{lubw_2016}{LUBW (2016)}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\definecolor{green}{rgb}{0, 0.5, 0}
+\providecommand{\DIFadd}[1]{{\protect\color{green}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
 \begin{document}
 
 
 
 
 \section[Introduction]{Introduction}
-Before each statistical analysis, data cleaning is often required to ensure good data quality.
+Before each statistical analysis, data cleaning is often required to ensure \DIFdelbegin \DIFdel{a }\DIFdelend good data quality.
 Data cleaning is the process of detecting errors and inconsistencies in data sets \citep{Chapman_2005}.
-In practice, the data cleaning step is often more time consuming than the subsequent statistical analysis, particularly, when the analysis relies on the joining of multiple data sources.
+In practice, the data cleaning step is often more time consuming than the subsequent statistical analysis, particularly, when the analysis relies on \DIFaddbegin \DIFadd{the joining of }\DIFaddend multiple data sources\DIFdelbegin \DIFdel{that need to be joined}\DIFdelend .
 
-When dealing with chemical data sets (e.g.\ environmental monitoring data, toxicological data), a first step is often to validate the names of chemicals or to link them to unique codes that simplify subsequent querying and appending of compound-related physico-chemical or toxicological information.
+When dealing with chemical \DIFdelbegin \DIFdel{datasets }\DIFdelend \DIFaddbegin \DIFadd{data sets }\DIFaddend (e.g.\ environmental monitoring data, toxicological data), a first step is often to validate the names of chemicals or to link them to unique codes that simplify subsequent querying and appending of compound-related physico-chemical or toxicological information.
 Several web sources provide chemical names or link them to unique codes (see also section \emph{Data sources} below).
 However, manual searching for each compound, often through a graphical web interface, is tedious, error-prone and not reproducible \citep{Peng_2009}.
 
 To simplify, robustify and automate this task, i.e.\ to search and retrieve chemical information from the web, we created the \pkg{webchem} package for the free and open source \proglang{R} language \citep{r_2015, Wehrens_2011}.
-\proglang{R} is one of the most widely used software environments for data cleaning, analysing and visualising data, and supports full reproducibility of each step \citep{Marwick_2016}.
+\proglang{R} is one of the most widely used software \DIFaddbegin \DIFadd{environments }\DIFaddend for data cleaning, analysing and visualising data, and supports full reproducibility of each step \citep{Marwick_2016}.
 
 In the following, we describe the basic functionality of the package and demonstrate with a few use cases how to clean and retrieve new data with \pkg{webchem}.
 
 
 \section[Implementation and design details]{Implementation and design details}
 The \pkg{webchem} package is written entirely in \proglang{R} and available under a MIT license.
-The development repository is hosted on \citet{github} and a stable version is released on the official \proglang{R} repository \citep{cran}.
-\pkg{webchem} is part of the rOpenSci project \citep{boettiger2015building}, which aims at fully reproducible data analysis.
+The development repository is hosted on \DIFdelbegin \DIFdel{GitHub (}%DIFDELCMD < \url{https://github.com/ropensci/webchem}%%%
+\DIFdel{) }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citet{github}
+}%DIFAUXCMD
+}\DIFaddend and a stable version is released on the official \proglang{R} repository \DIFdelbegin \DIFdel{(CRAN, }%DIFDELCMD < \url{https://CRAN.R-project.org/package=webchem}%%%
+\DIFdel{)}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep{cran}
+}%DIFAUXCMD
+}\DIFaddend .
+\pkg{webchem} is part of the rOpenSci project \DIFdelbegin \DIFdel{(}%DIFDELCMD < \url{https://ropensci.org/}%%%
+\DIFdel{)}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep{boettiger2015building}
+}%DIFAUXCMD
+}\DIFaddend , which aims at fully reproducible data analysis.
 
-\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently approximately 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via \citet{travis-ci} and \citet{appveyor}; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
+\pkg{webchem} follows best practices for scientific software \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public available repository with easy collaboration and an issue tracker (via GitHub), (ii) a non-restrictive license, version control (git), (iii) an elaborate test-suite covering more than 90\% of the relevant lines of code (currently \DIFdelbegin \DIFdel{\textasciitilde }\DIFdelend \DIFaddbegin \DIFadd{approximately }\DIFaddend 1500 lines, using \pkg{testthat} \citep{wickham_testthat:_2011}), (iv) continuous integration (via \DIFdelbegin \DIFdel{Travis-CI and AppVeyor}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citet{travis-ci}
+}%DIFAUXCMD
+and \mbox{%DIFAUXCMD
+\citet{appveyor}
+}%DIFAUXCMD
+}\DIFaddend ; testing on Linux \& Windows with current and development \proglang{R} versions), (v) in-source documentation (using \pkg{roxygen2} \citep{wickham_roxygen2:_2015}) and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
 
 \pkg{webchem} builds on top of the following \proglang{R} packages:
 \pkg{RCurl} \citep{lang_rcurl:_2015} and \pkg{httr} \citep{wickham_httr} for data transfer,
@@ -105,7 +153,7 @@ For parsing molfiles we use a lightweight implementation of \citep{Grabner_Varmu
 
 Some data sources provide application programming interfaces (API).
 Web APIs define functions that allow accessing services and data via http and return data in a specific way.
-\pkg{webchem} uses the API of a data source provider, where available.
+\pkg{webchem} uses the API of a data source provider, where \DIFdelbegin \DIFdel{this is provided}\DIFdelend \DIFaddbegin \DIFadd{available}\DIFaddend .
 For sources where an API is lacking, data is directly searched and extracted from the web pages, analogous to manual interaction with a website.
 
 Only few design decisions have been made:
@@ -115,8 +163,8 @@ Some functions require querying first a unique identifier from the data source a
 The prefix \code{get} is used to denote these functions, e.g.\ \code{get\_csid} to retrieve the identifier used in ChemSpider.
 
 \pkg{webchem} is friendly to the resources of data providers. 
-Between each request there is a time-out of 0.3 to 2 seconds depending on the data source. 
-Therefore, processing of larger data sets can take some time, but still represents a major improvement compared to manual lookup.
+Between each request there is a time-out of 0.3 to 2 seconds depending on the \DIFdelbegin \DIFdel{datasource}\DIFdelend \DIFaddbegin \DIFadd{data source}\DIFaddend . 
+Therefore, processing of larger \DIFdelbegin \DIFdel{datasets }\DIFdelend \DIFaddbegin \DIFadd{data sets }\DIFaddend can take some time, but still represents a major improvement compared to manual lookup.
 We provide a link to the \emph{Terms of Use} of data providers in the documentation of each function and we encourage the users to read these before using \pkg{webchem}.
 Moreover, all functions return an URL of the source, which can be used for \mbox{(micro-)attribution}.
 
@@ -124,25 +172,39 @@ Moreover, all functions return an URL of the source, which can be used for \mbox
 \section[Data sources]{Data sources}
 The backbone of \pkg{webchem} are data sources providing their data and functionality to the public.
 Currently, data can be retrieved from 11 sources.
-These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and regulatory information (Figure~\ref{fig:fig1}, a detailed overview of all sources is included as supplement):
+These cover a broad spectrum of available data, like identifiers, experimental and predicted properties and \DIFdelbegin \DIFdel{legal }\DIFdelend \DIFaddbegin \DIFadd{regulatory }\DIFaddend information (Figure~\ref{fig:fig1}, a detailed overview of all sources is included as supplement):
 
 \begin{description}
   \item[NIH Chemical Identifier Resolver (CIR) \citep{cir}]{A web service that converts from and to various chemical identifiers.}
   \item[Chemical Translation Service (CTS) \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010}]{A web service that converts from and to various chemical identifiers.}
   \item[ETOX \citep{etox}]{Information System Ecotoxicology and Environmental Quality Targets by the German Federal Environmental Agency. Provides basic identifiers, synonyms, ecotoxicological data and quality targets for different countries.}
   \item[PAN Pesticide Database \citep{pan}]{Information on pesticides - provides basic identifiers, ecotoxicological data and chemical properties.}
-  \item[SRC Physprop \citep{physprop}]{Contains physical properties for over 41,000 chemicals.
+  \DIFdelbegin %DIFDELCMD < \item[SRC Physprop \citep{physprop}]{Contains physical properties for over 41,000 chemicals.
+%DIFDELCMD <   Physical properties collected from a wide variety of sources including experimental and modelled values.}
+%DIFDELCMD <   %%%
+\DIFdelend \DIFaddbegin \item[SRC Physprop \mbox{%DIFAUXCMD
+\citep{physprop}
+}%DIFAUXCMD
+]{Contains physical properties for over 41,000 chemicals.
   Physical properties collected from a wide variety of sources including experimental and modeled values.}
-  \item[PubChem \citep{Kim_2016}]{PubChem is a public repository for information on chemical substances, providing identifiers, properties and synonyms.
+  \DIFaddend \item[PubChem \citep{Kim_2016}]{PubChem is a public repository for information on chemical substances, providing identifiers, properties and synonyms.
   We use an interface to the PUG-REST web service \citep{Kim_Thiessen_Bolton_Bryant_2015}.}
-  \item[Wikidata \citep{wiki}]{Wikipedia contains information for over 15,000 chemicals \citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently \pkg{webchem} can only query chemical identifiers.}
-  \item[Compendium of Pesticide Common Names \citep{wood}]{The compendium provides information on pesticide common names, identifiers and classification.}
+  \DIFdelbegin %DIFDELCMD < \item[Wikidata \citep{wiki}]{Wikipedia contains information entries for over 15,000 chemicals \citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently \pkg{webchem} can query only chemical identifiers only.}
+%DIFDELCMD <   %%%
+\DIFdelend \DIFaddbegin \item[Wikidata \mbox{%DIFAUXCMD
+\citep{wiki}
+}%DIFAUXCMD
+]{Wikipedia contains information for over 15,000 chemicals \mbox{%DIFAUXCMD
+\citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}
+}%DIFAUXCMD
+. Currently \pkg{webchem} can only query chemical identifiers.}
+  \DIFaddend \item[Compendium of Pesticide Common Names \citep{wood}]{The compendium provides information on pesticide common names, identifiers and classification.}
   \item[ChemID\emph{plus} \citep{Tomasulo_2002}]{is a large web-based database provided by the National Library of Medicine. It provides identifiers, synonyms, toxicological data and chemical properties.}
   \item[ChemSpider \citep{pence_chemspider:_2010}]{is a free chemical structure database providing access to over 40 million structures. It provides identifiers, properties and can also be used to convert identifiers.}
   \item[OPSIN  \citep{Lowe_Corbett_Murray-Rust_Glen_2011}]{The Open Parser for Systematic IUPAC nomenclature is a chemical name interpreter and provides InChI and SMILES identifiers.}
 \end{description}
 
-Though the data sources exhibit some overlap in the provided information, each has been selected because it also provides unique information and we encourage the interested reader to consult the related source for details. 
+Though the data sources exhibit some overlap in the provided information, each has been selected because it \DIFaddbegin \DIFadd{also }\DIFaddend provides unique information and we encourage the interested reader to consult the related source for details. 
 However, we provide a brief overview in the Supporting Information.
 
 \begin{figure}[ht]
@@ -164,22 +226,28 @@ R> library("webchem")
 \end{CodeInput}
 \end{CodeChunk}
 
-\begin{CodeChunk}
+\DIFaddbegin \begin{CodeChunk}
 \end{CodeChunk}
 
 
-The package is under active development. The latest development version is available from GitHub and also permanently available at \citet{zenodo}.
+\DIFaddend The package is under active development. The latest development version is available from GitHub and also permanently available at \DIFdelbegin %DIFDELCMD < \url{http://dx.doi.org/10.5281/zenodo.46930}%%%
+\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citet{zenodo}
+}%DIFAUXCMD
+}\DIFaddend .
 This document has been created using \pkg{webchem} version 0.1.
 
 
-\subsection[Sample data sets]{Sample data sets}
-To demonstrate the capabilities of  \pkg{webchem} we use two small publicly available real world data sets.
-The data sets are only used for purpose of demonstration, have been slightly preprocessed (not shown) and are available through the package.
+\DIFdelbegin %DIFDELCMD < \subsection[Sample datasets]{%%%
+\DIFdelend \DIFaddbegin \subsection[Sample data sets]{\DIFaddend Sample \DIFdelbegin \DIFdel{datasets}\DIFdelend \DIFaddbegin \DIFadd{data sets}\DIFaddend }
+To demonstrate the capabilities of  \pkg{webchem} we use two small publicly available real world \DIFdelbegin \DIFdel{datasets.
+The datasets are only for demonstration purposes}\DIFdelend \DIFaddbegin \DIFadd{data sets.
+The data sets are only used for purpose of demonstration}\DIFaddend , have been slightly preprocessed (not shown) and are available through the package.
 
-(i) \code{jagst}: This data set comprises environmental monitoring data of organic substances in the river Jagst, Germany, sampled in 2013.
+(i) \code{jagst}: This \DIFdelbegin \DIFdel{dataset }\DIFdelend \DIFaddbegin \DIFadd{data set }\DIFaddend comprises environmental monitoring data of organic substances in the river Jagst, Germany, sampled in 2013.
 The data is publicly available and can be retrieved from \citetalias{lubw_2016}.
 It comprises concentrations  (in $\mathrm{\mu g~/~L}$) of  34 substances  on 13 sampling occasions.
-First we load the data set and inspect the first six rows:
+First we load the \DIFdelbegin \DIFdel{dataset and take a look at }\DIFdelend \DIFaddbegin \DIFadd{data set and inspect }\DIFaddend the first six rows:
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -197,7 +265,7 @@ R> head(jagst)
 \end{CodeOutput}
 \end{CodeChunk}
 
-This data set identifies substances only by substance names. Values below the limit of quantification (LOQ) are indicated by a qualifier column.
+This \DIFdelbegin \DIFdel{dataset }\DIFdelend \DIFaddbegin \DIFadd{data set }\DIFaddend identifies substances only by substance names. Values below the limit of quantification (LOQ) are indicated by a qualifier column.
 
 (ii) \code{lc50}: This data consists of median acute lethal concentration for the water flea \textit{Daphnia magna} in 48 h tests ($LC_{50, D.magna, 48h}$) of 124 insecticides.
 The data has been retrieved from the EPA ECOTOX database \citep{epa_2016}.
@@ -229,7 +297,7 @@ One possibility to resolve this, is to use different chemical identifiers allowi
 There are several identifiers available, e.g.\  registry numbers like CAS or EC, database identifiers like PubChemCID \citep{Kim_2016} or ChemSpiderID \citep{pence_chemspider:_2010}, line notations like SMILES \citep{Weininger_1990}, InChI and InChiKey \citep{Heller_McNaught_Pletnev_Stein_Tchekhovskoi_2015}. 
 In this first example we query several identifiers to create a table that can be used as (i) supplemental information to a research article or (ii) to facilitate subsequent matching with other data.
 
-As we are are dealing with German substance names we start to query ETOX for CAS registry numbers.
+As \DIFdelbegin \DIFdel{were }\DIFdelend \DIFaddbegin \DIFadd{we are }\DIFaddend are dealing with German substance names we start to query ETOX for CAS registry numbers.
 A common work flow when dealing with web resources is to 1) query a unique identifier of the source, 2) use this identifier to retrieve additional information and 3) extract the parts that are needed from the \proglang{R} object \citep{Chamberlain_Szocs_2013}.
 
 First we search for ETOX internal ID numbers using the substance names:
@@ -252,9 +320,9 @@ R> head(ids)
 \end{CodeChunk}
 
 Only three substances could not be found in ETOX. 
-Here we specify that only the \emph{`best'} match (in terms of the Levenshtein distance between query and results) is returned. 
+Here we specify that only the \emph{\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{`}\DIFaddend best'} match (in terms of the Levenshtein distance between query and results) is returned. 
 A manual check confirms appropriate matches. 
-Other options include: \emph{`all'} - returns all matches; \emph{`first'} - returns only the first match (not necessarily the best match); \emph{`ask'} - this enters an interactive mode, where the user is asked for a choice if multiple matches are found and \emph{`na'} which returns \code{NA} in case of multiple matches.
+Other options include: \emph{\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{`}\DIFaddend all'} - returns all matches; \emph{\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{`}\DIFaddend first'} - returns only the first match (not necessarily the best match); \emph{\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{`}\DIFaddend ask'} - this enters an interactive mode, where the user is asked for a choice if multiple matches are found and \emph{\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{`}\DIFaddend na'} which returns \code{NA} in case of multiple matches.
 
 We use these data to retrieve basic information on the substances.
 
@@ -280,9 +348,10 @@ R> head(etox_cas)
 A variety of data are available and we cannot provide extractor functions for each of those.
 Therefore, if users need to extract other data, they have to write simple extractor functions (see following examples).
 
-In the same manner, we can now query other identifiers from another source using these CAS numbers (Figure~\ref{fig:fig1}), like PubChem
-\begin{CodeChunk}
+In the same manner\DIFaddbegin \DIFadd{, }\DIFaddend we can now query other identifiers from \DIFdelbegin \DIFdel{other source using this }\DIFdelend \DIFaddbegin \DIFadd{another source using these }\DIFaddend CAS numbers (Figure~\ref{fig:fig1}), like PubChem
+\DIFaddbegin \begin{CodeChunk}
 \end{CodeChunk}
+\DIFaddend 
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -310,12 +379,30 @@ R> res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles,
 \end{CodeInput}
 \end{CodeChunk}
 
-Note that in order to use the ChemSpider functions, a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider web page. 
-Finally, we obtain a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other data sets, e.g.\ the \code{lc50} data set based on CAS.
+Note \DIFdelbegin \DIFdel{, }\DIFdelend that in order to use the ChemSpider functions, a personal authentication key (\code{token}) is needed, which can be retrieved from the ChemSpider \DIFdelbegin \DIFdel{webpage. 
+We end up with }\DIFdelend \DIFaddbegin \DIFadd{web page. 
+Finally, we obtain }\DIFaddend a compound table containing many different identifiers (Table~\ref{tab:comptable}), allowing easy identification and merging with other \DIFdelbegin \DIFdel{datasets}\DIFdelend \DIFaddbegin \DIFadd{data sets}\DIFaddend , e.g.\ the \code{lc50} \DIFdelbegin \DIFdel{dataset }\DIFdelend \DIFaddbegin \DIFadd{data set }\DIFaddend based on CAS.
 
 \begin{table}[ht]
 \centering
-\begin{CodeChunk}
+\DIFdelbeginFL %DIFDELCMD < \begin{CodeChunk}
+%DIFDELCMD < % latex table generated in R 3.2.5 by xtable 1.8-2 package
+%DIFDELCMD < % Sat Apr 23 22:38:04 2016
+%DIFDELCMD < \begin{tabular}{llllll}
+%DIFDELCMD <   \toprule
+%DIFDELCMD < Name & CAS & SMILES & CID & InChIKey & CSID \\ 
+%DIFDELCMD <   \midrule
+%DIFDELCMD < 2,4-Dimethylphenol & 105-67-9 & CC1=CC(... & 7771 & - & - \\ 
+%DIFDELCMD <   4-Chlor-2-methylphenol & 1570-64-5 & CC1=C(C... & 14855 & - & - \\ 
+%DIFDELCMD <   4-para-nonylphenol & - & - & - & - & - \\ 
+%DIFDELCMD <   Atrazin & 1912-24-9 & CCNC1=N... & 2256 & - & - \\ 
+%DIFDELCMD <   Benzol & 71-43-2 & C1=CC=C... & 241 & - & - \\ 
+%DIFDELCMD <   Desethylatrazin & 6190-65-4 & CC(C)NC... & 22563 & - & - \\ 
+%DIFDELCMD <    \bottomrule
+%DIFDELCMD < \end{tabular}
+%DIFDELCMD < \end{CodeChunk}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \begin{CodeChunk}
 % latex table generated in R 3.3.1 by xtable 1.8-2 package
 % Tue Sep 20 16:29:57 2016
 \begin{tabular}{llllll}
@@ -331,7 +418,7 @@ Name & CAS & SMILES & CID & InChIKey & CSID \\
    \bottomrule
 \end{tabular}
 \end{CodeChunk}
-\caption{Identifiers for the jagst data sets as queried with \pkg{webchem}. Only the first 6 entries are shown. For SMILES and InChIKey only the first 7 characters are shown. - = not found.}
+\DIFaddendFL \caption{Identifiers for the jagst \DIFdelbeginFL \DIFdelFL{datasets }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{data sets }\DIFaddendFL as queried with \pkg{webchem}. Only the first 6 entries are shown. For SMILES and InChIKey only the first 7 characters are shown. - = not found.}
 \label{tab:comptable}
 \end{table}
 
@@ -339,7 +426,7 @@ Name & CAS & SMILES & CID & InChIKey & CSID \\
 
 \subsection[Toxicity of different pesticide groups]{Toxicity of different pesticide groups}
 Another question we might ask is \emph{How does toxicity vary between insecticide groups?}
-Answering this question would require tedious lookup of insecticide groups for each of the 124 CAS numbers in the \code{lc50} data set.
+Answering this question would require tedious lookup of insecticide groups for each of the 124 CAS numbers in the \code{lc50} \DIFdelbegin \DIFdel{dataset}\DIFdelend \DIFaddbegin \DIFadd{data set}\DIFaddend .
 The Compendium of Pesticide Common Names \citep{wood} contains such information and can be easily queried using CAS numbers with \pkg{webchem}: 
 
 \begin{CodeChunk}
@@ -348,7 +435,7 @@ R> aw_data <- aw_query(lc50$cas, type = 'cas')
 \end{CodeInput}
 \end{CodeChunk}
 
-To extract the chemical group from the retrieved data set, we write a simple extractor function and apply this to the retrieved data:
+To extract the chemical group from the retrieved \DIFdelbegin \DIFdel{dataset, we need to }\DIFdelend \DIFaddbegin \DIFadd{data set, we }\DIFaddend write a simple extractor function and apply this to the retrieved data:
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -365,7 +452,7 @@ R> igroup[1:3]
 \end{CodeOutput}
 \end{CodeChunk}
 
-Figure \ref{fig:fig2} displays the result after additional data cleaning (see supplement for full code).
+Figure \ref{fig:fig2} displays the result after \DIFdelbegin \DIFdel{some more }\DIFdelend \DIFaddbegin \DIFadd{additional }\DIFaddend data cleaning (see supplement for full code).
 Overall, it took only 5 \proglang{R} statements to retrieve, clean and plot the data using \pkg{ggplot2} \citep{ggplot2}.
 
 \begin{figure}[ht]
@@ -383,7 +470,7 @@ Overall, it took only 5 \proglang{R} statements to retrieve, clean and plot the 
 
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
-Some data sources also provide data on chemical properties that can be queried.
+Some data sources \DIFdelbegin \DIFdel{contain also }\DIFdelend \DIFaddbegin \DIFadd{also provide }\DIFaddend data on chemical properties that can be queried.
 Here we query for the \code{lc50} data the $\mathrm{log}~P_{oct/wat}$ from the SRC PHYSPROP database to build a simple quantitative structure–activity relationship (QSAR) to predict toxicity.
 
 \begin{CodeChunk}
@@ -407,8 +494,8 @@ R> lc50$logp <- sapply(pp_data, function(y) {
 \end{CodeChunk}
 
 We opted for this more complex approach, because the information available is very diverse and we cannot provide an extractor function for each purpose.
-Moreover, it provides users with high flexibility regarding organisation of their data. 
-Nevertheless, in the documentation of each function we provide examples on how to extract more complicated parts of the data.
+Moreover, it \DIFdelbegin \DIFdel{gives users full control over how to organize }\DIFdelend \DIFaddbegin \DIFadd{provides users with high flexibility regarding organisation of }\DIFaddend their data. 
+Nevertheless, \DIFdelbegin \DIFdel{we provide }\DIFdelend in the documentation of each function \DIFaddbegin \DIFadd{we provide }\DIFaddend examples on how to extract more complicated parts of the data.
 The resulting data and model is displayed in Figure~\ref{fig:fig3}.
 
 \begin{figure}[ht]
@@ -427,16 +514,21 @@ Blue line indicates the regression model ($\mathrm{log~LC}_{50} = 2.88\ensuremat
 \end{figure}
 
 
-\subsection[Regulatory information]{Regulatory information}
-Regulatory information is particularly of interest if concentrations exceed national thresholds.
-In the European Union (EU) the Water Framework Directive (WFD, \citet{wfd2000directive}) defines Environmental Quality Standards (EQS).
+\DIFaddbegin \subsection[Regulatory information]{\DIFadd{Regulatory information}}
+\DIFadd{Regulatory information is particularly of interest if concentrations exceed national thresholds.
+In the European Union (EU) the Water Framework Directive (WFD, \mbox{%DIFAUXCMD
+\citet{wfd2000directive}
+}%DIFAUXCMD
+) defines Environmental Quality Standards (EQS).
 Similarly, the U.S. and Canadian EPA and the WHO define Quality Standards.
-Information on these standards can be queried with \pkg{webchem} from the PAN Pesticide Database (using \code{pan\_query()}) and from ETOX (using \code{etox\_targets()}).
+Information on these standards can be queried with }\pkg{webchem} \DIFadd{from the PAN Pesticide Database (using }\code{pan\_query()}\DIFadd{) and from ETOX (using }\code{etox\_targets()}\DIFadd{).
+}
 
-In this example we search for the minimum EQS for the EU for the compounds in the \code{jagst} data set, join these with measured concentrations and evaluate wether exceedances occurred..
+\DIFadd{In this example we search for the minimum EQS for the EU for the compounds in the }\code{jagst} \DIFadd{data set, join these with measured concentrations and evaluate wether exceedances occurred..
+}
 
-We re-use the above queried ETOX-IDs to obtain further information from ETOX, namely the MAC-EQS:
-\begin{CodeChunk}
+\DIFadd{We re-use the above queried ETOX-IDs to obtain further information from ETOX, namely the MAC-EQS:
+}\begin{CodeChunk}
 \begin{CodeInput}
 R> eqs <- etox_targets(ids$etoxid)
 R> ids$mac <- sapply(eqs, function(y){
@@ -451,9 +543,10 @@ R> ids$mac <- sapply(eqs, function(y){
 \end{CodeInput}
 \end{CodeChunk}
 
-Again, the returned information is humongous and we encourage users to study the returned objects and description of the data source.
-Here, the column \code{Designation} defines the type of EQS and \code{Value_Target_LR} contains the value.
+\DIFadd{Again, the returned information is humongous and we encourage users to study the returned objects and description of the data source.
+Here, the column }\code{Designation} \DIFadd{defines the type of EQS and }\code{Value_Target_LR} \DIFadd{contains the value.
 Unfortunately, we only found MAC-EQS values for 5 substances:
+}
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -470,9 +563,9 @@ R> (mac <- with(ids, ids[!is.na(mac) & is.finite(mac),
 \end{CodeOutput}
 \end{CodeChunk}
 
-The \code{get_etoxid()} function used to search ETOX-IDs returns also the original substance name (\code{query}),
+\DIFadd{The }\code{get_etoxid()} \DIFadd{function used to search ETOX-IDs returns also the original substance name (}\code{query}\DIFadd{),
 so that we can easily join the table with MAC values with the measurements table :
-\begin{CodeChunk}
+}\begin{CodeChunk}
 \begin{CodeInput}
 R> jagst_eqs <- merge(jagst, mac, by.x = 'substance', by.y = 'query')
 R> head(jagst_eqs)
@@ -488,12 +581,13 @@ R> head(jagst_eqs)
 \end{CodeOutput}
 \end{CodeChunk}
 
-Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 5 compounds.
+\DIFadd{Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 5 compounds.
+}
 
 
 
 
-\subsection[Utility functions]{Utility functions}
+\DIFaddend \subsection[Utility functions]{Utility functions}
 Furthermore, \pkg{webchem} provides also basic functions to check identifiers that can be used for data quality assessment.
 The functions either use simple formatting rules,
 
@@ -531,23 +625,34 @@ R> is.inchikey('BQJCRHHNABKAKU-KBQPJGBKSA-5',
 
 \section[Discussion]{Discussion}
 \subsection[Related software]{Related software}
-Within the \proglang{R} ecosystem, there are only a few similar projects:
-\pkg{rpubchem} \citep{rpubchem_2014} provides an interface to PubChem.
-Similarly, \pkg{ChemmineR} \citep{chemminer_2008}, a mature chemo-informatics package, provides an interface to Pubchem. 
-\pkg{webchem} does not provide any chemo-informatic functionality, but integrates access to many data sources.
+Within the \proglang{R} ecosystem, there are only \DIFaddbegin \DIFadd{a }\DIFaddend few similar projects:
+\pkg{rpubchem} \citep{rpubchem_2014} \DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{provides an interface to PubChem.
+Similarly, }\DIFaddend \pkg{ChemmineR} \citep{chemminer_2008}\DIFdelbegin \DIFdel{both provide }\DIFdelend \DIFaddbegin \DIFadd{, a mature chemo-informatics package, provides }\DIFaddend an interface to \DIFdelbegin \DIFdel{PubChem that is more extensive than the current one in }\DIFdelend \DIFaddbegin \DIFadd{Pubchem. 
+}\DIFaddend \pkg{webchem} \DIFaddbegin \DIFadd{does not provide any chemo-informatic functionality, but integrates access to many data sources}\DIFaddend .
 \pkg{WikidataR} \citep{wikidatar_2016} provides an interface to wikidata that could be used to retrieve chemical data from Wikipedia.
 However, it does not provide predefined methods for chemical data like \pkg{webchem}.
 Within the \proglang{Python} ecosystem the libraries \pkg{PubChempy} \citep{pubchempy}, \pkg{ChemSpiPy} \citep{chemspipy} and \pkg{CIRpy} \citep{cirpy} are available for similar tasks as those outlined here.
 \pkg{webchem} is not specialized and tries to integrate many data sources and for some of these it provides a unique programmatic interface.
 The Chemical Translation Service \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010}, which is also one of the sources that can be queried, allows batch conversion of chemical identifiers.
-However, it does not provide access to other data (experimental, modeled or regulatory data).
+However, it does not provide access to other data (experimental, modeled or \DIFdelbegin \DIFdel{legal }\DIFdelend \DIFaddbegin \DIFadd{regulatory }\DIFaddend data).
 
 
 \subsection[Open Science]{Open Science}
 An increasing number of scientific data is becoming publicly available \citep{Gewin_2016, Reichman_Jones_Schildhauer_2011,Boyle_Guha_2011}, either in public data repositories or as supplement to publications.
 To be usable for other researchers chemical compounds should be properly identified, not only by chemical names but also with accompanying identifiers like InChIKey, SMILES and authority-assigned identifiers.
-\pkg{webchem} provides an easy way to create such meta tables as shown in Table \ref{tab:comptable} and facilitates chemical data availability to researchers.
-However, good quality of data is crucial for every analysis \citep{Stieger_2014} and additional effort and methods are needed to validate data quality.
+\pkg{webchem} provides an easy way to create such meta tables as shown in Table \ref{tab:comptable} \DIFdelbegin \DIFdel{.
+}%DIFDELCMD < 
+
+%DIFDELCMD < \pkg{webchem} %%%
+\DIFdelend \DIFaddbegin \DIFadd{and }\DIFaddend facilitates chemical data availability to researchers.
+However, \DIFdelbegin \DIFdel{data quality is also crucial for data analysis \mbox{%DIFAUXCMD
+\citep{Stieger_2014}
+}%DIFAUXCMD
+. 
+Ensuring good quality requires }\DIFdelend \DIFaddbegin \DIFadd{good quality of data is crucial for every analysis \mbox{%DIFAUXCMD
+\citep{Stieger_2014}
+}%DIFAUXCMD
+and }\DIFaddend additional effort and methods \DIFdelbegin \DIFdel{to be developed}\DIFdelend \DIFaddbegin \DIFadd{are needed to validate data quality}\DIFaddend .
 
 \subsection[Further development]{Further development}
 We have outlined only a few use cases that will likely be useful for many researchers.

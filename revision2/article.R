@@ -1,7 +1,8 @@
 # -------------------------------------------------------------------------
-# Supplemental R Code to reproduce the resutls of
-# Szöcs, Schäfer (2016). webchem: an R Package to Retrieve Chemical Information from the Web
-# Date: 24.04.2016
+# Supplemental R Code to reproduce the results of
+# Szöcs, Schäfer (2016). webchem: an R Package to Retrieve Chemical Information 
+#     from the Web
+# Date: 21. September 2016
 # ------------------------------------------------------------------------
 
 
@@ -50,7 +51,7 @@ pc_smiles <- smiles(pc_data)
 # ChemSpider needs a security token
 # this is a webchem specific token. 
 # Please use it only for reproduction / testing.
-token <- 'b44136c5-49cf-4df4-ba18-e4676449d1f4'
+token <- '37bf5e57-9091-42f5-9274-650a64398aaf'
 # query InChiKey from ChemSpider
 csids <- get_csid(etox_cas, token = token)
 cs_data <- cs_compinfo(csids, token = token)
@@ -82,7 +83,8 @@ lc50$type <- ifelse(grepl('carbamat', igroup), 'Carbamates',
                   ifelse(grepl('organophosphate', igroup), 'Organo-\nphosphates', 
                          'other'))))
 lc50$type <- factor(lc50$type, levels = c("Pyrethroids", "Carbamates", 
-                                          "Organo-\nphosphates", "Neo-\nnicotinoids", 
+                                          "Organo-\nphosphates", 
+                                          "Neo-\nnicotinoids", 
                                           "other"))
 
 # plot
@@ -130,8 +132,31 @@ p <- ggplot(lc50, aes(x = logp, y = value)) +
   geom_smooth(method = 'lm') +
   labs(x = 'P', y = expression(LC[50])) +
   theme_bw() +
-  scale_x_continuous(breaks = c(0, 2, 4, 6), labels = format(10^c(0, 2, 4, 6), scientific = FALSE))
+  scale_x_continuous(breaks = c(0, 2, 4, 6), labels = format(10^c(0, 2, 4, 6), 
+                                                             scientific = FALSE))
 p
+
+# Use Case IV: Regulatory information -------------------------------------
+# search EQS from ETOX using the already queried ETOX_IDs
+eqs <- etox_targets(ids$etoxid)
+# extract only MAC-EQS for the EU from the results
+ids$mac <- sapply(eqs, function(y){
+  if (length(y) == 1 && is.na(y)) {
+    return(NA) 
+  } else {
+    res <- y$res
+    min(res[res$Country_or_Region == 'EEC / EU' & 
+              res$Designation == 'MAC-EQS', 'Value_Target_LR'])
+  }
+})
+# keep only compounds with MAC-EQS
+(mac <- with(ids, ids[!is.na(mac) & is.finite(mac), 
+                      c('etoxid', 'query', 'mac')]))
+
+# join with original data
+jagst_eqs <- merge(jagst, mac, by.x = 'substance', by.y = 'query')
+head(jagst_eqs)
+
 
 
 # Utility functions -------------------------------------------------------
