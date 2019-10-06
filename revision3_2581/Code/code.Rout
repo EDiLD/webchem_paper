@@ -1,0 +1,297 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # -------------------------------------------------------------------------
+> # Supplemental R Code to reproduce the results of
+> # Szöcs, Schäfer. webchem: An R Package to Retrieve Chemical Information 
+> #   from the Web
+> # ------------------------------------------------------------------------
+> 
+> 
+> # Install webchem from CRAN -----------------------------------------------
+> install.packages("webchem")
+Installing package into ‘/home/gruen/lib/R’
+(as ‘lib’ is unspecified)
+trying URL 'https://CRAN.wu.ac.at/src/contrib/webchem_0.4.0.tar.gz'
+Content type 'application/x-gzip' length 128176 bytes (125 KB)
+==================================================
+downloaded 125 KB
+
+* installing *source* package ‘webchem’ ...
+** package ‘webchem’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (webchem)
+
+The downloaded source packages are in
+	‘/tmp/Rtmp8R6A30/downloaded_packages’
+> 
+> 
+> # load packages -----------------------------------------------------------
+> library("webchem")
+> library("ggplot2")
+> 
+> 
+> # load datasets -----------------------------------------------------------
+> # load jagst dataset
+> data("jagst", package = "webchem")
+> # print first 6 lines of data
+> head(jagst)
+        date          substance value qual
+1 2013-01-04 2,4-Dimethylphenol 0.006    <
+2 2013-01-29 2,4-Dimethylphenol 0.006    <
+3 2013-02-26 2,4-Dimethylphenol 0.006    <
+4 2013-03-26 2,4-Dimethylphenol 0.006    <
+5 2013-04-23 2,4-Dimethylphenol 0.006    <
+6 2013-05-22 2,4-Dimethylphenol 0.006    <
+> 
+> # lc50 dataset
+> data("lc50", package = "webchem")
+> head(lc50)
+       cas        value
+4  50-29-3    12.415277
+12 52-68-6     1.282980
+15 55-38-9    12.168138
+18 56-23-5 35000.000000
+21 56-38-2     1.539119
+36 57-74-9    98.400000
+> 
+> 
+> # Use Case 1: Query identifiers -------------------------------------------
+> # unique substance names
+> subs <- unique(jagst$substance)
+> 
+> # search ETOX IDs, keeping only the best match
+> ids <- get_etoxid(subs, match = "best")
+Searching 2,4-Dimethylphenol
+More then one Link found. 
+
+Returning best match. 
+
+Searching 4-Chlor-2-methylphenol
+More then one Link found. 
+
+Returning best match. 
+
+Searching 4-para-nonylphenol
+Substance not found! Returing NA. 
+
+Searching Atrazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Benzol
+More then one Link found. 
+
+Returning best match. 
+
+Searching Desethylatrazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Desethylterbutylazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Dichlormethan
+More then one Link found. 
+
+Returning best match. 
+
+Searching DEET
+More then one Link found. 
+
+Returning best match. 
+
+Searching Diflufenican
+More then one Link found. 
+
+Returning best match. 
+
+Searching Irgarol
+More then one Link found. 
+
+Returning best match. 
+
+Searching Isoproturon
+More then one Link found. 
+
+Returning best match. 
+
+Searching MCPA
+More then one Link found. 
+
+Returning best match. 
+
+Searching Metalaxyl
+More then one Link found. 
+
+Returning best match. 
+
+Searching Metazachlor
+More then one Link found. 
+
+Returning best match. 
+
+Searching Metolachlor
+More then one Link found. 
+
+Returning best match. 
+
+Searching Penconazol
+More then one Link found. 
+
+Returning best match. 
+
+Searching Pendimethalin
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFBA
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFBS
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFHxA
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFOA
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFOS
+More then one Link found. 
+
+Returning best match. 
+
+Searching PFPA
+Substance not found! Returing NA. 
+
+Searching Pirimicarb
+More then one Link found. 
+
+Returning best match. 
+
+Searching Propazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Propiconazol
+More then one Link found. 
+
+Returning best match. 
+
+Searching Simazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Terbutryn
+More then one Link found. 
+
+Returning best match. 
+
+Searching Terbutylazin
+More then one Link found. 
+
+Returning best match. 
+
+Searching Tetrachlorethen
+More then one Link found. 
+
+Returning best match. 
+
+Searching Toluol
+More then one Link found. 
+
+Returning best match. 
+
+Searching Tribrommethan
+More then one Link found. 
+
+Returning best match. 
+
+Searching Trichlormethan
+More then one Link found. 
+
+Returning best match. 
+
+> head(ids)
+  etoxid                           match distance                  query
+1   8932     2,4-Dimethylphenol ( 8932 )        0     2,4-Dimethylphenol
+2   8494 4-Chlor-2-methylphenol ( 8494 )        0 4-Chlor-2-methylphenol
+3   <NA>                            <NA>     <NA>     4-para-nonylphenol
+4   8397                Atrazin ( 8397 )        0                Atrazin
+5   7240                 Benzol ( 7240 )        0                 Benzol
+6   7331        Desethylatrazin ( 7331 )        0        Desethylatrazin
+> 
+> # use this id to query information from ETOX
+> etox_data <- etox_basic(ids$etoxid)
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8932
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8494
+ID is NA! Returning NA.
+
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8397
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=7240
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=7331
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8765
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8660
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=2001
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8749
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8836
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=7442
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=824
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8773
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=7462
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=6264
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8790
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=8779
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=98894
+Querying https://webetox.uba.de/webETOX/public/basics/stoff.do?language=en&id=99015
+Error in matrix(NA_character_, nrow = n, ncol = maxp) : 
+  invalid 'ncol' value (too large or NA)
+Calls: etox_basic ... html_table.xml_document -> lapply -> FUN -> html_table.xml_node -> matrix
+In addition: Warning messages:
+1: In max(p) : no non-missing arguments to max; returning -Inf
+2: In matrix(NA_character_, nrow = n, ncol = maxp) :
+  NAs introduced by coercion to integer range
+Execution halted
