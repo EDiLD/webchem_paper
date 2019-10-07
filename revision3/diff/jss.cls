@@ -1,0 +1,1 @@
+/home/user/Documents/projects_git/webchem_paper/revision2/jss.cls
