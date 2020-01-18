@@ -18,7 +18,7 @@
   sources and not easily accessible to researchers.  Manual searching
   and downloading of such data is time-consuming and error-prone.  We
   developed the open-source \proglang{R} package \pkg{webchem} that
-  allows users to automatically query chemical data from currently 11
+  allows users to automatically query chemical data from currently 14
   web sources.  These cover a broad spectrum of information.  The data
   are automatically imported into an \proglang{R} object and can
   directly be used in subsequent analyses.  \pkg{webchem} enables
@@ -104,13 +104,13 @@ of code (currently approximately 1500 lines, using \pkg{testthat};
 \citealt{wickham_testthat:_2011}), (iv) continuous integration (via
 \citet{travis-ci} and \citet{appveyor}; testing on Linux \& Windows
 with current and development \proglang{R} versions), (v) in-source
-documentation (using \pkg{roxygen2}; \citealt{wickham_roxygen2:_2015})
+documentation (using \pkg{roxygen2}; \citealt{wickham_roxygen2})
 and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
 
 \pkg{webchem} builds on top of the following \proglang{R} packages:
 \pkg{RCurl} \citep{lang_rcurl:_2015} and \pkg{httr}
-\citep{wickham_httr} for data transfer, \pkg{stringr}
-\citep{wickham_stringr:_2015} for string handling, \pkg{xml2}
+\citep{wickham_httr} for data transfer, \pkg{dplyr} \citep{wickham_dplyr} for tidying data, \pkg{stringr}
+\citep{wickham_stringr:_2015} for string handling, \pkg{purrr} \citep{wickham_purrr} for working with functions and vectors, \pkg{xml2}
 \citep{wickham_xml2} and \pkg{rvest} \citep{wickham_rvest} for parsing
 HTML and XML, \pkg{jsonlite} \citep{ooms_jsonlite_2014} for parsing
 JSON, \pkg{rcdk} \citep{guha_rcdk} for parsing SMILES.  For parsing
@@ -149,7 +149,7 @@ functions return an URL of the source, which can be used for
 \section[Data sources]{Data sources}\label{sec:data-sources}
 The backbone of \pkg{webchem} are data sources providing their data
 and functionality to the public.  Currently, data can be retrieved
-from 11 sources.  These cover a broad spectrum of available data, like
+from 14 sources.  These cover a broad spectrum of available data, like
 identifiers, experimental and predicted properties and regulatory
 information (a detailed overview of all sources is included in
 Figure~\ref{fig:fig1}):
@@ -192,6 +192,10 @@ Figure~\ref{fig:fig1}):
 \item[OPSIN]{\citep{Lowe_Corbett_Murray-Rust_Glen_2011} The Open
     Parser for Systematic IUPAC nomenclature is a chemical name
     interpreter and provides InChI and SMILES identifiers.}
+\item[Flavornet]{\citep{flavornet} Flavornet is a compilation of aroma compounds found in human odor space.}
+\item[NIST]{\citep{nist} The NIST Chemistry WebBook provides access to data compiled and distributed by NIST under the Standard Reference Data Program.}
+\item[ChEBI]{\citep{chebi} Chemical Entities of Biological Interest (ChEBI) is a freely available dictionary of molecular entities focused on "small" chemical compounds.}
+
 \end{description}
 
 Though the data sources exhibit some overlap in the provided
@@ -220,9 +224,8 @@ R> library("webchem")
 \end{CodeChunk}
 %
 The package is under active development. The latest development
-version is available from GitHub and also permanently available at
-\citet{zenodo}.  This document has been created using \pkg{webchem}
-version 0.4.0.
+version is available from GitHub.  This document has been created using \pkg{webchem}
+version 0.5.0.
 
 
 \subsection[Sample data sets]{Sample data sets}
@@ -304,7 +307,7 @@ R> head(ids)
 \end{CodeInput}
 \begin{CodeOutput}
   etoxid                           match distance                  query
-1   8668     2,4-Dimethylphenol ( 8668 )        0     2,4-Dimethylphenol
+1   8932     2,4-Dimethylphenol ( 8932 )        0     2,4-Dimethylphenol
 2   8494 4-Chlor-2-methylphenol ( 8494 )        0 4-Chlor-2-methylphenol
 3   <NA>                            <NA>     <NA>     4-para-nonylphenol
 4   8397                Atrazin ( 8397 )        0                Atrazin
