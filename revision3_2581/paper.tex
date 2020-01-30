@@ -167,9 +167,6 @@ Figure~\ref{fig:fig1}):
 \item[PAN Pesticide Database]{ \citep{pan} Information on pesticides --
     provides basic identifiers, ecotoxicological data, chemical
     properties, uses and regulatory status for 6,500 pesticides.}
-\item[SRC Physprop]{\citep{physprop} Contains physical properties for
-    over 41,000 chemicals.  Physical properties collected from a wide
-    variety of sources including experimental and modeled values.}
 \item[PubChem]{\citep{Kim_2016} PubChem is a public repository for
     information on more than 250 million chemical substances, providing identifiers,
     properties and synonyms. We use an interface to the PUG-REST web
@@ -459,49 +456,31 @@ data using \pkg{ggplot2} \citep{ggplot2}.
 \label{fig:fig2}
 \end{figure}
 
-
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources also provide data on chemical properties that can be
-queried.  Here we query for the \code{lc50} data the
-$\mathrm{log}~P_{oct/wat}$ from the SRC Physprop database to build a
+queried.  Here we query for the \code{lc50} data predicted
+$\mathrm{log}~P_{oct/wat}$ from the PubChem database to build a
 simple quantitative structure-activity relationship (QSAR) to predict
-toxicity.
+toxicity. The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> pp_data <- pp_query(lc50$cas)
+R> cid <- get_cid(lc50$cas)
+R> pc_data <- pc_prop(cid)
+R> lc50$logp <- pc_data$XLogP
 \end{CodeInput}
 \end{CodeChunk}
 %
-The database contains predicted and experimental values.
-Extracting $\mathrm{log}~P_{oct/wat}$ from the data object is slightly more complicated,  
-because i) for some compounds no data could be found and ii) the data-object has a more complex structure (a data frame within a list).
-%
-\begin{CodeChunk}
-\begin{CodeInput}
-R> lc50$logp <- sapply(pp_data, function(y) {
-+    if (length(y) == 1 && is.na(y))
-+      return(NA)
-+    y$prop$value[y$prop$variable == "Log P (octanol-water)"]
-+  })
-\end{CodeInput}
-\end{CodeChunk}
-%
-We opted for this more complex approach, because the information available is very diverse and we cannot provide an extractor function for each purpose.
-Moreover, it provides users with high flexibility regarding organization of their data. 
-Nevertheless, in the documentation of each function we provide examples on how to extract more complicated parts of the data.
-The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 
 \begin{figure}[t!]
   \centering
   \includegraphics[width=0.7\textwidth]{plot_qsar-1} 
   \caption{Simple QSAR for predicting log LC\textsubscript{50} of
     pesticides by $\mathrm{log}~P$.  $\mathrm{log}~P$ values have been
-    retrieved from the SRC Physprop database (97 experimental data, 9
-    estimated data and 18 substances without data).  Blue line
+    retrieved from the Pubchem database (118 estimated data and 6 substances without data).  Blue line
     indicates the regression model
-    ($\mathrm{log~LC}_{50} = 2.88\ensuremath{-0.37}~\mathrm{log}~P$,
-    RMSE = 1.45).}
+    ($\mathrm{log~LC}_{50} = 2.86\ensuremath{-0.36}~\mathrm{log}~P$,
+    RMSE = 1.47).}
 \label{fig:fig3}
 \end{figure}
 

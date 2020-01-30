@@ -96,43 +96,30 @@ p <- ggplot(lc50, aes(x = type, y = value)) +
   theme(text = element_text(size = 16))
 p
 
-
-
 # Use Case III: Querying partitioning coefficients ------------------------
-# query PHYSPROP DATABASE
-pp_data <- pp_query(lc50$cas)
+# query PubChem DATABASE
+cid <- get_cid(lc50$cas, first = TRUE)
+pc_data <- pc_prop(cid)
 # lookat internal structure
-str(pp_data[[1]])
+str(pc_data)
 # extract logP from properties data.frame
-lc50$logp <- sapply(pp_data, function(y){
-  if (length(y) == 1 && is.na(y))
-    return(NA)
-  y$prop$value[y$prop$variable == "Log P (octanol-water)"]
-})
+lc50$logp <- pc_data$XLogP
 
 # model
 mod <- lm(log10(value) ~ logp, data = lc50)
 coef(mod) # coeficients
 summary(mod)$sigma # RMSE
 
-# check data types
-logp_type <- sapply(pp_data, function(y){
-  if (length(y) == 1 && is.na(y))
-    return(NA)
-  y$prop$type[y$prop$variable == "Log P (octanol-water)"]
-})
-table(logp_type) # experimental / predicted data
-sum(is.na(logp_type)) # NA = compounds not found
-
 # plot
 p <- ggplot(lc50, aes(x = logp, y = value)) +
   geom_point() +
-  scale_y_log10() +
   geom_smooth(method = "lm") +
+  scale_y_log10() +
+  scale_x_continuous(breaks = c(0, 2, 4, 6),
+                     labels = format(10^c(0, 2, 4, 6), 
+                                     scientific = FALSE)) +
   labs(x = "P", y = expression(LC[50])) +
-  theme_bw() +
-  scale_x_continuous(breaks = c(0, 2, 4, 6), labels = format(10^c(0, 2, 4, 6), 
-                                                             scientific = FALSE))
+  theme_bw()
 p
 
 # Use Case IV: Regulatory information -------------------------------------
