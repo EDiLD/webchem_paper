@@ -409,8 +409,6 @@ Name & CAS & SMILES & CID & InChIKey & CSID \\
 \label{tab:comptable}
 \end{table}
 
-
-
 \subsection[Toxicity of different pesticide groups]{Toxicity of different pesticide groups}
 Another question we might ask is \emph{How does toxicity vary between
   insecticide groups?}  Answering this question would require tedious
@@ -455,6 +453,53 @@ data using \pkg{ggplot2} \citep{ggplot2}.
   from the Compendium of Pesticide Common Names \citep{wood}.}
 \label{fig:fig2}
 \end{figure}
+
+\subsection[Identify common names and roles of chemicals]{Identify common names and roles of chemicals}
+\pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. Therefore, we first order the \code{lc50} data set by the three most toxic (i.e. lowest value) chemicals and then use \code{chebi_lite_entity()} to retrieve ChEBI identifiers and substance names. The function returns a list of tables containing the ChEBI identifier, the chemical name, a search score and entity stars for the found entry. The searchscore is calculated by ChEBI and represents how well the query string matches one of the database entries. The entitystar column reflects the quality of the ChEBI data, also provided by the database.
+
+\begin{CodeChunk}
+\begin{CodeInput}
+R> lite <- chebi_lite_entity(lc50_3$cas)
+R> lite <- lapply(lite, function(x) x[ which.max(x$searchscore), ]) # highest seachscore
+R> lite <- do.call(rbind, lite) # bind to data.frmae
+R> lite$cas <- rownames(lite)
+R> lite$chebiasciiname[4] <- "tefluthrin" # erronous result
+\end{CodeInput}
+\end{CodeOutput}
+
+We can now use the ChEBI identifiers to query the complete entitiy by using \code{chebi_comp_entity()}. From the result, we extract the parents table and refine the data to chemical roles. Subsequently, we prepare the query result and merge the data with the \code{lite} object to include the CAS numbers (i.e. our initial query strings) to the result.
+
+\begin{CodeChunk}
+\begin{CodeInput}
+R> comp <- chebi_comp_entity(lite$chebiid) # ChEBI ids
+R> comp <- do.call(rbind, lapply(comp, `[[`, "parents")) # extract parents table
+R> comp$chebiid <- gsub('\\.[0-9]+', '', rownames(comp))
+R> comp <- comp[ comp$type == "has role", ] # refine to chemical roles
+R> role <- aggregate(chebiName ~ chebiid,
+                     data = comp,
+                     FUN = function(x) paste0(x, collapse = ', '))
+R> merge(lite[ names(lite) %in% c('cas', 'chebiid', 'chebiasciiname') ],
+         role,
+         by = 'chebiid')
+\end{CodeInput}
+\end{CodeOutput}
+
+In doing so we retrieve Table~\ref{tab:chebi}, which provides information on the individual roles of the chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table is designed to be used as an acari- and insecticide, which inhibts the acetylcholinesterase enzyme.
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{p{2cm}p{2cm}p{8cm}}
+  \hline
+  cas & name & roles \\
+  \hline
+  563-12-2 & ethion & insecticide \newline environmental contaminant \newline EC 3.1.1.7 (acetylcholinesterase) inhibitor \newline acaricide \newline agrochemical \\
+  96182-53-5 & tebupirimfos & EC 3.1.1.7 (acetylcholinesterase) inhibitor \\
+  3383-96-8 & temephos & EC 3.1.1.7 (acetylcholinesterase) inhibitor \newline acaricide \newline agrochemical \newline ectoparasiticide \\
+\hline
+\end{tabular}
+\caption{CAS numbers, names and chemical roles for the three most toxic substances towards \textit{D. magna} according to ChEBI.}
+\label{tab:chebi}
+\end{table}
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources also provide data on chemical properties that can be

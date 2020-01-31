@@ -63,8 +63,6 @@ res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles,
                   stringsAsFactors = FALSE)
 head(res)
 
-
-
 # Use Case II: Toxicity of different pesticide groups ---------------------
 # query the pesticide compendium using CAS-numbers
 aw_data <- aw_query(lc50$cas, type = "cas")
@@ -96,7 +94,23 @@ p <- ggplot(lc50, aes(x = type, y = value)) +
   theme(text = element_text(size = 16))
 p
 
-# Use Case III: Querying partitioning coefficients ------------------------
+# Use Case III: Name 10 most toxic chemicals ------------------------------
+lc50_3 <- lc50[ order(lc50$value), ][1:3, ]
+# query ChEBI names from CAS
+lite <- chebi_lite_entity(lc50_3$cas)
+lite <- lapply(lite, function(x) x[ which.max(x$searchscore), ]) # select entry with the highest seachscore
+lite <- do.call(rbind, lite) # bind to data.frmae
+lite$cas <- rownames(lite)
+# query ChEBI complete entity
+comp <- chebi_comp_entity(lite$chebiid) # use ChEBI ids to query the service
+comp <- do.call(rbind, lapply(comp, `[[`, "parents")) # extract parents list and bind them to a data.frame
+comp$chebiid <- gsub('\\.[0-9]+', '', rownames(comp))
+comp <- comp[ comp$type == "has role", ] # refine to chemical roles
+role <- aggregate(chebiName ~ chebiid, data = comp, FUN = function(x) paste0(x, collapse = ', '))
+role <- merge(lite[ names(lite) %in% c('cas', 'chebiid', 'chebiasciiname') ], role, by = 'chebiid')
+setNames(role, c('chebiid', 'name', 'cas', 'roles'))
+
+# Use Case IV: Querying partitioning coefficients -------------------------
 # query PubChem DATABASE
 cid <- get_cid(lc50$cas, first = TRUE)
 pc_data <- pc_prop(cid)
@@ -122,7 +136,7 @@ p <- ggplot(lc50, aes(x = logp, y = value)) +
   theme_bw()
 p
 
-# Use Case IV: Regulatory information -------------------------------------
+# Use Case V: Regulatory information --------------------------------------
 # search EQS from ETOX using the already queried ETOX_IDs
 eqs <- etox_targets(ids$etoxid)
 # extract only MAC-EQS for the EU from the results
