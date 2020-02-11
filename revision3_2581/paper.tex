@@ -352,7 +352,7 @@ following examples).
 
 In the same manner, we can now query other identifiers from another
 source using these CAS numbers (see Figure~\ref{fig:fig1}), like
-PubChem
+PubChem.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -362,13 +362,12 @@ R> pc_smiles <- smiles(pc_data)
 \end{CodeInput}
 \end{CodeChunk}
 %
-or ChemSpider
+We can use SMILES to query ChemSpiderIDs and subsequently convert them to InChiKeys.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> csids <- get_csid(etox_cas, token = token)
-R> cs_data <- cs_compinfo(csids, token = token)
-R> cs_inchikey <- inchikey(cs_data)
+R> csids <- get_csid(pc_smiles, from = "smiles")$csid
+R> cs_inchikey <- cs_convert(csids, from = "csid", to = "inchikey")
 \end{CodeInput}
 \end{CodeChunk}
 %
@@ -383,7 +382,7 @@ R> res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles,
 \end{CodeChunk}
 %
 Note that in order to use the ChemSpider functions, a personal
-authentication key (\code{token}) is needed, which can be retrieved
+authentication key is needed, which can be retrieved
 from the ChemSpider web page.  Finally, we obtain a compound table
 containing many different identifiers (Table~\ref{tab:comptable}),
 allowing easy identification and merging with other data sets, e.g.,
@@ -465,7 +464,7 @@ R> lite <- do.call(rbind, lite) # bind to data.frmae
 R> lite$cas <- rownames(lite)
 R> lite$chebiasciiname[4] <- "tefluthrin" # erronous result
 \end{CodeInput}
-\end{CodeOutput}
+\end{CodeChunk}
 
 We can now use the ChEBI identifiers to query the complete entitiy by using \code{chebi_comp_entity()}. From the result, we extract the parents table and refine the data to chemical roles. Subsequently, we prepare the query result and merge the data with the \code{lite} object to include the CAS numbers (i.e. our initial query strings) to the result.
 
@@ -482,7 +481,7 @@ R> merge(lite[ names(lite) %in% c('cas', 'chebiid', 'chebiasciiname') ],
          role,
          by = 'chebiid')
 \end{CodeInput}
-\end{CodeOutput}
+\end{CodeChunk}
 
 In doing so we retrieve Table~\ref{tab:chebi}, which provides information on the individual roles of the chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table is designed to be used as an acari- and insecticide, which inhibts the acetylcholinesterase enzyme.
 
@@ -564,7 +563,7 @@ R> ids$mac <- sapply(eqs, function(y) {
 %
 Again, the returned information is humongous and we encourage users to study the returned objects and description of the data source.
 Here, the column \code{Designation} defines the type of EQS and \code{Value_Target_LR} contains the value.
-Unfortunately, we only found MAC-EQS values for 5 substances:
+Unfortunately, we only found MAC-EQS values for 6 substances:
 %
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -577,6 +576,7 @@ R> (mac <- with(ids, ids[!is.na(mac) & is.finite(mac), c("etoxid", "query",
 5    7240      Benzol 50.000
 11   8836     Irgarol  0.016
 12   7442 Isoproturon  1.000
+38   7571     Simazin  4.000
 29   8756   Terbutryn  0.034
 \end{CodeOutput}
 \end{CodeChunk}
@@ -596,12 +596,12 @@ R> head(jagst_eqs)
 2   Atrazin 2013-10-08 0.0072    =   8397   2
 3   Atrazin 2013-03-26 0.0040    =   8397   2
 4   Atrazin 2013-04-23 0.0048    =   8397   2
-5   Atrazin 2013-11-05 0.0036    =   8397   2
+5   Atrazin 2013-06-18 0.0048    =   8397   2
 6   Atrazin 2013-07-16 0.0052    =   8397   2
 \end{CodeOutput}
 \end{CodeChunk}
 %
-Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 5 compounds.
+Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 6 compounds.
 
 
 
