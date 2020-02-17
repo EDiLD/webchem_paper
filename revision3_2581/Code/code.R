@@ -97,8 +97,7 @@ p
 # Use Case III: Name 10 most toxic chemicals ------------------------------
 lc50_3 <- lc50[ order(lc50$value), ][1:3, ]
 # query ChEBI names from CAS
-lite <- chebi_lite_entity(lc50_3$cas)
-lite <- lapply(lite, function(x) x[ which.max(x$searchscore), ]) # select entry with the highest seachscore
+lite <- get_chebiid(lc50_3$cas, match = 'best')
 lite <- do.call(rbind, lite) # bind to data.frmae
 lite$cas <- rownames(lite)
 # query ChEBI complete entity
