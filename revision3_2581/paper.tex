@@ -454,12 +454,11 @@ data using \pkg{ggplot2} \citep{ggplot2}.
 \end{figure}
 
 \subsection[Identify common names and roles of chemicals]{Identify common names and roles of chemicals}
-\pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. Therefore, we first order the \code{lc50} data set by the three most toxic (i.e. lowest value) chemicals and then use \code{chebi_lite_entity()} to retrieve ChEBI identifiers and substance names. The function returns a list of tables containing the ChEBI identifier, the chemical name, a search score and entity stars for the found entry. The searchscore is calculated by ChEBI and represents how well the query string matches one of the database entries. The entitystar column reflects the quality of the ChEBI data, also provided by the database.
+\pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. Therefore, we first order the \code{lc50} data set by the three most toxic (i.e. lowest value) chemicals and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. The function returns a list of tables containing the ChEBI identifier, the chemical name, a search score and entity stars for the found entry. The searchscore is calculated by ChEBI and represents how well the query string matches one of the database entries. The entitystar column reflects the quality of the ChEBI data, also provided by the database.
 
 \begin{CodeChunk}
 \begin{CodeInput}
-R> lite <- chebi_lite_entity(lc50_3$cas)
-R> lite <- lapply(lite, function(x) x[ which.max(x$searchscore), ]) # highest seachscore
+R> lite <- get_chebiid(lc50_3$cas)
 R> lite <- do.call(rbind, lite) # bind to data.frmae
 R> lite$cas <- rownames(lite)
 R> lite$chebiasciiname[4] <- "tefluthrin" # erronous result
