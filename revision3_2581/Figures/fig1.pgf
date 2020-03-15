@@ -1,0 +1,165 @@
+\usetikzlibrary{positioning}
+
+\definecolor{blue}{RGB}{36, 112, 157}
+\definecolor{green}{RGB}{34, 182, 79}
+\definecolor{red}{RGB}{246, 72, 45}
+\definecolor{orange}{RGB}{208, 121, 33}
+\definecolor{yellow}{RGB}{246, 246, 45}
+\begin{tikzpicture}[node distance = 1cm, auto]
+
+%styles
+\tikzstyle{circ} = [circle, draw, text = black,   line width=1pt, 
+    text width=3cm, text centered, scale=1, font=\bf\Large]
+\tikzstyle{rect} = [rectangle, draw, text = black, line width=1pt,
+    text width=5cm, text centered, rounded corners, minimum height=1.5cm, minimum width=1cm, font=\bf\Large]
+
+\tikzstyle{line} = [draw, ultra thick, ->, >=stealth]
+
+    % input nodes
+    \node [circ, fill=green] (cas_i) {CAS};
+    \node  (name_i) [circ, below=of cas_i, fill = blue] {Name};
+    \node  (inchikey_i) [circ, below=of name_i, fill = red] {InChiKey};
+    \node  (other_i) [circ, below=of inchikey_i, fill =orange] {Other};
+   
+   % source nodes
+   \node (cir) [rect, right=of cas_i, shift={(10,7)}, fill = yellow]{CIR};
+   \node (chemspider) [rect, below=of cir, fill = yellow]{ChemSpider};
+   \node (cts) [rect, below=of chemspider, fill = yellow]{CTS};
+   \node (etox) [rect, below=of cts, fill = yellow]{ETOX};
+   \node (chemid) [rect, below=of etox, fill = yellow]{ChemID};
+  \node (opsin) [rect, below=of chemid, fill = yellow]{OPSIN};
+  \node (alan) [rect, below=of opsin, fill = yellow]{Pesticide Compendium};
+  \node (wiki) [rect, below=of alan, fill = yellow]{wikidata};
+  \node (pubchem) [rect, below=of wiki, fill = yellow]{PubChem};
+  \node (pan) [rect, below=of pubchem, fill = yellow]{PAN};
+  \node (src) [rect, below=of pan, fill = yellow]{SRC};
+
+	% output nodes
+    \node (cas_o) [circ, right=of cir, shift={(15,-5)}, , fill =green] {CAS};
+    \node  (name_o) [circ, below=of cas_o, , fill =blue] {Name};
+    \node  (inchikey_o) [circ, below=of name_o, fill =red] {InChiKey \\ InChi};
+    \node  (smiles_o) [circ, below=of inchikey_o, fill =red] {SMILES};
+    \node  (legis_o) [circ, below=of smiles_o, fill =orange] {Legislation};
+    \node  (syno_o) [circ, below=of legis_o, fill =orange] {Synonyms};
+    \node  (other_o) [circ, below=of syno_o, fill =orange] {Other};
+    \node (prop_o) [circ, above=of cas_o, fill =orange] {Properties};
+    \node (tox_o) [circ, above=of prop_o, fill =orange] {Toxicology};
+
+    %paths
+   % from cas_i
+    \path [line, green] (cas_i.east) -- (cir.west);
+    \path [line, green] (cas_i.east) -- (chemspider.west);
+    \path [line, green] (cas_i.east) -- (cts.west);
+    \path [line, green] (cas_i.east) -- (etox.west);
+    \path [line, green] (cas_i.east) -- (chemid.west);
+    \path [line, green] (cas_i.east) -- (alan.west);
+    \path [line, green] (cas_i.east) -- (wiki.west);
+    \path [line, green] (cas_i.east) -- (pubchem.west);
+    \path [line, green] (cas_i.east) -- (pan.west);
+    \path [line, green] (cas_i.east) -- (src.west);
+
+	% from name_i
+    \path [line, blue] (name_i.east) -- (cir.west);
+    \path [line, blue] (name_i.east) -- (chemspider.west);
+    \path [line, blue] (name_i.east) -- (cts.west);
+    \path [line, blue] (name_i.east) -- (etox.west);
+    \path [line, blue] (name_i.east) -- (chemid.west);
+    \path [line, blue] (name_i.east) -- (opsin.west);
+    \path [line, blue] (name_i.east) -- (alan.west);
+    \path [line, blue] (name_i.east) -- (wiki.west);
+    \path [line, blue] (name_i.east) -- (pubchem.west);
+    \path [line, blue] (name_i.east) -- (pan.west);
+
+    %from inchikey_i
+    \path [line, red] (inchikey_i.east) -- (cir.west);
+    \path [line, red] (inchikey_i.east) -- (chemspider.west);
+    \path [line, red] (inchikey_i.east) -- (cts.west);
+    \path [line, red] (inchikey_i.east) -- (chemid.west);
+    \path [line, red] (inchikey_i.east) -- (wiki.west);
+    \path [line, red] (inchikey_i.east) -- (pubchem.west);
+   
+    %from other_i
+    \path [line, orange] (other_i.east) -- (cir.west);
+    \path [line, orange] (other_i.east) -- (chemspider.west);
+    \path [line, orange] (other_i.east) -- (cts.west);
+    \path [line, orange] (other_i.east) -- (etox.west);
+    \path [line, orange] (other_i.east) -- (wiki.west);
+    \path [line, orange] (other_i.east) -- (pubchem.west);
+
+   %from cir
+  \path [line, orange] (cir.east) -- (prop_o.west);
+  \path [line, green] (cir.east) -- (cas_o.west);
+  \path [line, blue] (cir.east) -- (name_o.west);
+  \path [line, red] (cir.east) -- (inchikey_o.west);
+  \path [line, red] (cir.east) -- (smiles_o.west);
+  \path [line, orange] (cir.east) -- (other_o.west);
+
+  %from chemspider
+  \path [line, orange] (chemspider.east) -- (prop_o.west);
+  \path [line, blue] (chemspider.east) -- (name_o.west);
+  \path [line, red] (chemspider.east) -- (inchikey_o.west);
+  \path [line, red] (chemspider.east) -- (smiles_o.west);
+
+  % from cts
+  \path [line, blue] (cts.east) -- (name_o.west);
+  \path [line, green] (cts.east) -- (cas_o.west);
+  \path [line, red] (cts.east) -- (inchikey_o.west);
+  \path [line, red] (cts.east) -- (smiles_o.west);
+  \path [line, orange] (cts.east) -- (syno_o.west);
+  \path [line, orange] (cts.east) -- (other_o.west);
+
+	% from etox
+   \path [line, orange] (etox.east) -- (tox_o.west);
+   \path [line, green] (etox.east) -- (cas_o.west);
+   \path [line, blue] (etox.east) -- (name_o.west);
+   \path [line, orange] (etox.east) -- (legis_o.west);
+   \path [line, orange] (etox.east) -- (syno_o.west);
+   \path [line, orange] (etox.east) -- (other_o.west);
+
+  %from chemid
+   \path [line, orange] (chemid.east) -- (tox_o.west);
+   \path [line, orange] (chemid.east) -- (prop_o.west);
+   \path [line, green] (chemid.east) -- (cas_o.west);
+   \path [line, blue] (chemid.east) -- (name_o.west);
+   \path [line, red] (chemid.east) -- (inchikey_o.west);
+   \path [line, red] (chemid.east) -- (smiles_o.west);
+   \path [line, orange] (chemid.east) -- (syno_o.west);
+
+	%from opsin
+    \path [line, green] (opsin.east) -- (cas_o.west);
+   \path [line, red] (opsin.east) -- (inchikey_o.west);
+   \path [line, red] (opsin.east) -- (smiles_o.west);
+
+   %from alan wood
+   \path [line, green] (alan.east) -- (cas_o.west);
+   \path [line, blue] (alan.east) -- (name_o.west);
+   \path [line, red] (alan.east) -- (inchikey_o.west);
+   \path [line, orange] (alan.east) -- (other_o.west);
+
+  %from wiki
+   \path [line, green] (wiki.east) -- (cas_o.west);
+   \path [line, red] (wiki.east) -- (inchikey_o.west);
+   \path [line, red] (wiki.east) -- (smiles_o.west);
+   \path [line, orange] (wiki.east) -- (other_o.west);
+
+  % from pubchem
+     \path [line, orange] (pubchem.east) -- (prop_o.west);
+     \path [line, blue] (pubchem.east) -- (name_o.west);
+     \path [line, red] (pubchem.east) -- (inchikey_o.west);
+     \path [line, red] (pubchem.east) -- (smiles_o.west);
+     \path [line, orange] (pubchem.east) -- (syno_o.west);
+
+    % from pan
+    \path [line, orange] (pan.east) -- (tox_o.west);
+    \path [line, orange] (pan.east) -- (prop_o.west);
+     \path [line, blue] (pan.east) -- (name_o.west);
+   \path [line, green] (pan.east) -- (cas_o.west);
+   \path [line, orange] (pan.east) -- (legis_o.west);
+   \path [line, orange] (pan.east) -- (other_o.west);
+
+  %from src
+       \path [line, orange] (src.east) -- (tox_o.west);
+     \path [line, blue] (src.east) -- (name_o.west);
+   \path [line, green] (src.east) -- (cas_o.west);
+
+\end{tikzpicture}

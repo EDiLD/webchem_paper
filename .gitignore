@@ -1,7 +1,6 @@
 *.aux
 *.bbl
 cache/
-*.pgf
 *.log
 *.synctex*
 *.fls
