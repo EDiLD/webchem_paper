@@ -5,7 +5,7 @@
 
 
 # Install webchem from CRAN -----------------------------------------------
-#install.packages("webchem")
+install.packages("webchem")
 
 # load packages -----------------------------------------------------------
 library("webchem")
