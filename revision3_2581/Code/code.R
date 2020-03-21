@@ -10,7 +10,6 @@ install.packages("webchem")
 # load packages -----------------------------------------------------------
 library("webchem")
 library("ggplot2")
-library("testthat")
 
 # load datasets -----------------------------------------------------------
 # load jagst dataset
@@ -157,7 +156,7 @@ ids$mac <- sapply(eqs, function(y){
 jagst_eqs <- merge(jagst, mac, by.x = "substance", by.y = "query")
 head(jagst_eqs)
 
-# Utilitymac functions -------------------------------------------------------
+# Utility functions -------------------------------------------------------
 # simple formatting check
 is.inchikey("BQJCRHHNABKAKU-KBQPJGBKS-AN")
 # formatting check
