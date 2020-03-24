@@ -119,7 +119,7 @@ and (vi) compliance with a style guide \citep{wickham_advanced_2015}.
 \citep{wickham_stringr:_2015} for string handling, \pkg{purrr} \citep{wickham_purrr} for working with functions and vectors, \pkg{xml2}
 \citep{wickham_xml2} and \pkg{rvest} \citep{wickham_rvest} for parsing
 HTML and XML, \pkg{jsonlite} \citep{ooms_jsonlite_2014} for parsing
-JSON, \pkg{rcdk} \citep{guha_rcdk} for parsing SMILES.  For parsing
+JSON, \pkg{rcdk} \citep{guha_rcdk} for parsing SMILES. To parse
 molfiles we use a lightweight implementation in package \pkg{RMol}
 \citep{Grabner_Varmuza_Dehmer_2012}.
 
@@ -433,7 +433,13 @@ To extract the chemical group from the retrieved data set, we write a simple ext
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> igroup <- sapply(aw_data, function(y) y$subactivity[1])
+R> igroup <- sapply(aw_data, function(y) {
+R>   if (!is.na(y)) {
+R>     y$subactivity[1]  
+R>   } else {
+R>     NA
+R>   }
+R>  })
 R> igroup[1:3]
 \end{CodeInput}
 \begin{CodeOutput}
@@ -461,12 +467,13 @@ data using \pkg{ggplot2} \citep{ggplot2}.
 \end{figure}
 
 \subsection[Identify common names and roles of chemicals]{Identify common names and roles of chemicals}
-We might be interested in common names and roles of the most toxic chemicals in the \code{lc50} data set, i.e., chemicals with the lowest $LC_{50}$ values. \pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. We can extract the CAS numbers of the three most toxic chemicals, and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. We can then use the acquired ChEBI identifiers to query the complete entity by using \code{chebi_comp_entity()}. From the result, we can extract the parents table and refine the data to chemical roles.
+We might be interested in common names and roles of the most toxic chemicals in the \code{lc50} data set, i.e., chemicals with the lowest $LC_{50}$ values. \pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals. We extract the CAS numbers of the three most toxic chemicals, and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. Subsequently, we use the acquired ChEBI identifiers to query the complete entity by using \code{chebi_comp_entity()}. From the result, we extract the parents table and refine the data to chemical roles.
 
 \begin{CodeChunk}
 \begin{CodeInput}
 R> cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
 R> chebiids <- get_chebiid(cas_rns)
+R> chebiids <- do.call(rbind, chebiids)
 R> comp <- chebi_comp_entity(chebiids$chebiid)
 R> pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
 \end{CodeInput}
