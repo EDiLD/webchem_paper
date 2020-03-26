@@ -336,7 +336,7 @@ R> etox_data <- etox_basic(ids$etoxid)
 \end{CodeInput}
 \end{CodeChunk}
 %
-\pkg{webchem} always returns a named list (one entry for each substance) and the available information content can be very voluminous.
+When possible, \pkg{webchem} returns a data frame with one row per substance.  However, data from some sources can be very voluminous and not tabular. In these cases \pkg{webchem} always returns a named list (one entry for each substance).
 Therefore, we provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
 %
 \begin{CodeChunk}
