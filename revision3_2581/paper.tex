@@ -185,8 +185,7 @@ Figure~\ref{fig:fig1}):
 	identifiers and classification. The compendium contains more than 1800 active ingredients and more than 350 ester and salt derivatives. }
 \item[Wikidata]{\citep{wiki} Wikipedia contains information for over
 	210,000 chemicals
-	\citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently
-	\pkg{webchem} can only query chemical identifiers.}
+	\citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}.}
 \item[PubChem]{\citep{Kim_2016} PubChem is a public repository for
     information on more than 250 million chemical substances, providing identifiers,
     properties and synonyms. We use an interface to the PUG-REST web
@@ -337,7 +336,7 @@ R> etox_data <- etox_basic(ids$etoxid)
 \end{CodeInput}
 \end{CodeChunk}
 %
-\pkg{webchem} always returns a named list (one entry for each substance) and the available information content can be very voluminous.
+When possible, \pkg{webchem} returns a data frame with one row per substance.  However, data from some sources can be very voluminous and not tabular. In these cases \pkg{webchem} always returns a named list (one entry for each substance).
 Therefore, we provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
 %
 \begin{CodeChunk}
@@ -532,7 +531,7 @@ compounds in the \code{jagst} data set, join these with measured
 concentrations and evaluate whether exceedances occurred.
 
 We re-use the above queried ETOX-IDs to obtain further information
-from ETOX, namely the MAC-EQS:
+from ETOX, namely the Maximum Acceptible Concentration EQS (MAC-EQS):
 % 
 \begin{CodeChunk}
 \begin{CodeInput}
