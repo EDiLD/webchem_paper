@@ -2,11 +2,12 @@
 \usepackage{thumbpdf,lmodern} 
 \graphicspath{{Figures/}}
 
-\author{Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And 
+\author{Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And
+	Tam\'as Stirling\\Independent Developer \And
         Ralf B. Sch\"afer\\Universit\"at Koblenz-Landau}
 \title{\pkg{webchem}: An \proglang{R} Package to Retrieve Chemical Information from the Web}
 
-\Plainauthor{Eduard Sz\"ocs, Ralf B. Sch\"afer}
+\Plainauthor{Eduard Sz\"ocs, Tam\'as Stirling, Ralf B. Sch\"afer}
 
 \Plaintitle{webchem: An R Package to Retrieve Chemical Information from the Web}
 
@@ -46,12 +47,16 @@
   Fortstra{\ss}e 7\\
   76829 Landau, Germany\\
   E-mail: \email{szoecs@uni-landau.de}\\
-  URL: \url{https://edild.github.io}
+  URL: \url{https://edild.github.io}\\
+  \\
+  Tam\'as Stirling\\
+  Budapest, Hungary\\
+  E-mail: \email{stirling.tamas@gmail.com}\\
+  URL: \url{https://github.com/stitam}
 }
 
-
 % citation alias for LUBW institution
-\defcitealias{lubw_2016}{LUBW (2016)}
+\defcitealias{lubw_2016}{LUBW (2020)}
 % \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
@@ -89,7 +94,7 @@ data with \pkg{webchem}.
 \section[Implementation and design details]{Implementation and design details}
 The \pkg{webchem} package is written entirely in \proglang{R} and
 available under an MIT license.  The development repository is hosted
-on \citet{github} and a stable version is released on the
+on GitHub \citep{github} and a stable version is released on the
 Comprehensive \proglang{R} Archive Network (CRAN) and available at
 \url{https://CRAN.R-project.org/package=webchem}.  \pkg{webchem} is
 part of the rOpenSci project \citep{boettiger2015building}, which aims
@@ -121,8 +126,8 @@ Some data sources provide application programming interfaces (API).
 Web APIs define functions that allow accessing services and data via
 http and return data in a specific way.  \pkg{webchem} uses the API of
 a data source provider, where available.  For sources where an API is
-lacking, data is directly searched and extracted from the web pages,
-analogous to manual interaction with a website.
+lacking, but policies of the service provider permit programmable access, data is directly searched and extracted from the web pages,
+analogous to manual interaction with a website. 
 
 Only few design decisions have been made: Each function name has a
 prefix and suffix separated by an underscore
@@ -157,6 +162,10 @@ Figure~\ref{fig:fig1}):
 \begin{description}
 \item[NIH Chemical Identifier Resolver (CIR)]{\citep{cir} A web
     service that converts from and to various chemical identifiers. The database holds millions of identifier combinations.}
+\item[ChemSpider]{\citep{pence_chemspider:_2010} is a free chemical
+	structure database providing access to over 67 million
+	structures from hundreds of data sources. It provides identifiers, properties and can also be
+	used to convert identifiers.}
 \item[Chemical Translation Service (CTS)]{
   \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010} A web
     service that converts from and to various chemical identifiers.}
@@ -164,34 +173,30 @@ Figure~\ref{fig:fig1}):
     Environmental Quality Targets by the German Federal Environmental
     Agency. Provides basic identifiers, synonyms, ecotoxicological
     data for over 64,000 entries and quality targets for different countries.}
-\item[PAN Pesticide Database]{ \citep{pan} Information on pesticides --
-    provides basic identifiers, ecotoxicological data, chemical
-    properties, uses and regulatory status for 6,500 pesticides.}
+\item[ChemID\emph{plus}]{\citep{Tomasulo_2002} is a large web-based
+	database provided by the National Library of Medicine. It contains
+	identifiers, synonyms, toxicological data and chemical
+	properties for over 420,000 records.}
+\item[OPSIN]{\citep{Lowe_Corbett_Murray-Rust_Glen_2011} The Open
+	Parser for Systematic IUPAC nomenclature is a chemical name
+	interpreter and provides InChI and SMILES identifiers.}
+\item[Compendium of Pesticide Common Names]{\citep{wood} The
+	compendium provides information on pesticide common names,
+	identifiers and classification. The compendium contains more than 1800 active ingredients and more than 350 ester and salt derivatives. }
+\item[Wikidata]{\citep{wiki} Wikipedia contains information for over
+	210,000 chemicals
+	\citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}.}
 \item[PubChem]{\citep{Kim_2016} PubChem is a public repository for
     information on more than 250 million chemical substances, providing identifiers,
     properties and synonyms. We use an interface to the PUG-REST web
     service \citep{Kim_Thiessen_Bolton_Bryant_2015}.}
-\item[Wikidata]{\citep{wiki} Wikipedia contains information for over
-    210,000 chemicals
-    \citep{Ertl_Patiny_Sander_Rufener_Zasso_2015}. Currently
-    \pkg{webchem} can only query chemical identifiers.}
-\item[Compendium of Pesticide Common Names]{\citep{wood} The
-    compendium provides information on pesticide common names,
-    identifiers and classification. The compendium contains more than 1800 active ingredients and more than 350 ester and salt derivatives. }
-\item[ChemID\emph{plus}]{\citep{Tomasulo_2002} is a large web-based
-    database provided by the National Library of Medicine. It contains
-    identifiers, synonyms, toxicological data and chemical
-    properties for over 420,000 records.}
-\item[ChemSpider]{\citep{pence_chemspider:_2010} is a free chemical
-    structure database providing access to over 67 million
-    structures from hundreds of data sources. It provides identifiers, properties and can also be
-    used to convert identifiers.}
-\item[OPSIN]{\citep{Lowe_Corbett_Murray-Rust_Glen_2011} The Open
-    Parser for Systematic IUPAC nomenclature is a chemical name
-    interpreter and provides InChI and SMILES identifiers.}
+\item[PAN Pesticide Database]{ \citep{pan} Information on pesticides --
+	provides basic identifiers, ecotoxicological data, chemical
+	properties, uses and regulatory status for 6,500 pesticides.}
 \item[Flavornet]{\citep{flavornet} Flavornet is a compilation of 738 aroma compounds found in human odor space.}
 \item[NIST]{\citep{nist} The NIST Chemistry WebBook provides access to data compiled and distributed by NIST under the Standard Reference Data Program. The WebBook provides chemical and physical property data on over 40,000 compounds.}
 \item[ChEBI]{\citep{chebi} Chemical Entities of Biological Interest (ChEBI) is a freely available dictionary of molecular entities focused on "small" chemical compounds. The database contains more than 56,000 compounds.}
+\item[SRS]{\citep{srs} Substance Registry Services is the US EPA central system for information about substances that are tracked or regulated by EPA or other sources.}
 
 \end{description}
 
@@ -304,7 +309,7 @@ R> head(ids)
 \end{CodeInput}
 \begin{CodeOutput}
   etoxid                           match distance                  query
-1   8932     2,4-Dimethylphenol ( 8932 )        0     2,4-Dimethylphenol
+1   8668            2,4-Xylenol ( 8668 )        0     2,4-Dimethylphenol
 2   8494 4-Chlor-2-methylphenol ( 8494 )        0 4-Chlor-2-methylphenol
 3   <NA>                            <NA>     <NA>     4-para-nonylphenol
 4   8397                Atrazin ( 8397 )        0                Atrazin
@@ -331,7 +336,7 @@ R> etox_data <- etox_basic(ids$etoxid)
 \end{CodeInput}
 \end{CodeChunk}
 %
-\pkg{webchem} always returns a named list (one entry for each substance) and the available information content can be very voluminous.
+When possible, \pkg{webchem} returns a data frame with one row per substance.  However, data from some sources can be very voluminous and not tabular. In these cases \pkg{webchem} always returns a named list (one entry for each substance).
 Therefore, we provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
 %
 \begin{CodeChunk}
@@ -352,7 +357,7 @@ following examples).
 
 In the same manner, we can now query other identifiers from another
 source using these CAS numbers (see Figure~\ref{fig:fig1}), like
-PubChem
+PubChem.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -362,13 +367,12 @@ R> pc_smiles <- smiles(pc_data)
 \end{CodeInput}
 \end{CodeChunk}
 %
-or ChemSpider
+We can use SMILES to query ChemSpiderIDs and subsequently convert them to InChiKeys.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> csids <- get_csid(etox_cas, token = token)
-R> cs_data <- cs_compinfo(csids, token = token)
-R> cs_inchikey <- inchikey(cs_data)
+R> csids <- get_csid(pc_smiles, from = "smiles")
+R> cs_inchikey <- cs_convert(csids$csid, from = "csid", to = "inchikey")
 \end{CodeInput}
 \end{CodeChunk}
 %
@@ -377,13 +381,13 @@ Finally, we combine the queried data into one data frame
 \begin{CodeChunk}
 \begin{CodeInput}
 R> res <- data.frame(name = subs, cas = etox_cas, smiles = pc_smiles, 
-+    cid = pc_data$CID, inchikey = cs_inchikey, csid = cs_data$csid, 
-+    stringsAsFactors = FALSE)
++    cid = pc_data$CID, inchikey = cs_inchikey, csid = csids$csid, 
++    stringsAsFactors = FALSE, row.names = NULL)
 \end{CodeInput}
 \end{CodeChunk}
 %
 Note that in order to use the ChemSpider functions, a personal
-authentication key (\code{token}) is needed, which can be retrieved
+authentication key is needed, which can be retrieved
 from the ChemSpider web page.  Finally, we obtain a compound table
 containing many different identifiers (Table~\ref{tab:comptable}),
 allowing easy identification and merging with other data sets, e.g.,
@@ -455,35 +459,18 @@ data using \pkg{ggplot2} \citep{ggplot2}.
 \end{figure}
 
 \subsection[Identify common names and roles of chemicals]{Identify common names and roles of chemicals}
-\pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. Therefore, we first order the \code{lc50} data set by the three most toxic (i.e. lowest value) chemicals and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. The function returns a list of tables containing the ChEBI identifier, the chemical name, a search score and entity stars for the found entry. The searchscore is calculated by ChEBI and represents how well the query string matches one of the database entries. The entitystar column reflects the quality of the ChEBI data, also provided by the database.
+We might be interested in common names and roles of the most toxic chemicals in the \code{lc50} data set, i.e., chemicals with the lowest $LC_{50}$ values. \pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals on biota. We can extract the CAS numbers of the three most toxic chemicals, and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. We can then use the acquired ChEBI identifiers to query the complete entity by using \code{chebi_comp_entity()}. From the result, we can extract the parents table and refine the data to chemical roles.
 
 \begin{CodeChunk}
 \begin{CodeInput}
-R> lite <- get_chebiid(lc50_3$cas)
-R> lite <- do.call(rbind, lite) # bind to data.frmae
-R> lite$cas <- rownames(lite)
-R> lite$chebiasciiname[4] <- "tefluthrin" # erronous result
+R> cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
+R> chebiids <- get_chebiid(cas_rns)
+R> comp <- chebi_comp_entity(chebiids$chebiid)
+R> pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
 \end{CodeInput}
-\end{CodeOutput}
+\end{CodeChunk}
 
-We can now use the ChEBI identifiers to query the complete entitiy by using \code{chebi_comp_entity()}. From the result, we extract the parents table and refine the data to chemical roles. Subsequently, we prepare the query result and merge the data with the \code{lite} object to include the CAS numbers (i.e. our initial query strings) to the result.
-
-\begin{CodeChunk}
-\begin{CodeInput}
-R> comp <- chebi_comp_entity(lite$chebiid) # ChEBI ids
-R> comp <- do.call(rbind, lapply(comp, `[[`, "parents")) # extract parents table
-R> comp$chebiid <- gsub('\\.[0-9]+', '', rownames(comp))
-R> comp <- comp[ comp$type == "has role", ] # refine to chemical roles
-R> role <- aggregate(chebiName ~ chebiid,
-                     data = comp,
-                     FUN = function(x) paste0(x, collapse = ', '))
-R> merge(lite[ names(lite) %in% c('cas', 'chebiid', 'chebiasciiname') ],
-         role,
-         by = 'chebiid')
-\end{CodeInput}
-\end{CodeOutput}
-
-In doing so we retrieve Table~\ref{tab:chebi}, which provides information on the individual roles of the chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table is designed to be used as an acari- and insecticide, which inhibts the acetylcholinesterase enzyme.
+Finally we can compile the data into a table. Table~\ref{tab:chebi} provides information on the individual roles of the three most toxic chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table, is designed to be used as an acari- and insecticide, which inhibts the acetylcholinesterase enzyme.
 
 \begin{table}[t!]
 \centering
@@ -496,7 +483,7 @@ In doing so we retrieve Table~\ref{tab:chebi}, which provides information on the
   3383-96-8 & temephos & EC 3.1.1.7 (acetylcholinesterase) inhibitor \newline acaricide \newline agrochemical \newline ectoparasiticide \\
 \hline
 \end{tabular}
-\caption{CAS numbers, names and chemical roles for the three most toxic substances towards \textit{D. magna} according to ChEBI.}
+\caption{CAS numbers, names and chemical roles from ChEBI for the three most toxic substances in the \code{lc50} data set towards \textit{D. magna}.}
 \label{tab:chebi}
 \end{table}
 
@@ -544,7 +531,7 @@ compounds in the \code{jagst} data set, join these with measured
 concentrations and evaluate whether exceedances occurred.
 
 We re-use the above queried ETOX-IDs to obtain further information
-from ETOX, namely the MAC-EQS:
+from ETOX, namely the Maximum Acceptible Concentration EQS (MAC-EQS):
 % 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -563,7 +550,7 @@ R> ids$mac <- sapply(eqs, function(y) {
 %
 Again, the returned information is humongous and we encourage users to study the returned objects and description of the data source.
 Here, the column \code{Designation} defines the type of EQS and \code{Value_Target_LR} contains the value.
-Unfortunately, we only found MAC-EQS values for 5 substances:
+Unfortunately, we only found MAC-EQS values for 6 substances:
 %
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -576,6 +563,7 @@ R> (mac <- with(ids, ids[!is.na(mac) & is.finite(mac), c("etoxid", "query",
 5    7240      Benzol 50.000
 11   8836     Irgarol  0.016
 12   7442 Isoproturon  1.000
+38   7571     Simazin  4.000
 29   8756   Terbutryn  0.034
 \end{CodeOutput}
 \end{CodeChunk}
@@ -595,12 +583,12 @@ R> head(jagst_eqs)
 2   Atrazin 2013-10-08 0.0072    =   8397   2
 3   Atrazin 2013-03-26 0.0040    =   8397   2
 4   Atrazin 2013-04-23 0.0048    =   8397   2
-5   Atrazin 2013-11-05 0.0036    =   8397   2
+5   Atrazin 2013-06-18 0.0048    =   8397   2
 6   Atrazin 2013-07-16 0.0052    =   8397   2
 \end{CodeOutput}
 \end{CodeChunk}
 %
-Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 5 compounds.
+Finally, we can compare the measured value to the MAC, which reveals that there have been no exceedances of these 6 compounds.
 
 
 
