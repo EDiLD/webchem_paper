@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-# Supplemental R Code to reproduce the results of Szöcs, Stirling, Schäfer. 
+# Supplemental R Code to reproduce the results of Szöcs, Stirling, Scharmüller, Schäfer. 
 # webchem: An R Package to Retrieve Chemical Information from the Web
 # ------------------------------------------------------------------------
 
@@ -8,8 +8,8 @@
 install.packages("webchem")
 
 # load packages -----------------------------------------------------------
-library("webchem")
-library("ggplot2")
+library(webchem)
+library(ggplot2)
 
 # load datasets -----------------------------------------------------------
 # load jagst dataset
@@ -28,6 +28,7 @@ subs <- unique(jagst$substance)
 
 # search ETOX IDs, keeping only the best match
 ids <- get_etoxid(subs, match = "best")
+ids <- ids[!ids$etoxid %in% c(99015, 97094), ]
 head(ids)
 
 # use this id to query information from ETOX
@@ -36,12 +37,10 @@ etox_data <- etox_basic(ids$etoxid)
 etox_cas <- cas(etox_data)
 head(etox_cas)
 
-
 # query other identifiers from other resources
 
 # get_cid() returned the PubChem ID of sodium when the query was NA. This was
 # fixed in the dev version. To install the dev version:
-
 library(devtools)
 install_github("ropensci/webchem")
 
@@ -56,18 +55,16 @@ csids <- get_csid(pc_smiles, from = "smiles", apikey = apikey)
 cs_inchikey <- cs_convert(csids$csid, from = "csid", to = "inchikey",
                           apikey = apikey)
 
-
-
 # combine into single data.frame
- res <- data.frame(name = subs,
-                   cas = etox_cas,
-                   smiles = pc_smiles,
-                   cid = pc_data$CID,
-                   inchikey = cs_inchikey,
-                   csid = csids$csid,
-                   stringsAsFactors = FALSE,
-                   row.names = NULL)
- head(res)
+res <- data.frame(name = subs,
+                 cas = etox_cas,
+                 smiles = pc_smiles,
+                 cid = pc_data$CID,
+                 inchikey = cs_inchikey,
+                 csid = csids$csid,
+                 stringsAsFactors = FALSE,
+                 row.names = NULL)
+head(res)
 
 # Use Case II: Toxicity of different pesticide groups ---------------------
 
@@ -77,7 +74,13 @@ aw_data <- aw_query(lc50$cas, type = "cas")
 # shows internal structure of the data-object
 str(aw_data[[1]])
 # extract chemical group from list
-igroup <- sapply(aw_data, function(y) y$subactivity[1])
+igroup <- sapply(aw_data, function(y) {
+  if (!is.na(y)) {
+    y$subactivity[1]  
+  } else {
+    NA
+  }
+})
 igroup[1:3]
 
 # cleanup
@@ -102,10 +105,9 @@ p <- ggplot(lc50, aes(x = type, y = value)) +
 p
 
 # Use Case III: Name 10 most toxic chemicals ------------------------------
-
 cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
 chebiids <- get_chebiid(cas_rns)
-#chebiids <- do.call(rbind, chebiids)
+chebiids <- do.call(rbind, chebiids)
 comp <- chebi_comp_entity(chebiids$chebiid)
 pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
 
