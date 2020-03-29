@@ -2,13 +2,15 @@
 \usepackage{thumbpdf,lmodern} 
 \graphicspath{{Figures/}}
 
-\author{Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And
-	      Tam\'as Stirling\\Independent Developer \And
-	      Andreas Scharm\"uller\\Universit\"at Koblenz-Landau \And
-        Ralf B. Sch\"afer\\Universit\"at Koblenz-Landau}
+\author{
+	Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And
+	Tam\'as Stirling\\Independent Developer \And
+	Eric Scott\\Tufts University \And
+	Andreas Scharm\"uller\\Universit\"at Koblenz-Landau \And
+    Ralf B. Sch\"afer\\Universit\"at Koblenz-Landau}
 \title{\pkg{webchem}: An \proglang{R} Package to Retrieve Chemical Information from the Web}
 
-\Plainauthor{Eduard Sz\"ocs, Tam\'as Stirling, Andreas Scharm\"uller, Ralf B. Sch\"afer}
+\Plainauthor{Eduard Sz\"ocs, Tam\'as Stirling, Eric Scott, Andreas Scharm\"uller, Ralf B. Sch\"afer}
 
 \Plaintitle{webchem: An R Package to Retrieve Chemical Information from the Web}
 
@@ -337,8 +339,8 @@ R> etox_data <- etox_basic(ids$etoxid)
 \end{CodeInput}
 \end{CodeChunk}
 %
-When possible, \pkg{webchem} returns a data frame with one row per substance.  However, data from some sources can be very voluminous and not tabular. In these cases \pkg{webchem} always returns a named list (one entry for each substance).
-Therefore, we provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
+When possible, \pkg{webchem} returns a data frame with one or more rows per substance.  However, data from some sources can be very voluminous and not tabular. In these cases \pkg{webchem} always returns a named list (one entry for each substance).
+We provide extractor functions for the common identifiers: CAS, SMILES and InChIKeys.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -472,13 +474,12 @@ We might be interested in common names and roles of the most toxic chemicals in 
 \begin{CodeInput}
 R> cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
 R> chebiids <- get_chebiid(cas_rns)
-R> chebiids <- do.call(rbind, chebiids)
 R> comp <- chebi_comp_entity(chebiids$chebiid)
 R> pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
 \end{CodeInput}
 \end{CodeChunk}
 
-Finally we can compile the data into a table. Table~\ref{tab:chebi} provides information on the individual roles of the three most toxic chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table, is designed to be used as an acari- and insecticide, which inhibts the acetylcholinesterase enzyme.
+Finally we can compile the data into a table. Table~\ref{tab:chebi} provides information on the individual roles of the three most toxic chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table, is designed to be used as an acari- and insecticide, which inhibits the acetylcholinesterase enzyme.
 
 \begin{table}[t!]
 \centering
@@ -504,7 +505,7 @@ toxicity. The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cid <- get_cid(lc50$cas)
+R> cid <- get_cid(lc50$cas, first = TRUE)
 R> pc_data <- pc_prop(cid)
 R> lc50$logp <- pc_data$XLogP
 \end{CodeInput}
