@@ -3,9 +3,9 @@
 # webchem: An R Package to Retrieve Chemical Information from the Web
 # ------------------------------------------------------------------------
 
-
 # Install webchem from CRAN -----------------------------------------------
-install.packages("webchem")
+library(devtools)
+install_github("ropensci/webchem")
 
 # load packages -----------------------------------------------------------
 library(webchem)
@@ -21,14 +21,12 @@ head(jagst)
 data("lc50", package = "webchem")
 head(lc50)
 
-
-# Use Case 1: Query identifiers -------------------------------------------
+# Use Case I: Query identifiers -------------------------------------------
 # unique substance names
 subs <- unique(jagst$substance)
 
 # search ETOX IDs, keeping only the best match
 ids <- get_etoxid(subs, match = "best")
-ids <- ids[!ids$etoxid %in% c(99015, 97094), ]
 head(ids)
 
 # use this id to query information from ETOX
@@ -38,12 +36,8 @@ etox_cas <- cas(etox_data)
 head(etox_cas)
 
 # query other identifiers from other resources
-
 # get_cid() returned the PubChem ID of sodium when the query was NA. This was
-# fixed in the dev version. To install the dev version:
-library(devtools)
-install_github("ropensci/webchem")
-
+# fixed in the dev version.
 # query SMILES from PubChem
 cids <- get_cid(etox_cas)
 pc_data <- pc_prop(cids, properties = "CanonicalSMILES")
@@ -67,7 +61,6 @@ res <- data.frame(name = subs,
 head(res)
 
 # Use Case II: Toxicity of different pesticide groups ---------------------
-
 # query the pesticide compendium using CAS-numbers
 aw_data <- aw_query(lc50$cas, type = "cas")
 
@@ -107,7 +100,6 @@ p
 # Use Case III: Name 10 most toxic chemicals ------------------------------
 cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
 chebiids <- get_chebiid(cas_rns)
-chebiids <- do.call(rbind, chebiids)
 comp <- chebi_comp_entity(chebiids$chebiid)
 pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
 
