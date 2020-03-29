@@ -4,12 +4,7 @@
 # from the Web
 # ------------------------------------------------------------------------
 
-
-# Install webchem from CRAN -----------------------------------------------
-install.packages("webchem")
-
-# load development version -----------------------------------------------
-# fixes some small bugs
+# Install webchem from GitHub -----------------------------------------------
 library(devtools)
 install_github("ropensci/webchem")
 
@@ -27,8 +22,7 @@ head(jagst)
 data("lc50", package = "webchem")
 head(lc50)
 
-
-# Use Case 1: Query identifiers -------------------------------------------
+# Use Case I: Query identifiers -------------------------------------------
 # unique substance names
 subs <- unique(jagst$substance)
 
@@ -67,7 +61,6 @@ res <- data.frame(name = subs,
 head(res)
 
 # Use Case II: Toxicity of different pesticide groups ---------------------
-
 # query the pesticide compendium using CAS-numbers
 aw_data <- aw_query(lc50$cas, type = "cas")
 
