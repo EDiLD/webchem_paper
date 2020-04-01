@@ -497,8 +497,8 @@ Finally we can compile the data into a table. Table~\ref{tab:chebi} provides inf
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources also provide data on chemical properties that can be
-queried.  Here we query for the \code{lc50} data predicted
-$\mathrm{log}~P_{oct/wat}$ from the PubChem database to build a
+queried. Here we query for the \code{lc50} data predicted ocatanol-water partitioning coefficients
+($\mathrm{log}~\mathit{P_{oct/wat}}$) from the PubChem database to build a
 simple quantitative structure-activity relationship (QSAR) to predict
 toxicity. The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 %
@@ -515,11 +515,12 @@ R> lc50$logp <- pc_data$XLogP
   \centering
   \includegraphics[width=0.7\textwidth]{plot_qsar-1} 
   \caption{Simple QSAR for predicting log LC\textsubscript{50} of
-    pesticides by $\mathrm{log}~P$.  $\mathrm{log}~P$ values have been
-    retrieved from the Pubchem database (118 estimated data and 6 substances without data).  Blue line
+    pesticides by the ocatanol-water partitioning coefficient $\mathrm{log}~\mathit{P_{oct/wat}}$.
+    $\mathrm{log}~\mathit{P_{oct/wat}}$ values have been retrieved from the Pubchem
+    database (118 estimated data and 6 substances without data).  Blue line
     indicates the regression model
     ($\mathrm{log~LC}_{50} = 2.86\ensuremath{-0.36}~\mathrm{log}~P$,
-    RMSE = 1.47).}
+    RMSE = 1.47). The x-axis is shown not logarithmized.}
 \label{fig:fig3}
 \end{figure}
 
