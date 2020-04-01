@@ -1,9 +1,10 @@
 # -------------------------------------------------------------------------
-# Supplemental R Code to reproduce the results of Szöcs, Stirling, Scharmüller, Schäfer. 
-# webchem: An R Package to Retrieve Chemical Information from the Web
+# Supplemental R Code to reproduce the results of Szöcs, Stirling, Scott,
+# Scharmüller, Schäfer. webchem: An R Package to Retrieve Chemical Information
+# from the Web
 # ------------------------------------------------------------------------
 
-# Install webchem from CRAN -----------------------------------------------
+# Install webchem from GitHub -----------------------------------------------
 library(devtools)
 install_github("ropensci/webchem")
 
@@ -36,8 +37,7 @@ etox_cas <- cas(etox_data)
 head(etox_cas)
 
 # query other identifiers from other resources
-# get_cid() returned the PubChem ID of sodium when the query was NA. This was
-# fixed in the dev version.
+
 # query SMILES from PubChem
 cids <- get_cid(etox_cas)
 pc_data <- pc_prop(cids, properties = "CanonicalSMILES")
@@ -159,4 +159,3 @@ is.cas("64-17-6")
 
 # or using ChemSpider
 is.inchikey("BQJCRHHNABKAKU-KBQPJGBKSA-5", type = "chemspider")
-
