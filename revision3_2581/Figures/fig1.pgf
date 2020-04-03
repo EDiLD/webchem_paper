@@ -9,7 +9,7 @@
 
 %styles
 \tikzstyle{circ} = [circle, draw, text = black,   line width=1pt, 
-    text width=3cm, text centered, scale=1, font=\bf\Large]
+    text width=3.2cm, text centered, scale=1, font=\bf\Large]
 \tikzstyle{rect} = [rectangle, draw, text = black, line width=1pt,
     text width=5cm, text centered, rounded corners, minimum height=1.5cm, minimum width=1cm, font=\bf\Large]
 
@@ -42,11 +42,11 @@
     \node  (name_o) [circ, below=of cas_o, , fill =blue] {Name};
     \node  (inchikey_o) [circ, below=of name_o, fill =red] {InChiKey \\ InChi};
     \node  (smiles_o) [circ, below=of inchikey_o, fill =red] {SMILES};
-    \node  (legis_o) [circ, below=of smiles_o, fill =orange] {Legislation};
+    \node  (legis_o) [circ, below=of smiles_o, fill =orange] {Regulation};
     \node  (syno_o) [circ, below=of legis_o, fill =orange] {Synonyms};
     \node  (other_o) [circ, below=of syno_o, fill =orange] {Other};
     \node (prop_o) [circ, above=of cas_o, fill =orange] {Properties};
-    \node (tox_o) [circ, above=of prop_o, fill =orange] {Toxicology};
+    \node (tox_o) [circ, above=of prop_o, fill =orange] {Toxicity};
 
     %paths
    % from cas_i

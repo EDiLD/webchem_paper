@@ -76,7 +76,7 @@ error-prone and not reproducible \citep{Peng_2009}.
 
 To simplify, robustify and automate this task, i.e., to search and
 retrieve chemical information from the web, we created the
-\pkg{webchem} package \citep{cran} for the free and open source
+\pkg{webchem} package \citep{zenodo} for the free and open source
 \proglang{R} language \citep{r_2015, Wehrens_2011}.  \proglang{R} is
 one of the most widely used software environments for data cleaning,
 analyzing and visualizing data, and supports full reproducibility of
@@ -90,11 +90,11 @@ data with \pkg{webchem}.
 \section[Implementation and design details]{Implementation and design details}
 The \pkg{webchem} package is written entirely in \proglang{R} and
 available under an MIT license.  The development repository is hosted
-on GitHub \citep{github} and a stable version is released on the
+on GitHub at \url{https://github.com/ropensci/webchem/} and a stable version is released on the
 Comprehensive \proglang{R} Archive Network (CRAN) and available at
-\url{https://CRAN.R-project.org/package=webchem}.  \pkg{webchem} is
+\url{https://CRAN.R-project.org/package=webchem}. \pkg{webchem} is
 part of the rOpenSci project \citep{boettiger2015building}, which aims
-at fully reproducible data analysis.
+at fully reproducible data analysis.  \pkg{webchem} is registered on the Resource Identification Portal \citep{scicrunch}.
 
 \pkg{webchem} follows best practices for scientific software
 \citep{wilson_best_2014, poisot_best_2015}, namely: (i) a public
@@ -509,12 +509,12 @@ R> lc50$logp <- pc_data$XLogP
   \centering
   \includegraphics[width=0.7\textwidth]{plot_qsar-1} 
   \caption{Simple QSAR for predicting log LC\textsubscript{50} of
-    pesticides by the ocatanol-water partitioning coefficient $\mathrm{log}~\mathit{P_{oct/wat}}$.
+    pesticides by the ocatanol-water partitioning coefficient $\mathit{P_{oct/wat}}$.
     $\mathrm{log}~\mathit{P_{oct/wat}}$ values have been retrieved from the Pubchem
     database (118 estimated data and 6 substances without data).  Blue line
     indicates the regression model
     ($\mathrm{log~LC}_{50} = 2.86\ensuremath{-0.36}~\mathrm{log}~P$,
-    RMSE = 1.47). The x-axis is shown not logarithmized.}
+    RMSE = 1.47).}
 \label{fig:fig3}
 \end{figure}
 
