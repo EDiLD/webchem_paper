@@ -97,7 +97,7 @@ p <- ggplot(lc50, aes(x = type, y = value)) +
   theme(text = element_text(size = 16))
 p
 
-# Use Case III: Name 10 most toxic chemicals ------------------------------
+# Use Case III: Name 3 most toxic chemicals -------------------------------
 cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
 chebiids <- get_chebiid(cas_rns)
 comp <- chebi_comp_entity(chebiids$chebiid)
@@ -125,8 +125,9 @@ p <- ggplot(lc50, aes(x = logp, y = value)) +
   scale_x_continuous(breaks = c(0, 2, 4, 6),
                      labels = format(10^c(0, 2, 4, 6),
                                      scientific = FALSE)) +
-  labs(x = "P", y = expression(LC[50])) +
-  theme_bw()
+  labs(x = expression(italic(P[oct/wat])), y = expression(LC[50])) +
+  theme_bw() +
+  theme(text = element_text(size = 16))
 p
 
 # Use Case V: Regulatory information --------------------------------------
