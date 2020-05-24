@@ -39,8 +39,8 @@ head(etox_cas)
 # query other identifiers from other resources
 
 # query SMILES from PubChem
-cids <- get_cid(etox_cas)
-pc_data <- pc_prop(cids, properties = "CanonicalSMILES")
+cids <- get_cid(etox_cas, from = "xref/rn", match = "first")
+pc_data <- pc_prop(cids$cid, properties = "CanonicalSMILES")
 pc_smiles <- smiles(pc_data)
 
 # ChemSpider needs an API key and RSC explicitly asks users to keep the key
@@ -69,7 +69,7 @@ str(aw_data[[1]])
 # extract chemical group from list
 igroup <- sapply(aw_data, function(y) {
   if (!is.na(y)) {
-    y$subactivity[1]  
+    y$subactivity[1]
   } else {
     NA
   }

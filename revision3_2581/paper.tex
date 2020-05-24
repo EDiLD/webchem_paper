@@ -356,8 +356,8 @@ PubChem.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cids <- get_cid(etox_cas)
-R> pc_data <- pc_prop(cids, properties = "CanonicalSMILES")
+R> cids <- get_cid(etox_cas, from = "xref/rn", match = "first")
+R> pc_data <- pc_prop(cids$cid, properties = "CanonicalSMILES")
 R> pc_smiles <- smiles(pc_data)
 \end{CodeInput}
 \end{CodeChunk}
@@ -490,15 +490,15 @@ Finally we can compile the data into a table. Table~\ref{tab:chebi} provides inf
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources also provide data on chemical properties that can be
-queried. Here we query for the \code{lc50} data predicted ocatanol-water partitioning coefficients
+queried. Here we query for the \code{lc50} data predicted octanol-water partitioning coefficients
 ($\mathrm{log}~\mathit{P_{oct/wat}}$) from the PubChem database to build a
 simple quantitative structure-activity relationship (QSAR) to predict
 toxicity. The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cid <- get_cid(lc50$cas, first = TRUE)
-R> pc_data <- pc_prop(cid)
+R> cid <- get_cid(lc50$cas, from = "xref/rn", match = "first")
+R> pc_data <- pc_prop(cid$cid)
 R> lc50$logp <- pc_data$XLogP
 \end{CodeInput}
 \end{CodeChunk}
