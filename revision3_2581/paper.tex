@@ -303,13 +303,13 @@ R> ids <- get_etoxid(subs, match = "best")
 R> head(ids)
 \end{CodeInput}
 \begin{CodeOutput}
-  etoxid                           match distance                  query
-1   8668            2,4-Xylenol ( 8668 )        0     2,4-Dimethylphenol
-2   8494 4-Chlor-2-methylphenol ( 8494 )        0 4-Chlor-2-methylphenol
-3   <NA>                            <NA>     <NA>     4-para-nonylphenol
-4   8397                Atrazin ( 8397 )        0                Atrazin
-5   7240                 Benzol ( 7240 )        0                 Benzol
-6   7331        Desethylatrazin ( 7331 )        0        Desethylatrazin
+                   query                              match etoxid
+1     2,4-Dimethylphenol               2,4-Xylenol ( 8668 )   8668
+2 4-Chlor-2-methylphenol    4-Chlor-2-methylphenol ( 8494 )   8494
+3     4-para-nonylphenol                               <NA>   <NA>
+4                Atrazin                   Atrazin ( 8397 )   8397
+5                 Benzol                    Benzol ( 7240 )   7240
+6        Desethylatrazin           Desethylatrazin ( 7331 )   7331
 \end{CodeOutput}
 \end{CodeChunk}
 %
