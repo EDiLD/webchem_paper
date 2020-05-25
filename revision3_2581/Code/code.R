@@ -4,10 +4,6 @@
 # from the Web
 # ------------------------------------------------------------------------
 
-# Install webchem from GitHub -----------------------------------------------
-library(devtools)
-install_github("ropensci/webchem")
-
 # load packages -----------------------------------------------------------
 library(webchem)
 library(ggplot2)
