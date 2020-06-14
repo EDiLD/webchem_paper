@@ -1,22 +1,23 @@
 \documentclass[article]{jss}
 \usepackage{thumbpdf,lmodern} 
 \graphicspath{{Figures/}}
+\shortcites{Boyle_Guha_2011,Kim_2016,wilson_best_2014,zenodo}
 
 \author{
-	Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And
-	Tam\'as Stirling\\Independent Researcher \And
-	Eric R. Scott\\Tufts University \AND
-	Andreas Scharm\"uller\\Universit\"at Koblenz-Landau \And
-    Ralf B. Sch\"afer\\Universit\"at Koblenz-Landau}
-\title{\pkg{webchem}: An \proglang{R} Package to Retrieve Chemical Information from the Web}
-
+  Eduard Sz\"ocs\\Universit\"at Koblenz-Landau \And
+  Tam\'as Stirling\\Independent Researcher \And
+  Eric R. Scott\\Tufts University \AND
+  Andreas Scharm\"uller\\Universit\"at Koblenz-Landau \And
+  Ralf B. Sch\"afer\\Universit\"at Koblenz-Landau
+}
 \Plainauthor{Eduard Sz\"ocs, Tam\'as Stirling, Eric R. Scott, Andreas Scharm\"uller, Ralf B. Sch\"afer}
 
+\title{\pkg{webchem}: An \proglang{R} Package to Retrieve Chemical Information from the Web}
 \Plaintitle{webchem: An R Package to Retrieve Chemical Information from the Web}
+\Shorttitle{\pkg{webchem}: Retrieve Chemical Information from the Web in \proglang{R}}
 
-\Shorttitle{\pkg{webchem}: Chemical Information from the Web}
-
-\Abstract{ A wide range of chemical information is freely available
+\Abstract{
+  A wide range of chemical information is freely available
   online, including identifiers, experimental and predicted chemical
   properties.  However, these data are scattered over various data
   sources and not easily accessible to researchers.  Manual searching
@@ -30,18 +31,18 @@
   publicly available web sources.  In addition, it facilitates data
   cleaning, identification and reporting of substances.  Consequently,
   it reduces the time researchers need to spend on chemical data
-  compilation.  }
+  compilation.
+}
 
-\Keywords{ecotoxicology, chemistry, data cleaning, web scraping, ropensci}
+\Keywords{ecotoxicology, chemistry, data cleaning, web scraping, rOpenSci}
 
-\Plainkeywords{ecotoxicology, chemistry, data cleaning, web scraping, ropensci} 
-
-%% \Volume{50}
-%% \Issue{9}
-%% \Month{June}
-%% \Year{2012}
-%% \Submitdate{2012-06-04}
-%% \Acceptdate{2012-06-04}
+\Volume{93}
+\Issue{13}
+\Month{May}
+\Year{2020}
+\Submitdate{2016-03-08}
+\Acceptdate{2019-09-19}
+%\DOI{10.18637/jss.v093.i13}
 
 \Address{
   Tam\'as Stirling\\
@@ -51,9 +52,7 @@
   URL: \url{https://github.com/stitam}
 }
 
-% citation alias for LUBW institution
-\defcitealias{lubw_2016}{LUBW (2020)}
-% \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
 \begin{document}
 
 \section[Introduction]{Introduction}
@@ -148,20 +147,30 @@ functions return an URL of the source, which can be used for
 
 
 \section[Data sources]{Data sources}\label{sec:data-sources}
+
+\begin{figure}[b!]
+  \centering
+  \includegraphics{fig1}
+  \caption{Overview of current data sources. Input and output possibilities currently implemented in the package.}
+  \label{fig:fig1}
+\end{figure}
+
 The backbone of \pkg{webchem} are data sources providing their data
 and functionality to the public.  Currently, data can be retrieved
 from 14 sources.  These cover a broad spectrum of available data, like
 identifiers, experimental and predicted properties and regulatory
 information (a detailed overview of all sources is included in
 Figure~\ref{fig:fig1}):
-
+%
 \begin{description}
 \item[NIH Chemical Identifier Resolver (CIR)]{\citep{cir} A web
-    service that converts from and to various chemical identifiers. The database holds millions of identifier combinations.}
-\item[ChemSpider]{\citep{pence_chemspider:_2010} is a free chemical
-	structure database providing access to over 67 million
-	structures from hundreds of data sources. It provides identifiers, properties and can also be
-	used to convert identifiers.}
+    service that converts from and to various chemical
+    identifiers. The database holds millions of identifier
+    combinations.}
+\item[ChemSpider]{\citep{pence_chemspider:_2010} A free chemical
+    structure database providing access to over 67 million structures
+    from hundreds of data sources. It provides identifiers, properties
+    and can also be used to convert identifiers.}
 \item[Chemical Translation Service (CTS)]{
   \citep{Wohlgemuth_Haldiya_Willighagen_Kind_Fiehn_2010} A web
     service that converts from and to various chemical identifiers.}
@@ -169,7 +178,7 @@ Figure~\ref{fig:fig1}):
     Environmental Quality Targets by the German Federal Environmental
     Agency. Provides basic identifiers, synonyms, ecotoxicological
     data for over 64,000 entries and quality targets for different countries.}
-\item[ChemID\emph{plus}]{\citep{Tomasulo_2002} is a large web-based
+\item[ChemID\emph{plus}]{\citep{Tomasulo_2002} A large web-based
 	database provided by the National Library of Medicine. It contains
 	identifiers, synonyms, toxicological data and chemical
 	properties for over 420,000 records.}
@@ -193,20 +202,12 @@ Figure~\ref{fig:fig1}):
 \item[NIST]{\citep{nist} The NIST Chemistry WebBook provides access to data compiled and distributed by NIST under the Standard Reference Data Program. The WebBook provides chemical and physical property data on over 40,000 compounds.}
 \item[ChEBI]{\citep{chebi} Chemical Entities of Biological Interest (ChEBI) is a freely available dictionary of molecular entities focused on "small" chemical compounds. The database contains more than 56,000 compounds.}
 \item[SRS]{\citep{srs} Substance Registry Services is the US EPA central system for information about substances that are tracked or regulated by EPA or other sources.}
-
 \end{description}
-
+%
 Though the data sources exhibit some overlap in the provided
 information, each has been selected because it also provides unique
 information and we encourage the interested reader to consult the
 related source for details.
-
-\begin{figure}[t!]
-  \centering
-  \includegraphics{fig1}
-  \caption{Overview of current data sources. Input and output possibilities currently implemented in the package.}
-  \label{fig:fig1}
-\end{figure}
 
 
 \section[Use cases]{Use cases}
@@ -222,7 +223,7 @@ R> library("webchem")
 %
 The package is under active development. The latest development
 version is available from GitHub and also permanently available at \citet{zenodo}.  This document has been created using \pkg{webchem}
-version 0.5.0.
+version 1.0.0.
 
 
 \subsection[Sample data sets]{Sample data sets}
@@ -232,7 +233,7 @@ for purpose of demonstration, have been slightly preprocessed (not
 shown) and are available through the package.
 
 (i) \code{jagst}: This data set comprises environmental monitoring data of organic substances in the river Jagst, Germany, sampled in 2013.
-The data is publicly available and can be retrieved from \citetalias{lubw_2016}.
+The data is publicly available and can be retrieved from \cite{lubw_2016}.
 It comprises concentrations  (in $\mathrm{\mu g~/~L}$) of  34 substances  on 13 sampling occasions.
 First we load the data set and inspect the first six rows:
 %
@@ -272,8 +273,11 @@ R> head(lc50)
 36 57-74-9    98.400000
 \end{CodeOutput}
 \end{CodeChunk}
-%
+
+\vspace*{-0.25cm}
+
 This data set identifies the substances only by CAS numbers.
+
 
 
 \subsection[Query identifiers]{Query identifiers}
@@ -295,24 +299,33 @@ As we are are dealing with German substance names we start to query ETOX for CAS
 A common work flow when dealing with web resources is to 1) query a unique identifier of the source, 2) use this identifier to retrieve additional information and 3) extract the parts that are needed from the \proglang{R} object \citep{Chamberlain_Szocs_2013}.
 
 First we search for ETOX internal ID numbers using the substance names:
-%
+
+\vspace*{-0.35cm}
+
 \begin{CodeChunk}
 \begin{CodeInput}
 R> subs <- unique(jagst$substance)
 R> ids <- get_etoxid(subs, match = "best")
 R> head(ids)
 \end{CodeInput}
+
+\vspace*{-0.5cm}
+
 \begin{CodeOutput}
-  etoxid                           match distance                  query
-1   8668            2,4-Xylenol ( 8668 )        0     2,4-Dimethylphenol
-2   8494 4-Chlor-2-methylphenol ( 8494 )        0 4-Chlor-2-methylphenol
-3   <NA>                            <NA>     <NA>     4-para-nonylphenol
-4   8397                Atrazin ( 8397 )        0                Atrazin
-5   7240                 Benzol ( 7240 )        0                 Benzol
-6   7331        Desethylatrazin ( 7331 )        0        Desethylatrazin
+# A tibble: 6 x 3
+  query                  match                           etoxid
+  <chr>                  <chr>                           <chr> 
+1 2,4-Dimethylphenol     2,4-Xylenol ( 8668 )            8668  
+2 4-Chlor-2-methylphenol 4-Chlor-2-methylphenol ( 8494 ) 8494  
+3 4-para-nonylphenol     <NA>                            <NA>  
+4 Atrazin                Atrazin ( 8397 )                8397  
+5 Benzol                 Benzol ( 7240 )                 7240  
+6 Desethylatrazin        Desethylatrazin ( 7331 )        7331 
 \end{CodeOutput}
 \end{CodeChunk}
-%
+
+\vspace*{-0.25cm}
+
 Only three substances could not be found in ETOX.  Here we specify
 that only the \code{"best"} match (in terms of the Levenshtein
 distance between query and results) is returned.  A manual check
@@ -324,7 +337,9 @@ matches are found and \code{"na"} which returns \code{NA} in case of
 multiple matches.
 
 We use these data to retrieve basic information on the substances.
-%
+
+\vspace*{-0.35cm}
+
 \begin{CodeChunk}
 \begin{CodeInput}
 R> etox_data <- etox_basic(ids$etoxid)
@@ -350,14 +365,34 @@ functions for each of those.  Therefore, if users need to extract
 other data, they have to write simple extractor functions (see the
 following examples).
 
+\begin{table}[t!]
+\centering
+\begin{tabular}{llllll}
+  \hline
+Name & CAS & SMILES & CID & InChIKey & CSID \\ 
+  \hline
+2,4-Dimethylphenol & 105-67-9 & CC1=CC(... & 7771 & KUFFULV... & 13839123 \\ 
+  4-Chlor-2-methylphenol & 1570-64-5 & CC1=C(C... & 14855 & RHPUJHQ... & 14165 \\ 
+  4-para-nonylphenol & -- & -- & -- & -- & -- \\ 
+  Atrazin & 1912-24-9 & CCNC1=N... & 2256 & MXWJVTO... & 2169 \\ 
+  Benzol & 71-43-2 & C1=CC=C... & 241 & UHOVQNZ... & 236 \\ 
+  Desethylatrazin & 6190-65-4 & CC(C)NC... & 22563 & DFWFIQK... & 21157 \\ 
+   \hline
+\end{tabular}
+\caption{Identifiers for the \code{jagst} data sets as queried with
+  \pkg{webchem}. Only the first 6 entries are shown. For SMILES and
+  InChIKey only the first 7 characters are shown. -- = not found.}
+\label{tab:comptable}
+\end{table}
+
 In the same manner, we can now query other identifiers from another
 source using these CAS numbers (see Figure~\ref{fig:fig1}), like
 PubChem.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cids <- get_cid(etox_cas)
-R> pc_data <- pc_prop(cids, properties = "CanonicalSMILES")
+R> cids <- get_cid(etox_cas, from = "xref/rn", match = "first")
+R> pc_data <- pc_prop(cids$cid, properties = "CanonicalSMILES")
 R> pc_smiles <- smiles(pc_data)
 \end{CodeInput}
 \end{CodeChunk}
@@ -388,27 +423,17 @@ containing many different identifiers (Table~\ref{tab:comptable}),
 allowing easy identification and merging with other data sets, e.g.,
 the \code{lc50} data set based on CAS.
 
-\begin{table}[t!]
-\centering
-\begin{tabular}{llllll}
-  \hline
-Name & CAS & SMILES & CID & InChIKey & CSID \\ 
-  \hline
-2,4-Dimethylphenol & 105-67-9 & CC1=CC(... & 7771 & KUFFULV... & 13839123 \\ 
-  4-Chlor-2-methylphenol & 1570-64-5 & CC1=C(C... & 14855 & RHPUJHQ... & 14165 \\ 
-  4-para-nonylphenol & -- & -- & -- & -- & -- \\ 
-  Atrazin & 1912-24-9 & CCNC1=N... & 2256 & MXWJVTO... & 2169 \\ 
-  Benzol & 71-43-2 & C1=CC=C... & 241 & UHOVQNZ... & 236 \\ 
-  Desethylatrazin & 6190-65-4 & CC(C)NC... & 22563 & DFWFIQK... & 21157 \\ 
-   \hline
-\end{tabular}
-\caption{Identifiers for the \code{jagst} data sets as queried with
-  \pkg{webchem}. Only the first 6 entries are shown. For SMILES and
-  InChIKey only the first 7 characters are shown. -- = not found.}
-\label{tab:comptable}
-\end{table}
-
 \subsection[Toxicity of different pesticide groups]{Toxicity of different pesticide groups}
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=0.7\textwidth, trim = 0 10 0 5, clip]{plot_lc50-1} 
+\caption{Toxicity of different pesticide groups. LC\textsubscript{50}
+  values have been retrieved from the EPA ECOTOX database, chemical groups
+  from the Compendium of Pesticide Common Names \citep{wood}.}
+\label{fig:fig2}
+\end{figure}
+
 Another question we might ask is \emph{How does toxicity vary between
   insecticide groups?}  Answering this question would require tedious
 lookup of insecticide groups for each of the 124 CAS numbers in the
@@ -427,12 +452,8 @@ To extract the chemical group from the retrieved data set, we write a simple ext
 \begin{CodeChunk}
 \begin{CodeInput}
 R> igroup <- sapply(aw_data, function(y) {
-R>   if (!is.na(y)) {
-R>     y$subactivity[1]  
-R>   } else {
-R>     NA
-R>   }
-R>  })
++    if (is(y, "list")) y$subactivity[1] else NA_character_
++  })
 R> igroup[1:3]
 \end{CodeInput}
 \begin{CodeOutput}
@@ -450,28 +471,34 @@ cleaning (see the supplementary material for the full code).  Overall, it
 took only 5 \proglang{R} statements to retrieve, clean and plot the
 data using \pkg{ggplot2} \citep{ggplot2}.
 
-\begin{figure}[t!]
-  \centering
-  \includegraphics[width=0.7\textwidth, trim = 0 10 0 5, clip]{plot_lc50-1} 
-\caption{Toxicity of different pesticide groups. LC\textsubscript{50}
-  values have been retrieved from the EPA ECOTOX database, chemical groups
-  from the Compendium of Pesticide Common Names \citep{wood}.}
-\label{fig:fig2}
-\end{figure}
-
 \subsection[Identify common names and roles of chemicals]{Identify common names and roles of chemicals}
-We might be interested in common names and roles of the most toxic chemicals in the \code{lc50} data set, i.e., chemicals with the lowest $LC_{50}$ values. \pkg{webchem} can query the ChEBI database \citep{chebi} to retrieve common names and roles of chemicals. We extract the CAS numbers of the three most toxic chemicals, and then use \code{get_chebiid()} to retrieve ChEBI identifiers and substance names. Subsequently, we use the acquired ChEBI identifiers to query the complete entity by using \code{chebi_comp_entity()}. From the result, we extract the parents table and refine the data to chemical roles.
-
+We might be interested in common names and roles of the most toxic
+chemicals in the \code{lc50} data set, i.e., chemicals with the lowest
+$LC_{50}$ values. \pkg{webchem} can query the ChEBI database
+\citep{chebi} to retrieve common names and roles of chemicals. We
+extract the CAS numbers of the three most toxic chemicals, and then
+use \code{get_chebiid()} to retrieve ChEBI identifiers and substance
+names. Subsequently, we use the acquired ChEBI identifiers to query
+the complete entity by using \code{chebi_comp_entity()}. From the
+result, we extract the parents table and refine the data to chemical
+roles.
+%
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
+R> cas_rns <- lc50[order(lc50$value)[1:3], "cas"]
 R> chebiids <- get_chebiid(cas_rns)
 R> comp <- chebi_comp_entity(chebiids$chebiid)
-R> pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
+R> pars <- lapply(comp, function(x) 
++    with(x, parents[parents$type == "has role", ]))
 \end{CodeInput}
 \end{CodeChunk}
-
-Finally we can compile the data into a table. Table~\ref{tab:chebi} provides information on the individual roles of the three most toxic chemicals and we observe that, for example ethion, the most toxic pesticide towards \textit{D. magna} in our table, is designed to be used as an acari- and insecticide, which inhibits the acetylcholinesterase enzyme.
+%
+Finally we can compile the data into a table. Table~\ref{tab:chebi}
+provides information on the individual roles of the three most toxic
+chemicals and we observe that, for example ethion, the most toxic
+pesticide towards \textit{D.\ magna} in our table, is designed to be
+used as an acari- and insecticide, which inhibits the
+acetylcholinesterase enzyme.
 
 \begin{table}[t!]
 \centering
@@ -484,21 +511,21 @@ Finally we can compile the data into a table. Table~\ref{tab:chebi} provides inf
   3383-96-8 & temephos & EC 3.1.1.7 (acetylcholinesterase) inhibitor \newline acaricide \newline agrochemical \newline ectoparasiticide \\
 \hline
 \end{tabular}
-\caption{CAS numbers, names and chemical roles from ChEBI for the three most toxic substances in the \code{lc50} data set towards \textit{D. magna}.}
+\caption{CAS numbers, names and chemical roles from ChEBI for the three most toxic substances in the \code{lc50} data set towards \textit{D.\ magna}.}
 \label{tab:chebi}
 \end{table}
 
 \subsection[Querying partitioning coefficients]{Querying partitioning coefficients}
 Some data sources also provide data on chemical properties that can be
-queried. Here we query for the \code{lc50} data predicted ocatanol-water partitioning coefficients
+queried. Here we query for the \code{lc50} data predicted octanol-water partitioning coefficients
 ($\mathrm{log}~\mathit{P_{oct/wat}}$) from the PubChem database to build a
 simple quantitative structure-activity relationship (QSAR) to predict
 toxicity. The resulting data and model are displayed in Figure~\ref{fig:fig3}.
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R> cid <- get_cid(lc50$cas, first = TRUE)
-R> pc_data <- pc_prop(cid)
+R> cid <- get_cid(lc50$cas, from = "xref/rn", match = "first")
+R> pc_data <- pc_prop(cid$cid)
 R> lc50$logp <- pc_data$XLogP
 \end{CodeInput}
 \end{CodeChunk}
@@ -539,13 +566,10 @@ from ETOX, namely the Maximum Acceptible Concentration EQS (MAC-EQS):
 \begin{CodeInput}
 R> eqs <- etox_targets(ids$etoxid)
 R> ids$mac <- sapply(eqs, function(y) {
-+    if (length(y) == 1 && is.na(y)) {
-+      return(NA) 
-+    } else {
-+      res <- y$res
-+      min(res[res$Country_or_Region == "EEC / EU" & 
-+        res$Designation == "MAC-EQS", "Value_Target_LR"])
-+    }
++    if (is(y, "list")) {
++      min(subset(y$res, Country_or_Region == "EEC / EU" & 
++        Designation == "MAC-EQS")[["Value_Target_LR"]])
++    } else NA_real_
 +  })
 \end{CodeInput}
 \end{CodeChunk}
@@ -560,13 +584,15 @@ R> (mac <- with(ids, ids[!is.na(mac) & is.finite(mac), c("etoxid", "query",
 +    "mac")]))
 \end{CodeInput}
 \begin{CodeOutput}
-   etoxid       query    mac
-4    8397     Atrazin  2.000
-5    7240      Benzol 50.000
-11   8836     Irgarol  0.016
-12   7442 Isoproturon  1.000
-38   7571     Simazin  4.000
-29   8756   Terbutryn  0.034
+# A tibble: 6 x 3
+  etoxid query           mac
+  <chr>  <chr>         <dbl>
+1 8397   Atrazin      2     
+2 7240   Benzol      50     
+3 8836   Irgarol      0.0160
+4 7442   Isoproturon  1     
+5 7571   Simazin      4     
+6 8756   Terbutryn    0.0340
 \end{CodeOutput}
 \end{CodeChunk}
 %
@@ -654,7 +680,7 @@ chemical identifiers.  However, it does not provide access to other
 data (experimental, modeled or regulatory data).
 
 
-\subsection[Open Science]{Open Science}
+\subsection[Open science]{Open science}
 An increasing number of scientific data is becoming publicly available
 \citep{Gewin_2016, Reichman_Jones_Schildhauer_2011,Boyle_Guha_2011},
 either in public data repositories or as supplements to publications.
@@ -692,6 +718,6 @@ their contributions to the \pkg{webchem} package, as well as all users who
 provided feedback and feature requests.  We thank the rOpenSci community for sharing good practices and providing a motivating development environment. We are grateful to Zacharias Steinmetz for valuable comments on the manuscript. 
 
 
-\bibliography{ref}
+\bibliography{v93i13}
 
 \end{document}
