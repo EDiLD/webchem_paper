@@ -5,8 +5,8 @@
 # ------------------------------------------------------------------------
 
 # load packages -----------------------------------------------------------
-library(webchem)
-library(ggplot2)
+library("webchem")
+library("ggplot2")
 
 # load datasets -----------------------------------------------------------
 # load jagst dataset
@@ -64,11 +64,7 @@ aw_data <- aw_query(lc50$cas, type = "cas")
 str(aw_data[[1]])
 # extract chemical group from list
 igroup <- sapply(aw_data, function(y) {
-  if (!is.na(y)) {
-    y$subactivity[1]
-  } else {
-    NA
-  }
+  if (is(y, "list")) y$subactivity[1] else NA_character_
 })
 igroup[1:3]
 
@@ -84,6 +80,7 @@ lc50$type <- factor(lc50$type, levels = c("Pyrethroids", "Carbamates",
                                           "other"))
 
 # plot
+set.seed(1234)
 p <- ggplot(lc50, aes(x = type, y = value)) +
   geom_boxplot(fill = "grey75") +
   geom_jitter(width = 0.5) +
@@ -94,15 +91,17 @@ p <- ggplot(lc50, aes(x = type, y = value)) +
 p
 
 # Use Case III: Name 3 most toxic chemicals -------------------------------
-cas_rns <- lc50[order(lc50$value)[1:3],"cas"]
+cas_rns <- lc50[order(lc50$value)[1:3], "cas"]
 chebiids <- get_chebiid(cas_rns)
+chebiids
 comp <- chebi_comp_entity(chebiids$chebiid)
-pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role",]))
+pars <- lapply(comp, function(x) with(x, parents[parents$type == "has role", ]))
+pars
 
 # Use Case IV: Querying partitioning coefficients -------------------------
 # query PubChem DATABASE
-cid <- get_cid(lc50$cas, first = TRUE)
-pc_data <- pc_prop(cid)
+cid <- get_cid(lc50$cas, from = "xref/rn", match = "first")
+pc_data <- pc_prop(cid$cid)
 # lookat internal structure
 str(pc_data)
 # extract logP from properties data.frame
@@ -130,14 +129,11 @@ p
 # search EQS from ETOX using the already queried ETOX_IDs
 eqs <- etox_targets(ids$etoxid)
 # extract only MAC-EQS for the EU from the results
-ids$mac <- sapply(eqs, function(y){
-  if (length(y) == 1 && is.na(y)) {
-    return(NA)
-  } else {
-    res <- y$res
-    min(res[res$Country_or_Region == "EEC / EU" &
-              res$Designation == "MAC-EQS", "Value_Target_LR"])
-  }
+ids$mac <- sapply(eqs, function(y) {
+  if (is(y, "list")) {
+    min(subset(y$res, Country_or_Region == "EEC / EU" &
+      Designation == "MAC-EQS")[["Value_Target_LR"]])
+  } else NA_real_
 })
 # keep only compounds with MAC-EQS
 (mac <- with(ids, ids[!is.na(mac) & is.finite(mac),
